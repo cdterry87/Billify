@@ -11,6 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Laravel default auth routes
+Auth::routes();
+
+// Require the auth middleware to hit all these routes
+Route::group(['middleware' => 'auth'], function () {
+
+    //Api specific routes
+    Route::prefix('api')->group(function () {
+
+
+        // Logout
+        Route::get('/logout', function () {
+            Auth::logout();
+            return Redirect::to('login');
+        });
+    });
+
+    // Catch-all routes to route everything back to the home index
+    Route::get('/{any}', 'HomeController@index')->where('any', '.*');
 });
