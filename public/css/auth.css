@@ -22,7 +22,7 @@ h1, h2, h3, h4 {
 }
 
 .card {
-    margin-top: 3.5rem !important;
+    margin-top: .75rem !important;
 }
 
 input:not([type]):focus:not([readonly]),
