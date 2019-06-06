@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-app class="inspire">
-            <v-toolbar color="deep-purple" dark tabs >
+            <v-toolbar color="deep-purple" dark tabs dense>
                 <v-toolbar-title>
                     <a href="/">
                         <v-icon>attach_money</v-icon>
@@ -43,7 +43,7 @@
                 <v-container fluid grid-list-md text-xs-center>
                     <v-layout row wrap>
                         <v-flex md4>
-                            <v-card color="deep-purple" class="white--text">
+                            <v-card color="light-green" class="white--text">
                                 <v-card-text>
                                     <div class="subheading">
                                         Monthly Income
@@ -67,7 +67,7 @@
                             </v-card>
                         </v-flex>
                         <v-flex md4>
-                            <v-card color="deep-purple" class="white--text">
+                            <v-card color="light-green" class="white--text">
                                 <v-card-text>
                                     <div class="subheading">
                                         Weekly Income
@@ -81,43 +81,44 @@
                     </v-layout>
                     <v-layout row>
                         <v-flex>
-                            <v-card>
+                            <v-toolbar class="white--text" flat color="deep-purple" dense>
+                                <v-toolbar-title>My Monthly Bills</v-toolbar-title>
 
-                                <v-toolbar class="white--text" flat color="deep-purple">
-                                    <v-toolbar-title>My Monthly Bills</v-toolbar-title>
+                                <v-spacer></v-spacer>
 
-                                    <v-spacer></v-spacer>
-
-                                    <v-toolbar-items>
-                                        <v-btn flat class="white--text">
-                                            <v-icon>add</v-icon>
-                                            <span>New Bill</span>
-                                        </v-btn>
-                                    </v-toolbar-items>
-                                </v-toolbar>
-                                <v-card-text>
-                                    <v-data-table
-                                        :headers="headers"
-                                        :items="bills"
-                                        :pagination.sync="pagination"
-                                        hide-actions
-                                    >
-                                        <template v-slot:no-data>
-                                            <v-alert :value="true" color="error" icon="warning">
-                                                Sorry, you have not added any bills yet!
-                                            </v-alert>
-                                        </template>
-                                        <template v-slot:items="props">
-                                            <td>{{ props.item.name }}</td>
-                                            <td>{{ props.item.due }}</td>
-                                            <td>{{ props.item.amount }}</td>
-                                        </template>
-                                    </v-data-table>
-                                </v-card-text>
-                            </v-card>
+                                <v-toolbar-items>
+                                    <v-btn flat class="white--text">
+                                        <v-icon>add</v-icon>
+                                        <span>New Bill</span>
+                                    </v-btn>
+                                </v-toolbar-items>
+                            </v-toolbar>
+                            <v-data-table
+                                :headers="headers"
+                                :items="bills"
+                                :pagination.sync="pagination"
+                                hide-actions
+                                class="elevation-1"
+                            >
+                                <template v-slot:no-data>
+                                    <v-alert :value="true" color="deep-purple" icon="warning">
+                                        Sorry, you have not added any bills yet!
+                                    </v-alert>
+                                </template>
+                                <template v-slot:items="props">
+                                    <td>{{ props.item.name }}</td>
+                                    <td>{{ props.item.due }}</td>
+                                    <td>{{ props.item.amount }}</td>
+                                </template>
+                            </v-data-table>
                         </v-flex>
                     </v-layout>
-                    <v-layout row wrap>
+                    <v-layout row wrap class="mt-2">
+                        <v-flex xs12>
+                            <v-toolbar class="white--text" flat color="deep-purple" dense>
+                                <v-toolbar-title>Summary</v-toolbar-title>
+                            </v-toolbar>
+                        </v-flex>
                         <v-flex md4>
                             <v-card color="light-green" class="white--text">
                                 <v-card-text>
@@ -131,7 +132,7 @@
                             </v-card>
                         </v-flex>
                         <v-flex md4>
-                            <v-card color="deep-purple" class="white--text">
+                            <v-card color="light-green" class="white--text">
                                 <v-card-text>
                                     <div class="subheading">
                                         Total Payments
@@ -181,7 +182,7 @@
                     timeout: 5000,
                     y: 'bottom',
                     x: 'right',
-                    color: 'success'
+                    color: 'dark-grey'
                 },
                 pagination: {
                     sortBy: 'due'

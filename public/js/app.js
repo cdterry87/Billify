@@ -267,6 +267,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
   data: function data() {
@@ -277,7 +278,7 @@ __webpack_require__.r(__webpack_exports__);
         timeout: 5000,
         y: 'bottom',
         x: 'right',
-        color: 'success'
+        color: 'dark-grey'
       },
       pagination: {
         sortBy: 'due'
@@ -1521,7 +1522,7 @@ var render = function() {
         [
           _c(
             "v-toolbar",
-            { attrs: { color: "deep-purple", dark: "", tabs: "" } },
+            { attrs: { color: "deep-purple", dark: "", tabs: "", dense: "" } },
             [
               _c("v-toolbar-title", [
                 _c(
@@ -1635,7 +1636,7 @@ var render = function() {
                             "v-card",
                             {
                               staticClass: "white--text",
-                              attrs: { color: "deep-purple" }
+                              attrs: { color: "light-green" }
                             },
                             [
                               _c("v-card-text", [
@@ -1697,7 +1698,7 @@ var render = function() {
                             "v-card",
                             {
                               staticClass: "white--text",
-                              attrs: { color: "deep-purple" }
+                              attrs: { color: "light-green" }
                             },
                             [
                               _c("v-card-text", [
@@ -1731,109 +1732,98 @@ var render = function() {
                         "v-flex",
                         [
                           _c(
-                            "v-card",
+                            "v-toolbar",
+                            {
+                              staticClass: "white--text",
+                              attrs: {
+                                flat: "",
+                                color: "deep-purple",
+                                dense: ""
+                              }
+                            },
                             [
+                              _c("v-toolbar-title", [
+                                _vm._v("My Monthly Bills")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-spacer"),
+                              _vm._v(" "),
                               _c(
-                                "v-toolbar",
-                                {
-                                  staticClass: "white--text",
-                                  attrs: { flat: "", color: "deep-purple" }
-                                },
+                                "v-toolbar-items",
                                 [
-                                  _c("v-toolbar-title", [
-                                    _vm._v("My Monthly Bills")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("v-spacer"),
-                                  _vm._v(" "),
                                   _c(
-                                    "v-toolbar-items",
+                                    "v-btn",
+                                    {
+                                      staticClass: "white--text",
+                                      attrs: { flat: "" }
+                                    },
                                     [
-                                      _c(
-                                        "v-btn",
-                                        {
-                                          staticClass: "white--text",
-                                          attrs: { flat: "" }
-                                        },
-                                        [
-                                          _c("v-icon", [_vm._v("add")]),
-                                          _vm._v(" "),
-                                          _c("span", [_vm._v("New Bill")])
-                                        ],
-                                        1
-                                      )
+                                      _c("v-icon", [_vm._v("add")]),
+                                      _vm._v(" "),
+                                      _c("span", [_vm._v("New Bill")])
                                     ],
                                     1
                                   )
                                 ],
                                 1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-card-text",
-                                [
-                                  _c("v-data-table", {
-                                    attrs: {
-                                      headers: _vm.headers,
-                                      items: _vm.bills,
-                                      pagination: _vm.pagination,
-                                      "hide-actions": ""
-                                    },
-                                    on: {
-                                      "update:pagination": function($event) {
-                                        _vm.pagination = $event
-                                      }
-                                    },
-                                    scopedSlots: _vm._u([
-                                      {
-                                        key: "no-data",
-                                        fn: function() {
-                                          return [
-                                            _c(
-                                              "v-alert",
-                                              {
-                                                attrs: {
-                                                  value: true,
-                                                  color: "error",
-                                                  icon: "warning"
-                                                }
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\n                                            Sorry, you have not added any bills yet!\n                                        "
-                                                )
-                                              ]
-                                            )
-                                          ]
-                                        },
-                                        proxy: true
-                                      },
-                                      {
-                                        key: "items",
-                                        fn: function(props) {
-                                          return [
-                                            _c("td", [
-                                              _vm._v(_vm._s(props.item.name))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(props.item.due))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _vm._v(_vm._s(props.item.amount))
-                                            ])
-                                          ]
-                                        }
-                                      }
-                                    ])
-                                  })
-                                ],
-                                1
                               )
                             ],
                             1
-                          )
+                          ),
+                          _vm._v(" "),
+                          _c("v-data-table", {
+                            staticClass: "elevation-1",
+                            attrs: {
+                              headers: _vm.headers,
+                              items: _vm.bills,
+                              pagination: _vm.pagination,
+                              "hide-actions": ""
+                            },
+                            on: {
+                              "update:pagination": function($event) {
+                                _vm.pagination = $event
+                              }
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "no-data",
+                                fn: function() {
+                                  return [
+                                    _c(
+                                      "v-alert",
+                                      {
+                                        attrs: {
+                                          value: true,
+                                          color: "deep-purple",
+                                          icon: "warning"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                    Sorry, you have not added any bills yet!\n                                "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                },
+                                proxy: true
+                              },
+                              {
+                                key: "items",
+                                fn: function(props) {
+                                  return [
+                                    _c("td", [_vm._v(_vm._s(props.item.name))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(props.item.due))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(_vm._s(props.item.amount))
+                                    ])
+                                  ]
+                                }
+                              }
+                            ])
+                          })
                         ],
                         1
                       )
@@ -1843,8 +1833,29 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-layout",
-                    { attrs: { row: "", wrap: "" } },
+                    { staticClass: "mt-2", attrs: { row: "", wrap: "" } },
                     [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _c(
+                            "v-toolbar",
+                            {
+                              staticClass: "white--text",
+                              attrs: {
+                                flat: "",
+                                color: "deep-purple",
+                                dense: ""
+                              }
+                            },
+                            [_c("v-toolbar-title", [_vm._v("Summary")])],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
                       _c(
                         "v-flex",
                         { attrs: { md4: "" } },
@@ -1884,7 +1895,7 @@ var render = function() {
                             "v-card",
                             {
                               staticClass: "white--text",
-                              attrs: { color: "deep-purple" }
+                              attrs: { color: "light-green" }
                             },
                             [
                               _c("v-card-text", [
