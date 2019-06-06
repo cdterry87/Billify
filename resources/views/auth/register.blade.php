@@ -38,7 +38,7 @@
                 <br/>
 
                 <div class="center-align">
-                    <button type="submit" class="btn light-blue darken-2 white-text">
+                    <button type="submit" class="btn deep-purple">
                         {{ __('Register') }}
                     </button>
                 </div>

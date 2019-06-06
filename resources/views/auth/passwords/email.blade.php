@@ -23,7 +23,7 @@
                 <br/>
 
                 <div class="center-align">
-                    <button type="submit" class="btn light-blue darken-2">
+                    <button type="submit" class="btn deep-purple">
                         {{ __('Send Password Reset Link') }}
                     </button>
                 </div>

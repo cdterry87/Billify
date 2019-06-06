@@ -36,11 +36,11 @@
                 <br/>
 
                 <div class="center-align">
-                    <button type="submit" class="btn light-blue darken-2">
+                    <button type="submit" class="btn deep-purple">
                         {{ __('Login') }}
                     </button>
 
-                    <a class="btn indigo lighten-1 white-text" href="{{ route('register') }}">
+                    <a class="btn light-green" href="{{ route('register') }}">
                         {{ __('Register') }}
                     </a>
                 </div>
