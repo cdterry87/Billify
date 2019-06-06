@@ -45,7 +45,7 @@
                         <v-flex md4>
                             <v-card color="light-green" class="white--text">
                                 <v-card-text>
-                                    <div class="subheading">
+                                    <div class="title">
                                         Monthly Income
                                     </div>
                                     <div class="display-1">
@@ -57,7 +57,7 @@
                         <v-flex md4>
                             <v-card color="light-green" class="white--text">
                                 <v-card-text>
-                                    <div class="subheading">
+                                    <div class="title">
                                         Bi-Weekly Income
                                     </div>
                                     <div class="display-1">
@@ -69,7 +69,7 @@
                         <v-flex md4>
                             <v-card color="light-green" class="white--text">
                                 <v-card-text>
-                                    <div class="subheading">
+                                    <div class="title">
                                         Weekly Income
                                     </div>
                                     <div class="display-1">
@@ -99,12 +99,12 @@
                                 :pagination.sync="pagination"
                                 hide-actions
                                 class="elevation-1"
+                                disable-initial-sort
+                                no-data-text="Sorry, you have not added any bills yet!"
+                                search
+
                             >
-                                <template v-slot:no-data>
-                                    <v-alert :value="true" color="deep-purple" icon="warning">
-                                        Sorry, you have not added any bills yet!
-                                    </v-alert>
-                                </template>
+
                                 <template v-slot:items="props">
                                     <td>{{ props.item.name }}</td>
                                     <td>{{ props.item.due }}</td>
@@ -122,10 +122,10 @@
                         <v-flex md4>
                             <v-card color="light-green" class="white--text">
                                 <v-card-text>
-                                    <div class="subheading">
+                                    <div class="title">
                                         Total Income
                                     </div>
-                                    <div class="title">
+                                    <div class="subheading">
                                         $2,000.00 / $12,000.00 (YTD)
                                     </div>
                                 </v-card-text>
@@ -134,10 +134,10 @@
                         <v-flex md4>
                             <v-card color="light-green" class="white--text">
                                 <v-card-text>
-                                    <div class="subheading">
+                                    <div class="title">
                                         Total Payments
                                     </div>
-                                    <div class="title">
+                                    <div class="subheading">
                                         $1,500.00 / $9,000.00 (YTD)
                                     </div>
                                 </v-card-text>
@@ -146,10 +146,10 @@
                         <v-flex md4>
                             <v-card color="light-green" class="white--text">
                                 <v-card-text>
-                                    <div class="subheading">
+                                    <div class="title">
                                         Total Remainder
                                     </div>
-                                    <div class="title">
+                                    <div class="subheading">
                                         $500.00 / $3,000.00 (YTD)
                                     </div>
                                 </v-card-text>
@@ -185,7 +185,8 @@
                     color: 'dark-grey'
                 },
                 pagination: {
-                    sortBy: 'due'
+                    sortBy: 'due',
+                    rowsPerPage: -1
                 },
                 headers: [
                     {
@@ -208,37 +209,37 @@
                     {
                         name: 'Cable/Internet',
                         due: '01',
-                        amount: '$115.00'
+                        amount: 115
                     },
                     {
                         name: 'Netflix',
                         due: '05',
-                        amount: '$15.00'
+                        amount: 15
                     },
                     {
                         name: 'Vehicle Loan',
                         due: '10',
-                        amount: '$300.00'
+                        amount: 300
                     },
                     {
                         name: 'Cellphone',
                         due: '15',
-                        amount: '$120.00'
+                        amount: 120
                     },
                     {
                         name: 'Student Loan',
                         due: '20',
-                        amount: '$200.00'
+                        amount: 200
                     },
                     {
                         name: 'Utilities',
                         due: '25',
-                        amount: '$250.00'
+                        amount: 250
                     },
                     {
                         name: 'Mortgage',
                         due: '01',
-                        amount: '$500.00'
+                        amount: 500
                     },
                 ]
             }
@@ -253,13 +254,3 @@
         }
     }
 </script>
-
-<style>
-table td {
-    text-align: left !important;
-}
-
-#footer {
-    margin-bottom: 1.5rem;
-}
-</style>

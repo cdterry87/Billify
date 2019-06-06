@@ -38,3 +38,15 @@ a {
   color: inherit !important;
 }
 
+table td {
+  text-align: left !important;
+}
+
+.hidden {
+  display: none;
+}
+
+#footer {
+  margin-bottom: 1.5rem;
+}
+
