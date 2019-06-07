@@ -19,7 +19,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Api specific routes
     Route::prefix('api')->group(function () {
-
+        // Primary Resources
+        Route::resource('/bills', 'BillController');
 
         // Logout
         Route::get('/logout', function () {

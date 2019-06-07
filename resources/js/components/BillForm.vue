@@ -17,10 +17,10 @@
                             </v-toolbar-items>
                         </v-toolbar>
                         <v-container>
-                            <v-text-field label="Bill Name" color="deep-purple" v-model="name" />
+                            <v-text-field label="Bill Name" color="deep-purple" v-model="name" required />
                             <v-textarea label="Bill Description" color="deep-purple" v-model="description" />
-                            <v-text-field label="Bill Amount" color="deep-purple" v-model="amount" />
-                            <v-text-field label="Day Due" color="deep-purple" v-model="day" />
+                            <v-text-field label="Bill Amount" color="deep-purple" v-model="amount" required />
+                            <v-text-field label="Day Due" color="deep-purple" v-model="day" required />
                         </v-container>
                         <v-card-actions>
                             <v-spacer></v-spacer>
@@ -93,17 +93,37 @@
         },
         methods: {
             addBill() {
+                let name = this.name
+                let description = this.description
+                let amount = this.amount
+                let day = this.day
+                let january = this.january
+                let february = this.february
+                let march = this.march
+                let april = this.april
+                let may = this.may
+                let june = this.june
+                let july = this.july
+                let august = this.august
+                let september = this.september
+                let october = this.october
+                let november = this.november
+                let december = this.december
+
                 axios.post('/api/bills', { name, description, amount, day,
-                    january, february, march, april, may, june,
-                    july, august, september, october, november, december
+                    january, february, march, april, may, june, july,
+                    august, september, october, november, december
                 })
                 .then(response => {
-
+                    this.redirect()
                 })
                 .catch(function (error) {
 
                 })
-            }
+            },
+            redirect() {
+                this.$router.push('/')
+            },
         }
     }
 </script>

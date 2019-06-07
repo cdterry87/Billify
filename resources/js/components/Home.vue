@@ -2,7 +2,7 @@
     <v-container fluid grid-list-md text-xs-center>
         <v-layout row wrap>
             <v-flex md3>
-                <v-card color="deep-purple" class="white--text" @click="dialog=true">
+                <v-card color="deep-purple" class="white--text">
                     <v-card-text>
                         <div class="title">
                             Yearly Income
@@ -109,7 +109,7 @@
                             Total Payments
                         </div>
                         <div class="headline">
-                            0 / 0 (YTD)
+                            {{ totalBills }}
                         </div>
                     </v-card-text>
                 </v-card>
@@ -121,7 +121,7 @@
                             Total Remainder
                         </div>
                         <div class="headline">
-                            0 / 0 (YTD)
+                            {{ totalRemainder }}
                         </div>
                     </v-card-text>
                 </v-card>
@@ -175,44 +175,19 @@
                         value: 'amount'
                     },
                 ],
-                bills: [
-                    {
-                        name: 'Cable/Internet',
-                        due: '01',
-                        amount: 115
-                    },
-                    {
-                        name: 'Netflix',
-                        due: '05',
-                        amount: 15
-                    },
-                    {
-                        name: 'Vehicle Loan',
-                        due: '10',
-                        amount: 300
-                    },
-                    {
-                        name: 'Cellphone',
-                        due: '15',
-                        amount: 120
-                    },
-                    {
-                        name: 'Student Loan',
-                        due: '20',
-                        amount: 200
-                    },
-                    {
-                        name: 'Utilities',
-                        due: '25',
-                        amount: 250
-                    },
-                    {
-                        name: 'Mortgage',
-                        due: '01',
-                        amount: 500
-                    },
-                ]
+                bills: [],
             }
+        },
+        methods: {
+            getBills() {
+                axios.get('/api/bills')
+                .then(response => {
+                    this.bills = response.data
+                })
+            },
+        },
+        created() {
+            this.getBills()
         },
         computed: {
             yearlyIncome: function() {
@@ -223,6 +198,13 @@
             },
             weeklyIncome: function() {
                 return (this.biweeklyIncome / 2)
+            },
+            totalBills: function() {
+                return _.sumBy(this.bills, function(o) { return parseInt(o.amount) })
+            },
+            totalRemainder: function() {
+                console.log('monthlyIncome', this.monthlyIncome)
+                return this.monthlyIncome - this.totalBills
             }
         },
     }

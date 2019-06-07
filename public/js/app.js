@@ -299,6 +299,24 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addBill: function addBill() {
+      var _this = this;
+
+      var name = this.name;
+      var description = this.description;
+      var amount = this.amount;
+      var day = this.day;
+      var january = this.january;
+      var february = this.february;
+      var march = this.march;
+      var april = this.april;
+      var may = this.may;
+      var june = this.june;
+      var july = this.july;
+      var august = this.august;
+      var september = this.september;
+      var october = this.october;
+      var november = this.november;
+      var december = this.december;
       axios.post('/api/bills', {
         name: name,
         description: description,
@@ -316,7 +334,12 @@ __webpack_require__.r(__webpack_exports__);
         october: october,
         november: november,
         december: december
-      }).then(function (response) {})["catch"](function (error) {});
+      }).then(function (response) {
+        _this.redirect();
+      })["catch"](function (error) {});
+    },
+    redirect: function redirect() {
+      this.$router.push('/');
     }
   }
 });
@@ -504,36 +527,20 @@ __webpack_require__.r(__webpack_exports__);
         align: 'left',
         value: 'amount'
       }],
-      bills: [{
-        name: 'Cable/Internet',
-        due: '01',
-        amount: 115
-      }, {
-        name: 'Netflix',
-        due: '05',
-        amount: 15
-      }, {
-        name: 'Vehicle Loan',
-        due: '10',
-        amount: 300
-      }, {
-        name: 'Cellphone',
-        due: '15',
-        amount: 120
-      }, {
-        name: 'Student Loan',
-        due: '20',
-        amount: 200
-      }, {
-        name: 'Utilities',
-        due: '25',
-        amount: 250
-      }, {
-        name: 'Mortgage',
-        due: '01',
-        amount: 500
-      }]
+      bills: []
     };
+  },
+  methods: {
+    getBills: function getBills() {
+      var _this = this;
+
+      axios.get('/api/bills').then(function (response) {
+        _this.bills = response.data;
+      });
+    }
+  },
+  created: function created() {
+    this.getBills();
   },
   computed: {
     yearlyIncome: function yearlyIncome() {
@@ -544,6 +551,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     weeklyIncome: function weeklyIncome() {
       return this.biweeklyIncome / 2;
+    },
+    totalBills: function totalBills() {
+      return _.sumBy(this.bills, function (o) {
+        return parseInt(o.amount);
+      });
+    },
+    totalRemainder: function totalRemainder() {
+      console.log('monthlyIncome', this.monthlyIncome);
+      return this.monthlyIncome - this.totalBills;
     }
   }
 });
@@ -1959,7 +1975,11 @@ var render = function() {
                         "v-container",
                         [
                           _c("v-text-field", {
-                            attrs: { label: "Bill Name", color: "deep-purple" },
+                            attrs: {
+                              label: "Bill Name",
+                              color: "deep-purple",
+                              required: ""
+                            },
                             model: {
                               value: _vm.name,
                               callback: function($$v) {
@@ -1986,7 +2006,8 @@ var render = function() {
                           _c("v-text-field", {
                             attrs: {
                               label: "Bill Amount",
-                              color: "deep-purple"
+                              color: "deep-purple",
+                              required: ""
                             },
                             model: {
                               value: _vm.amount,
@@ -1998,7 +2019,11 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("v-text-field", {
-                            attrs: { label: "Day Due", color: "deep-purple" },
+                            attrs: {
+                              label: "Day Due",
+                              color: "deep-purple",
+                              required: ""
+                            },
                             model: {
                               value: _vm.day,
                               callback: function($$v) {
@@ -2320,15 +2345,7 @@ var render = function() {
             [
               _c(
                 "v-card",
-                {
-                  staticClass: "white--text",
-                  attrs: { color: "deep-purple" },
-                  on: {
-                    click: function($event) {
-                      _vm.dialog = true
-                    }
-                  }
-                },
+                { staticClass: "white--text", attrs: { color: "deep-purple" } },
                 [
                   _c("v-card-text", [
                     _c("div", { staticClass: "title" }, [
@@ -2600,7 +2617,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "headline" }, [
                       _vm._v(
-                        "\n                        0 / 0 (YTD)\n                    "
+                        "\n                        " +
+                          _vm._s(_vm.totalBills) +
+                          "\n                    "
                       )
                     ])
                   ])
@@ -2628,7 +2647,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "headline" }, [
                       _vm._v(
-                        "\n                        0 / 0 (YTD)\n                    "
+                        "\n                        " +
+                          _vm._s(_vm.totalRemainder) +
+                          "\n                    "
                       )
                     ])
                   ])
