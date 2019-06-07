@@ -3,10 +3,14 @@
 @section('content')
     <div class="card">
         <div class="card-content">
-            <h4 class="center-align">Billify</h4>
-            <h6 class="center-align">Manage Your Finances</h6>
-
-            <hr/>
+            <nav class="deep-purple">
+                <div class="nav-wrapper">
+                    <a class="brand-logo">Billify</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li>Simplify Your Finances</li>
+                    </ul>
+                </div>
+            </nav>
 
             <h6>{{ __('Verify Your Email Address') }}</h6>
 
