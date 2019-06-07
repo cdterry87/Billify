@@ -4,7 +4,7 @@
             <v-layout row wrap>
                 <v-flex md8>
                     <v-card>
-                        <v-toolbar flat color="deep-purple" class="white--text">
+                        <v-toolbar flat color="deep-purple" class="white--text" dense>
                             <v-toolbar-title>
                                 New Bill
                             </v-toolbar-title>
@@ -31,7 +31,7 @@
                 </v-flex>
                 <v-flex md4>
                     <v-card>
-                        <v-toolbar flat color="light-green" class="white--text">
+                        <v-toolbar flat color="light-green" class="white--text" dense>
                             <v-toolbar-title>
                                 Month(s) Due (Optional)
                             </v-toolbar-title>

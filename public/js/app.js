@@ -1911,7 +1911,7 @@ var render = function() {
                         "v-toolbar",
                         {
                           staticClass: "white--text",
-                          attrs: { flat: "", color: "deep-purple" }
+                          attrs: { flat: "", color: "deep-purple", dense: "" }
                         },
                         [
                           _c("v-toolbar-title", [
@@ -2031,7 +2031,7 @@ var render = function() {
                         "v-toolbar",
                         {
                           staticClass: "white--text",
-                          attrs: { flat: "", color: "light-green" }
+                          attrs: { flat: "", color: "light-green", dense: "" }
                         },
                         [
                           _c("v-toolbar-title", [
