@@ -1,14 +1,20 @@
-import Bills from './components/Bills'
+import Home from './components/Home'
+import BillForm from './components/BillForm'
 import Bill from './components/Bill'
 
 export default [
     {
         path: '/',
         name: 'home',
-        component: Bills,
+        component: Home,
     },
     {
-        path: '/bills/:id',
+        path: '/bill',
+        name: 'billForm',
+        component: BillForm,
+    },
+    {
+        path: '/bill/:id',
         name: 'bill',
         component: Bill,
         props: true
