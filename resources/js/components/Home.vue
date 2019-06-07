@@ -1,33 +1,45 @@
 <template>
     <v-container fluid grid-list-md text-xs-center>
         <v-layout row wrap>
-            <v-flex md4>
-                <v-card color="light-green" class="action white--text" @click="dialog=true">
+            <v-flex md3>
+                <v-card color="deep-purple" class="white--text" @click="dialog=true">
+                    <v-card-text>
+                        <div class="title">
+                            Yearly Income
+                        </div>
+                        <div class="display-1">
+                            {{ yearlyIncome }}
+                        </div>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+            <v-flex md3>
+                <v-card color="deep-purple" class="white--text">
                     <v-card-text>
                         <div class="title">
                             Monthly Income
                         </div>
                         <div class="display-1">
-                            <span v-if="monthlyIncome == ''">0</span>
-                            <span v-else>{{ monthlyIncome }}</span>
+                            {{ monthlyIncome }}
                         </div>
                     </v-card-text>
                 </v-card>
             </v-flex>
-            <v-flex md4>
-                <v-card color="light-green" class="action white--text">
+            <v-flex md3>
+                <v-card color="light-green" class="action white--text" @click="dialog=true">
                     <v-card-text>
                         <div class="title">
                             Bi-Weekly Income
                         </div>
                         <div class="display-1">
-                            {{ biweeklyIncome }}
+                            <span v-if="biweeklyIncome == ''">0</span>
+                            <span v-else>{{ biweeklyIncome }}</span>
                         </div>
                     </v-card-text>
                 </v-card>
             </v-flex>
-            <v-flex md4>
-                <v-card color="light-green" class="actino white--text">
+            <v-flex md3>
+                <v-card color="deep-purple" class="white--text">
                     <v-card-text>
                         <div class="title">
                             Weekly Income
@@ -84,8 +96,8 @@
                         <div class="title">
                             Total Income
                         </div>
-                        <div class="subheading">
-                            $2,000.00 / $12,000.00 (YTD)
+                        <div class="headline">
+                            {{ monthlyIncome }} / {{ yearlyIncome }}
                         </div>
                     </v-card-text>
                 </v-card>
@@ -96,8 +108,8 @@
                         <div class="title">
                             Total Payments
                         </div>
-                        <div class="subheading">
-                            $1,500.00 / $9,000.00 (YTD)
+                        <div class="headline">
+                            0 / 0 (YTD)
                         </div>
                     </v-card-text>
                 </v-card>
@@ -108,8 +120,8 @@
                         <div class="title">
                             Total Remainder
                         </div>
-                        <div class="subheading">
-                            $500.00 / $3,000.00 (YTD)
+                        <div class="headline">
+                            0 / 0 (YTD)
                         </div>
                     </v-card-text>
                 </v-card>
@@ -119,10 +131,10 @@
         <v-dialog v-model="dialog" max-width="300px">
             <v-card>
                 <v-toolbar flat color="deep-purple" class="white--text">
-                    <v-toolbar-title>Monthly Income</v-toolbar-title>
+                    <v-toolbar-title>Bi-Weekly Income</v-toolbar-title>
                 </v-toolbar>
                 <v-card-text>
-                    <v-text-field label="Income" v-model="monthlyIncome" required></v-text-field>
+                    <v-text-field label="Bi-Weekly Income" color="deep-purple" v-model="biweeklyIncome" required></v-text-field>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -141,7 +153,7 @@
         data() {
             return {
                 dialog: false,
-                monthlyIncome: '0',
+                biweeklyIncome: '0',
                 pagination: {
                     sortBy: 'due',
                     rowsPerPage: -1
@@ -203,11 +215,14 @@
             }
         },
         computed: {
-            biweeklyIncome: function() {
-                return this.monthlyIncome / 2;
+            yearlyIncome: function() {
+                return (this.biweeklyIncome * 26)
+            },
+            monthlyIncome: function() {
+                return (this.biweeklyIncome * 2)
             },
             weeklyIncome: function() {
-                return this.monthlyIncome / 4;
+                return (this.biweeklyIncome / 2)
             }
         },
     }

@@ -17,10 +17,10 @@
                             </v-toolbar-items>
                         </v-toolbar>
                         <v-container>
-                            <v-text-field label="Bill Name" v-model="name" />
-                            <v-textarea label="Bill Description" v-model="description" />
-                            <v-text-field label="Bill Amount" v-model="amount" />
-                            <v-text-field label="Day Due" v-model="day" />
+                            <v-text-field label="Bill Name" color="deep-purple" v-model="name" />
+                            <v-textarea label="Bill Description" color="deep-purple" v-model="description" />
+                            <v-text-field label="Bill Amount" color="deep-purple" v-model="amount" />
+                            <v-text-field label="Day Due" color="deep-purple" v-model="day" />
                         </v-container>
                         <v-card-actions>
                             <v-spacer></v-spacer>
@@ -44,24 +44,22 @@
                             <br>
                             <v-layout row wrap>
                                 <v-flex md6>
-                                    <v-checkbox v-model="january" color="deep-purple" label="January"></v-checkbox>
-                                    <v-checkbox v-model="february" color="deep-purple" label="February"></v-checkbox>
-                                    <v-checkbox v-model="march" color="deep-purple" label="March"></v-checkbox>
-                                    <v-checkbox v-model="april" color="deep-purple" label="April"></v-checkbox>
-                                    <v-checkbox v-model="may" color="deep-purple" label="May"></v-checkbox>
-                                    <v-checkbox v-model="june" color="deep-purple" label="June"></v-checkbox>
+                                    <v-checkbox v-model="january" color="light-green" label="January"></v-checkbox>
+                                    <v-checkbox v-model="february" color="light-green" label="February"></v-checkbox>
+                                    <v-checkbox v-model="march" color="light-green" label="March"></v-checkbox>
+                                    <v-checkbox v-model="april" color="light-green" label="April"></v-checkbox>
+                                    <v-checkbox v-model="may" color="light-green" label="May"></v-checkbox>
+                                    <v-checkbox v-model="june" color="light-green" label="June"></v-checkbox>
                                 </v-flex>
                                 <v-flex md6>
-                                    <v-checkbox v-model="july" color="deep-purple" label="July"></v-checkbox>
-                                    <v-checkbox v-model="august" color="deep-purple" label="August"></v-checkbox>
-                                    <v-checkbox v-model="september" color="deep-purple" label="September"></v-checkbox>
-                                    <v-checkbox v-model="october" color="deep-purple" label="October"></v-checkbox>
-                                    <v-checkbox v-model="november" color="deep-purple" label="November"></v-checkbox>
-                                    <v-checkbox v-model="december" color="deep-purple" label="December"></v-checkbox>
+                                    <v-checkbox v-model="july" color="light-green" label="July"></v-checkbox>
+                                    <v-checkbox v-model="august" color="light-green" label="August"></v-checkbox>
+                                    <v-checkbox v-model="september" color="light-green" label="September"></v-checkbox>
+                                    <v-checkbox v-model="october" color="light-green" label="October"></v-checkbox>
+                                    <v-checkbox v-model="november" color="light-green" label="November"></v-checkbox>
+                                    <v-checkbox v-model="december" color="light-green" label="December"></v-checkbox>
                                 </v-flex>
                             </v-layout>
-
-
                         </v-container>
                     </v-card>
                 </v-flex>

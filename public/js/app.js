@@ -275,8 +275,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'BillForm',
   data: function data() {
@@ -471,12 +469,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
     return {
       dialog: false,
-      monthlyIncome: '0',
+      biweeklyIncome: '0',
       pagination: {
         sortBy: 'due',
         rowsPerPage: -1
@@ -526,11 +536,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    biweeklyIncome: function biweeklyIncome() {
-      return this.monthlyIncome / 2;
+    yearlyIncome: function yearlyIncome() {
+      return this.biweeklyIncome * 26;
+    },
+    monthlyIncome: function monthlyIncome() {
+      return this.biweeklyIncome * 2;
     },
     weeklyIncome: function weeklyIncome() {
-      return this.monthlyIncome / 4;
+      return this.biweeklyIncome / 2;
     }
   }
 });
@@ -1946,7 +1959,7 @@ var render = function() {
                         "v-container",
                         [
                           _c("v-text-field", {
-                            attrs: { label: "Bill Name" },
+                            attrs: { label: "Bill Name", color: "deep-purple" },
                             model: {
                               value: _vm.name,
                               callback: function($$v) {
@@ -1957,7 +1970,10 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("v-textarea", {
-                            attrs: { label: "Bill Description" },
+                            attrs: {
+                              label: "Bill Description",
+                              color: "deep-purple"
+                            },
                             model: {
                               value: _vm.description,
                               callback: function($$v) {
@@ -1968,7 +1984,10 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("v-text-field", {
-                            attrs: { label: "Bill Amount" },
+                            attrs: {
+                              label: "Bill Amount",
+                              color: "deep-purple"
+                            },
                             model: {
                               value: _vm.amount,
                               callback: function($$v) {
@@ -1979,7 +1998,7 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("v-text-field", {
-                            attrs: { label: "Day Due" },
+                            attrs: { label: "Day Due", color: "deep-purple" },
                             model: {
                               value: _vm.day,
                               callback: function($$v) {
@@ -2068,7 +2087,7 @@ var render = function() {
                                 [
                                   _c("v-checkbox", {
                                     attrs: {
-                                      color: "deep-purple",
+                                      color: "light-green",
                                       label: "January"
                                     },
                                     model: {
@@ -2082,7 +2101,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-checkbox", {
                                     attrs: {
-                                      color: "deep-purple",
+                                      color: "light-green",
                                       label: "February"
                                     },
                                     model: {
@@ -2096,7 +2115,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-checkbox", {
                                     attrs: {
-                                      color: "deep-purple",
+                                      color: "light-green",
                                       label: "March"
                                     },
                                     model: {
@@ -2110,7 +2129,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-checkbox", {
                                     attrs: {
-                                      color: "deep-purple",
+                                      color: "light-green",
                                       label: "April"
                                     },
                                     model: {
@@ -2124,7 +2143,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-checkbox", {
                                     attrs: {
-                                      color: "deep-purple",
+                                      color: "light-green",
                                       label: "May"
                                     },
                                     model: {
@@ -2138,7 +2157,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-checkbox", {
                                     attrs: {
-                                      color: "deep-purple",
+                                      color: "light-green",
                                       label: "June"
                                     },
                                     model: {
@@ -2159,7 +2178,7 @@ var render = function() {
                                 [
                                   _c("v-checkbox", {
                                     attrs: {
-                                      color: "deep-purple",
+                                      color: "light-green",
                                       label: "July"
                                     },
                                     model: {
@@ -2173,7 +2192,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-checkbox", {
                                     attrs: {
-                                      color: "deep-purple",
+                                      color: "light-green",
                                       label: "August"
                                     },
                                     model: {
@@ -2187,7 +2206,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-checkbox", {
                                     attrs: {
-                                      color: "deep-purple",
+                                      color: "light-green",
                                       label: "September"
                                     },
                                     model: {
@@ -2201,7 +2220,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-checkbox", {
                                     attrs: {
-                                      color: "deep-purple",
+                                      color: "light-green",
                                       label: "October"
                                     },
                                     model: {
@@ -2215,7 +2234,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-checkbox", {
                                     attrs: {
-                                      color: "deep-purple",
+                                      color: "light-green",
                                       label: "November"
                                     },
                                     model: {
@@ -2229,7 +2248,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-checkbox", {
                                     attrs: {
-                                      color: "deep-purple",
+                                      color: "light-green",
                                       label: "December"
                                     },
                                     model: {
@@ -2297,7 +2316,75 @@ var render = function() {
         [
           _c(
             "v-flex",
-            { attrs: { md4: "" } },
+            { attrs: { md3: "" } },
+            [
+              _c(
+                "v-card",
+                {
+                  staticClass: "white--text",
+                  attrs: { color: "deep-purple" },
+                  on: {
+                    click: function($event) {
+                      _vm.dialog = true
+                    }
+                  }
+                },
+                [
+                  _c("v-card-text", [
+                    _c("div", { staticClass: "title" }, [
+                      _vm._v(
+                        "\n                        Yearly Income\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "display-1" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.yearlyIncome) +
+                          "\n                    "
+                      )
+                    ])
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { md3: "" } },
+            [
+              _c(
+                "v-card",
+                { staticClass: "white--text", attrs: { color: "deep-purple" } },
+                [
+                  _c("v-card-text", [
+                    _c("div", { staticClass: "title" }, [
+                      _vm._v(
+                        "\n                        Monthly Income\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "display-1" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.monthlyIncome) +
+                          "\n                    "
+                      )
+                    ])
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { md3: "" } },
             [
               _c(
                 "v-card",
@@ -2314,47 +2401,14 @@ var render = function() {
                   _c("v-card-text", [
                     _c("div", { staticClass: "title" }, [
                       _vm._v(
-                        "\n                        Monthly Income\n                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "display-1" }, [
-                      _vm.monthlyIncome == ""
-                        ? _c("span", [_vm._v("0")])
-                        : _c("span", [_vm._v(_vm._s(_vm.monthlyIncome))])
-                    ])
-                  ])
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-flex",
-            { attrs: { md4: "" } },
-            [
-              _c(
-                "v-card",
-                {
-                  staticClass: "action white--text",
-                  attrs: { color: "light-green" }
-                },
-                [
-                  _c("v-card-text", [
-                    _c("div", { staticClass: "title" }, [
-                      _vm._v(
                         "\n                        Bi-Weekly Income\n                    "
                       )
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "display-1" }, [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(_vm.biweeklyIncome) +
-                          "\n                    "
-                      )
+                      _vm.biweeklyIncome == ""
+                        ? _c("span", [_vm._v("0")])
+                        : _c("span", [_vm._v(_vm._s(_vm.biweeklyIncome))])
                     ])
                   ])
                 ],
@@ -2366,14 +2420,11 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-flex",
-            { attrs: { md4: "" } },
+            { attrs: { md3: "" } },
             [
               _c(
                 "v-card",
-                {
-                  staticClass: "actino white--text",
-                  attrs: { color: "light-green" }
-                },
+                { staticClass: "white--text", attrs: { color: "deep-purple" } },
                 [
                   _c("v-card-text", [
                     _c("div", { staticClass: "title" }, [
@@ -2515,9 +2566,13 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "subheading" }, [
+                    _c("div", { staticClass: "headline" }, [
                       _vm._v(
-                        "\n                        $2,000.00 / $12,000.00 (YTD)\n                    "
+                        "\n                        " +
+                          _vm._s(_vm.monthlyIncome) +
+                          " / " +
+                          _vm._s(_vm.yearlyIncome) +
+                          "\n                    "
                       )
                     ])
                   ])
@@ -2543,9 +2598,9 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "subheading" }, [
+                    _c("div", { staticClass: "headline" }, [
                       _vm._v(
-                        "\n                        $1,500.00 / $9,000.00 (YTD)\n                    "
+                        "\n                        0 / 0 (YTD)\n                    "
                       )
                     ])
                   ])
@@ -2571,9 +2626,9 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "subheading" }, [
+                    _c("div", { staticClass: "headline" }, [
                       _vm._v(
-                        "\n                        $500.00 / $3,000.00 (YTD)\n                    "
+                        "\n                        0 / 0 (YTD)\n                    "
                       )
                     ])
                   ])
@@ -2609,7 +2664,7 @@ var render = function() {
                   staticClass: "white--text",
                   attrs: { flat: "", color: "deep-purple" }
                 },
-                [_c("v-toolbar-title", [_vm._v("Monthly Income")])],
+                [_c("v-toolbar-title", [_vm._v("Bi-Weekly Income")])],
                 1
               ),
               _vm._v(" "),
@@ -2617,13 +2672,17 @@ var render = function() {
                 "v-card-text",
                 [
                   _c("v-text-field", {
-                    attrs: { label: "Income", required: "" },
+                    attrs: {
+                      label: "Bi-Weekly Income",
+                      color: "deep-purple",
+                      required: ""
+                    },
                     model: {
-                      value: _vm.monthlyIncome,
+                      value: _vm.biweeklyIncome,
                       callback: function($$v) {
-                        _vm.monthlyIncome = $$v
+                        _vm.biweeklyIncome = $$v
                       },
-                      expression: "monthlyIncome"
+                      expression: "biweeklyIncome"
                     }
                   })
                 ],
