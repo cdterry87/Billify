@@ -22,6 +22,12 @@ Route::group(['middleware' => 'auth'], function () {
         // Primary Resources
         Route::resource('/bills', 'BillController');
 
+        // Update income
+        Route::post('/income', 'UserController@income');
+
+        // Get User info
+        Route::get('/user', 'UserController@index');
+
         // Logout
         Route::get('/logout', function () {
             Auth::logout();

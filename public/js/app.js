@@ -504,14 +504,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
     return {
       dialog: false,
+      search: '',
+      valid: true,
       biweeklyIncome: '0',
       pagination: {
-        sortBy: 'due',
+        sortBy: 'day',
         rowsPerPage: -1
       },
       headers: [{
@@ -521,25 +541,44 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: 'Due',
         align: 'left',
-        value: 'due'
+        value: 'day'
       }, {
         text: 'Amount',
         align: 'left',
         value: 'amount'
       }],
+      user: [],
       bills: []
     };
   },
   methods: {
-    getBills: function getBills() {
+    getUser: function getUser() {
       var _this = this;
 
-      axios.get('/api/bills').then(function (response) {
-        _this.bills = response.data;
+      axios.get('/api/user').then(function (response) {
+        _this.user = response.data;
+        _this.biweeklyIncome = _this.user.income;
       });
+    },
+    getBills: function getBills() {
+      var _this2 = this;
+
+      axios.get('/api/bills').then(function (response) {
+        _this2.bills = response.data;
+      });
+    },
+    addIncome: function addIncome() {
+      var income = this.biweeklyIncome;
+      console.log('add income');
+      axios.post('/api/income', {
+        income: income
+      }).then(function (response) {
+        console.log('hit income endpoint');
+      })["catch"](function (error) {});
     }
   },
   created: function created() {
+    this.getUser();
     this.getBills();
   },
   computed: {
@@ -558,7 +597,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     totalRemainder: function totalRemainder() {
-      console.log('monthlyIncome', this.monthlyIncome);
       return this.monthlyIncome - this.totalBills;
     }
   }
@@ -2007,6 +2045,7 @@ var render = function() {
                             attrs: {
                               label: "Bill Amount",
                               color: "deep-purple",
+                              maxlength: "10",
                               required: ""
                             },
                             model: {
@@ -2022,6 +2061,7 @@ var render = function() {
                             attrs: {
                               label: "Day Due",
                               color: "deep-purple",
+                              maxlength: "2",
                               required: ""
                             },
                             model: {
@@ -2404,32 +2444,61 @@ var render = function() {
             { attrs: { md3: "" } },
             [
               _c(
-                "v-card",
+                "v-tooltip",
                 {
-                  staticClass: "action white--text",
-                  attrs: { color: "light-green" },
-                  on: {
-                    click: function($event) {
-                      _vm.dialog = true
+                  attrs: { top: "", color: "deep-orange", debounce: "2000" },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "activator",
+                      fn: function(ref) {
+                        var on = ref.on
+                        return [
+                          _c(
+                            "v-card",
+                            _vm._g(
+                              {
+                                staticClass: "action white--text",
+                                attrs: { color: "light-green" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.dialog = true
+                                  }
+                                }
+                              },
+                              on
+                            ),
+                            [
+                              _c("v-card-text", [
+                                _c("div", { staticClass: "title" }, [
+                                  _vm._v(
+                                    "\n                                Bi-Weekly Income\n                            "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "display-1" }, [
+                                  _vm.biweeklyIncome == ""
+                                    ? _c("span", [_vm._v("0")])
+                                    : _c("span", [
+                                        _vm._v(_vm._s(_vm.biweeklyIncome))
+                                      ])
+                                ])
+                              ])
+                            ],
+                            1
+                          )
+                        ]
+                      }
                     }
-                  }
+                  ])
                 },
                 [
-                  _c("v-card-text", [
-                    _c("div", { staticClass: "title" }, [
-                      _vm._v(
-                        "\n                        Bi-Weekly Income\n                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "display-1" }, [
-                      _vm.biweeklyIncome == ""
-                        ? _c("span", [_vm._v("0")])
-                        : _c("span", [_vm._v(_vm._s(_vm.biweeklyIncome))])
-                    ])
+                  _vm._v(" "),
+                  _c("span", [
+                    _vm._v(
+                      "\n                    Click to specify your income.\n                "
+                    )
                   ])
-                ],
-                1
+                ]
               )
             ],
             1
@@ -2509,16 +2578,35 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c("v-text-field", {
+                attrs: {
+                  box: "",
+                  "append-icon": "search",
+                  label: "Search",
+                  color: "light-green",
+                  "background-color": "light-green lighten-5",
+                  "single-line": "",
+                  "hide-details": "",
+                  clearable: ""
+                },
+                model: {
+                  value: _vm.search,
+                  callback: function($$v) {
+                    _vm.search = $$v
+                  },
+                  expression: "search"
+                }
+              }),
+              _vm._v(" "),
               _c("v-data-table", {
                 staticClass: "elevation-1",
                 attrs: {
                   headers: _vm.headers,
                   items: _vm.bills,
+                  search: _vm.search,
                   pagination: _vm.pagination,
                   "hide-actions": "",
-                  "disable-initial-sort": "",
-                  "no-data-text": "Sorry, you have not added any bills yet!",
-                  search: ""
+                  "no-data-text": "Sorry, you have not added any bills yet!"
                 },
                 on: {
                   "update:pagination": function($event) {
@@ -2532,7 +2620,7 @@ var render = function() {
                       return [
                         _c("td", [_vm._v(_vm._s(props.item.name))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(props.item.due))]),
+                        _c("td", [_vm._v(_vm._s(props.item.day))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(props.item.amount))])
                       ]
@@ -2680,68 +2768,88 @@ var render = function() {
             "v-card",
             [
               _c(
-                "v-toolbar",
+                "v-form",
                 {
-                  staticClass: "white--text",
-                  attrs: { flat: "", color: "deep-purple" }
-                },
-                [_c("v-toolbar-title", [_vm._v("Bi-Weekly Income")])],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-card-text",
-                [
-                  _c("v-text-field", {
-                    attrs: {
-                      label: "Bi-Weekly Income",
-                      color: "deep-purple",
-                      required: ""
-                    },
-                    model: {
-                      value: _vm.biweeklyIncome,
-                      callback: function($$v) {
-                        _vm.biweeklyIncome = $$v
-                      },
-                      expression: "biweeklyIncome"
+                  attrs: { method: "POST", id: "incomeForm" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.addIncome($event)
                     }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-card-actions",
+                  }
+                },
                 [
-                  _c("v-spacer"),
-                  _vm._v(" "),
                   _c(
-                    "v-btn",
+                    "v-toolbar",
                     {
-                      attrs: { dark: "", color: "deep-purple" },
-                      on: {
-                        click: function($event) {
-                          _vm.dialog = false
-                        }
-                      }
+                      staticClass: "white--text",
+                      attrs: { flat: "", color: "deep-purple" }
                     },
-                    [_vm._v("Save")]
+                    [_c("v-toolbar-title", [_vm._v("Bi-Weekly Income")])],
+                    1
                   ),
                   _vm._v(" "),
                   _c(
-                    "v-btn",
-                    {
-                      attrs: { dark: "", color: "light-green" },
-                      on: {
-                        click: function($event) {
-                          _vm.dialog = false
+                    "v-card-text",
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Bi-Weekly Income",
+                          color: "deep-purple",
+                          maxlength: "15",
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.biweeklyIncome,
+                          callback: function($$v) {
+                            _vm.biweeklyIncome = $$v
+                          },
+                          expression: "biweeklyIncome"
                         }
-                      }
-                    },
-                    [_vm._v("Close")]
+                      })
+                    ],
+                    1
                   ),
                   _vm._v(" "),
-                  _c("v-spacer")
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            type: "submit",
+                            dark: "",
+                            color: "deep-purple"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.dialog = false
+                            }
+                          }
+                        },
+                        [_vm._v("Save")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { dark: "", color: "light-green" },
+                          on: {
+                            click: function($event) {
+                              _vm.dialog = false
+                            }
+                          }
+                        },
+                        [_vm._v("Close")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-spacer")
+                    ],
+                    1
+                  )
                 ],
                 1
               )

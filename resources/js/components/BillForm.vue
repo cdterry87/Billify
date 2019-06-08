@@ -19,8 +19,8 @@
                         <v-container>
                             <v-text-field label="Bill Name" color="deep-purple" v-model="name" required />
                             <v-textarea label="Bill Description" color="deep-purple" v-model="description" />
-                            <v-text-field label="Bill Amount" color="deep-purple" v-model="amount" required />
-                            <v-text-field label="Day Due" color="deep-purple" v-model="day" required />
+                            <v-text-field label="Bill Amount" color="deep-purple" v-model="amount" maxlength="10" required />
+                            <v-text-field label="Day Due" color="deep-purple" v-model="day" maxlength="2" required />
                         </v-container>
                         <v-card-actions>
                             <v-spacer></v-spacer>
