@@ -109,10 +109,11 @@
                 let october = this.october
                 let november = this.november
                 let december = this.december
+                let month = this.month
 
                 axios.post('/api/bills', { name, description, amount, day,
                     january, february, march, april, may, june, july,
-                    august, september, october, november, december
+                    august, september, october, november, december, month
                 })
                 .then(response => {
                     this.redirect()
@@ -124,7 +125,18 @@
             redirect() {
                 this.$router.push('/')
             },
-        }
+        },
+        computed: {
+            month() {
+                if (this.january || this.february || this.march ||
+                this.april || this.may || this.june || this.july ||
+                this.august || this.september || this.october ||
+                this.november || this.december) {
+                    return true
+                }
+                return false
+            }
+        },
     }
 </script>
 

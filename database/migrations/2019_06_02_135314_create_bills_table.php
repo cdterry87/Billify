@@ -21,6 +21,7 @@ class CreateBillsTable extends Migration
             $table->text('description')->nullable();
             $table->string('amount', 15);
             $table->string('day', 2);
+            $table->boolean('month')->nullable();
             $table->boolean('january')->nullable();
             $table->boolean('february')->nullable();
             $table->boolean('march')->nullable();

@@ -317,6 +317,7 @@ __webpack_require__.r(__webpack_exports__);
       var october = this.october;
       var november = this.november;
       var december = this.december;
+      var month = this.month;
       axios.post('/api/bills', {
         name: name,
         description: description,
@@ -333,13 +334,23 @@ __webpack_require__.r(__webpack_exports__);
         september: september,
         october: october,
         november: november,
-        december: december
+        december: december,
+        month: month
       }).then(function (response) {
         _this.redirect();
       })["catch"](function (error) {});
     },
     redirect: function redirect() {
       this.$router.push('/');
+    }
+  },
+  computed: {
+    month: function month() {
+      if (this.january || this.february || this.march || this.april || this.may || this.june || this.july || this.august || this.september || this.october || this.november || this.december) {
+        return true;
+      }
+
+      return false;
     }
   }
 });
@@ -2476,7 +2487,8 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "display-1" }, [
-                                  _vm.biweeklyIncome == ""
+                                  _vm.biweeklyIncome == "" ||
+                                  !_vm.biweeklyIncome
                                     ? _c("span", [_vm._v("0")])
                                     : _c("span", [
                                         _vm._v(_vm._s(_vm.biweeklyIncome))

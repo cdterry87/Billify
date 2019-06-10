@@ -34,7 +34,7 @@
                                     Bi-Weekly Income
                                 </div>
                                 <div class="display-1">
-                                    <span v-if="biweeklyIncome == ''">0</span>
+                                    <span v-if="biweeklyIncome == '' || !biweeklyIncome">0</span>
                                     <span v-else>{{ biweeklyIncome }}</span>
                                 </div>
                             </v-card-text>
