@@ -172,6 +172,8 @@
 </template>
 
 <script>
+    import Event from './../events'
+
     export default {
         name: 'Home',
         data() {
@@ -230,15 +232,16 @@
 
                 axios.post('/api/income', { income })
                 .then(response => {
-
+                    Event.$emit('successMessage', 'Income successfully updated!')
                 })
                 .catch(function (error) {
-
+                    Event.$emit('errorMessage', 'Income could not be updated at this time.  Please try again later.')
                 })
             },
             deleteBill(id) {
                 axios.delete('/api/bills/' + id)
                 .then(response => {
+                    Event.$emit('errorMessage', 'Bill deleted successfully!')
                     this.getBills()
                 })
             },

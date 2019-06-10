@@ -69,6 +69,8 @@
 </template>
 
 <script>
+    import Event from './../events'
+
     export default {
         name: 'BillForm',
         props: ['id'],
@@ -138,10 +140,13 @@
                     }
                 })
                 .then(response => {
-                    this.redirect()
+                    if (method == 'post') {
+                        this.redirect()
+                    }
+                    Event.$emit('successMessage', 'Bill saved successfully!')
                 })
                 .catch(function (error) {
-
+                    Event.$emit('errorMessage', 'Bill could not be saved at this time.  Please try again later')
                 })
             },
             redirect() {

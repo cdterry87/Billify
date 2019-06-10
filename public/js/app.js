@@ -95,12 +95,14 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../events */ "./resources/js/events.js");
 //
 //
 //
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Account'
 });
@@ -116,6 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../events */ "./resources/js/events.js");
 //
 //
 //
@@ -171,12 +174,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
   data: function data() {
     return {
       snackbar: {
-        enabled: true,
+        enabled: false,
         message: 'This is a sample message.',
         timeout: 5000,
         y: 'bottom',
@@ -184,6 +188,20 @@ __webpack_require__.r(__webpack_exports__);
         color: 'dark-grey'
       }
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    _events__WEBPACK_IMPORTED_MODULE_0__["default"].$on('successMessage', function (message) {
+      _this.snackbar.message = message;
+      _this.snackbar.color = 'success';
+      _this.snackbar.enabled = true;
+    });
+    _events__WEBPACK_IMPORTED_MODULE_0__["default"].$on('errorMessage', function (message) {
+      _this.snackbar.message = message;
+      _this.snackbar.color = 'error';
+      _this.snackbar.enabled = true;
+    });
   },
   methods: {
     logout: function logout() {
@@ -205,6 +223,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../events */ "./resources/js/events.js");
 //
 //
 //
@@ -275,6 +294,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'BillForm',
   props: ['id'],
@@ -359,8 +379,14 @@ __webpack_require__.r(__webpack_exports__);
           december: december
         }
       }).then(function (response) {
-        _this2.redirect();
-      })["catch"](function (error) {});
+        if (method == 'post') {
+          _this2.redirect();
+        }
+
+        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('successMessage', 'Bill saved successfully!');
+      })["catch"](function (error) {
+        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('errorMessage', 'Bill could not be saved at this time.  Please try again later');
+      });
     },
     redirect: function redirect() {
       this.$router.push('/');
@@ -393,6 +419,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../events */ "./resources/js/events.js");
 //
 //
 //
@@ -566,6 +593,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
@@ -620,12 +648,18 @@ __webpack_require__.r(__webpack_exports__);
       var income = this.biweeklyIncome;
       axios.post('/api/income', {
         income: income
-      }).then(function (response) {})["catch"](function (error) {});
+      }).then(function (response) {
+        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('successMessage', 'Income successfully updated!');
+      })["catch"](function (error) {
+        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('errorMessage', 'Income could not be updated at this time.  Please try again later.');
+      });
     },
     deleteBill: function deleteBill(id) {
       var _this3 = this;
 
       axios["delete"]('/api/bills/' + id).then(function (response) {
+        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('errorMessage', 'Bill deleted successfully!');
+
         _this3.getBills();
       });
     }
@@ -1285,8 +1319,8 @@ var render = function() {
                   attrs: {
                     color: _vm.snackbar.color,
                     bottom: true,
-                    right: true,
-                    timeout: _vm.snackbar.timeout
+                    timeout: _vm.snackbar.timeout,
+                    "multi-line": ""
                   },
                   model: {
                     value: _vm.snackbar.enabled,
@@ -43413,6 +43447,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Home_vue_vue_type_template_id_f2b6376c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/events.js":
+/*!********************************!*\
+  !*** ./resources/js/events.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var Event = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
+/* harmony default export */ __webpack_exports__["default"] = (Event);
 
 /***/ }),
 

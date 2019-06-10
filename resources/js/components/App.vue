@@ -44,7 +44,7 @@
                     &copy; Chase Terry 2019
                 </div>
 
-                <v-snackbar v-model="snackbar.enabled" :color="snackbar.color" :bottom="true" :right="true" :timeout="snackbar.timeout">
+                <v-snackbar v-model="snackbar.enabled" :color="snackbar.color" :bottom="true" :timeout="snackbar.timeout" multi-line>
                     {{ snackbar.message }}
                     <v-btn color="white" flat @click="snackbar.enabled = false"><v-icon>close</v-icon></v-btn>
                 </v-snackbar>
@@ -54,12 +54,14 @@
 </template>
 
 <script>
+    import Event from './../events'
+
     export default {
         name: 'App',
         data() {
             return {
                 snackbar: {
-                    enabled: true,
+                    enabled: false,
                     message: 'This is a sample message.',
                     timeout: 5000,
                     y: 'bottom',
@@ -69,7 +71,18 @@
 
             }
         },
-
+        created() {
+            Event.$on('successMessage', message => {
+                this.snackbar.message = message
+                this.snackbar.color = 'success'
+                this.snackbar.enabled = true
+            })
+            Event.$on('errorMessage', message => {
+                this.snackbar.message = message
+                this.snackbar.color = 'error'
+                this.snackbar.enabled = true
+            })
+        },
         methods: {
             logout() {
                 axios.get('/api/logout')
