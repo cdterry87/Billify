@@ -92,10 +92,16 @@
                     class="elevation-1"
                     no-data-text="Sorry, you have not added any bills yet!"
                 >
-                    <template v-slot:items="props" >
+                    <template v-slot:items="props">
                         <td>{{ props.item.name }}</td>
-                        <td>{{ props.item.day }}</td>
-                        <td>{{ props.item.amount }}</td>
+                        <td width="15%">{{ props.item.day }}</td>
+                        <td width="15%">${{ props.item.amount }}</td>
+                        <td width="25%">
+                            <v-form method="POST" id="deleteForm" @submit.prevent="deleteBill(props.item.id)">
+                                <v-btn :to="'/bill/' + props.item.id" color="light-green" class="white--text">Edit</v-btn>
+                                <v-btn type="submit" color="red darken-1" class="white--text">Delete</v-btn>
+                            </v-form>
+                        </td>
                     </template>
                 </v-data-table>
             </v-flex>
@@ -194,6 +200,12 @@
                         align: 'left',
                         value: 'amount'
                     },
+                    {
+                        text: 'Actions',
+                        align: 'left',
+                        value: 'actions',
+                        sortable: false,
+                    },
                 ],
                 user: [],
                 bills: [],
@@ -216,16 +228,20 @@
             addIncome() {
                 let income = this.biweeklyIncome
 
-                console.log('add income')
-
                 axios.post('/api/income', { income })
                 .then(response => {
-                    console.log('hit income endpoint')
+
                 })
                 .catch(function (error) {
 
                 })
-            }
+            },
+            deleteBill(id) {
+                axios.delete('/api/bills/' + id)
+                .then(response => {
+                    this.getBills()
+                })
+            },
         },
         created() {
             this.getUser()

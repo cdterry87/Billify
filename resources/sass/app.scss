@@ -18,10 +18,16 @@ table td {
     cursor: pointer;
 }
 
+#footer {
+    margin-bottom: 1.5rem;
+}
+
+/* Vuetify overrides */
 .v-tooltip__content {
     font-size: 1.5rem !important;
 }
 
-#footer {
-    margin-bottom: 1.5rem;
+.v-input--selection-controls {
+    padding: 0 !important;
+    margin: 0 !important;
 }

@@ -1,6 +1,6 @@
 import Home from './components/Home'
-import BillForm from './components/BillForm'
 import Bill from './components/Bill'
+import Account from './components/Account'
 
 export default [
     {
@@ -10,13 +10,18 @@ export default [
     },
     {
         path: '/bill',
-        name: 'billForm',
-        component: BillForm,
+        name: 'newBill',
+        component: Bill,
     },
     {
         path: '/bill/:id',
-        name: 'bill',
+        name: 'editBill',
         component: Bill,
         props: true
     },
+    {
+        path: '/account',
+        name: 'account',
+        component: Account,
+    }
 ];
