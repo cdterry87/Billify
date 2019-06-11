@@ -28,6 +28,11 @@ Route::group(['middleware' => 'auth'], function () {
         // Get User info
         Route::get('/user', 'UserController@index');
 
+        // Charts
+        Route::get('/charts/incomevspayments', 'ChartController@incomevspayments');
+        Route::get('/charts/paymentcategories', 'ChartController@paymentcategories');
+        Route::get('/charts/daily', 'ChartController@daily');
+
         // Logout
         Route::get('/logout', function () {
             Auth::logout();

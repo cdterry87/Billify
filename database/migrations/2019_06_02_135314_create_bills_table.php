@@ -19,8 +19,8 @@ class CreateBillsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name', 255);
             $table->text('description')->nullable();
-            $table->string('amount', 15);
-            $table->string('day', 2);
+            $table->integer('amount')->length(9);
+            $table->integer('day')->length(2);
             $table->boolean('month')->nullable();
             $table->boolean('january')->nullable();
             $table->boolean('february')->nullable();
