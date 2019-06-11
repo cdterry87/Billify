@@ -119,7 +119,7 @@
                             Total Income
                         </div>
                         <div class="headline">
-                            {{ monthlyIncome }} / {{ yearlyIncome }}
+                            {{ monthlyIncome }} / {{ ytdIncome }} (YTD)
                         </div>
                     </v-card-text>
                 </v-card>
@@ -131,7 +131,7 @@
                             Total Payments
                         </div>
                         <div class="headline">
-                            {{ totalBills }}
+                            {{ totalBills }} / {{ ytdBills }} (YTD)
                         </div>
                     </v-card-text>
                 </v-card>
@@ -143,7 +143,7 @@
                             Total Remainder
                         </div>
                         <div class="headline">
-                            {{ totalRemainder }}
+                            {{ totalRemainder }} / {{ ytdRemainder }} (YTD)
                         </div>
                     </v-card-text>
                 </v-card>
@@ -265,6 +265,20 @@
             },
             totalRemainder: function() {
                 return this.monthlyIncome - this.totalBills
+            },
+            currentMonth: function() {
+                let date = new Date();
+
+                return date.getMonth() + 1;
+            },
+            ytdIncome: function() {
+                return parseInt(this.monthlyIncome * this.currentMonth)
+            },
+            ytdBills: function() {
+                return parseInt(this.totalBills * this.currentMonth)
+            },
+            ytdRemainder: function() {
+                return parseInt(this.totalRemainder * this.currentMonth)
             }
         },
     }

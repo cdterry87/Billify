@@ -4,17 +4,17 @@
             <v-layout row wrap>
                 <v-flex md6>
                     <v-card>
-                        <canvas id="IncomeVsPayments" class="chart"></canvas>
+                        <canvas id="IncomeVsPayments" class="chart" height="500"></canvas>
                     </v-card>
                 </v-flex>
                 <v-flex md6>
                     <v-card>
-                        <canvas id="PaymentCategories" class="chart"></canvas>
+                        <canvas id="PaymentCategories" class="chart" height="500"></canvas>
                     </v-card>
                 </v-flex>
                 <v-flex xs12>
                     <v-card>
-                        <canvas id="Daily" class="chart"></canvas>
+                        <canvas id="Daily" class="chart" height="300"></canvas>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -47,13 +47,6 @@
                             display: true,
                             text: 'Income Vs Payments'
                         },
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
                     }
                 });
             },
@@ -82,13 +75,6 @@
                             display: true,
                             text: 'Payment Categories'
                         },
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
                     }
                 });
             },
@@ -102,7 +88,7 @@
                             // fill: false,
                             label: 'Payments This Month',
                             backgroundColor: '#673AB7',
-                            borderColor: '#673AB7',
+                            borderColor: '#8BC34A',
                             data: [
                                 {
                                     x: 1,

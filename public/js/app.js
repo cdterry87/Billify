@@ -466,13 +466,6 @@ __webpack_require__.r(__webpack_exports__);
           title: {
             display: true,
             text: 'Income Vs Payments'
-          },
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
           }
         }
       });
@@ -492,13 +485,6 @@ __webpack_require__.r(__webpack_exports__);
           title: {
             display: true,
             text: 'Payment Categories'
-          },
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
           }
         }
       });
@@ -513,7 +499,7 @@ __webpack_require__.r(__webpack_exports__);
             // fill: false,
             label: 'Payments This Month',
             backgroundColor: '#673AB7',
-            borderColor: '#673AB7',
+            borderColor: '#8BC34A',
             data: [{
               x: 1,
               y: 15
@@ -838,6 +824,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     totalRemainder: function totalRemainder() {
       return this.monthlyIncome - this.totalBills;
+    },
+    currentMonth: function currentMonth() {
+      var date = new Date();
+      return date.getMonth() + 1;
+    },
+    ytdIncome: function ytdIncome() {
+      return parseInt(this.monthlyIncome * this.currentMonth);
+    },
+    ytdBills: function ytdBills() {
+      return parseInt(this.totalBills * this.currentMonth);
+    },
+    ytdRemainder: function ytdRemainder() {
+      return parseInt(this.totalRemainder * this.currentMonth);
     }
   }
 });
@@ -34285,7 +34284,7 @@ var render = function() {
                   _c("v-card", [
                     _c("canvas", {
                       staticClass: "chart",
-                      attrs: { id: "IncomeVsPayments" }
+                      attrs: { id: "IncomeVsPayments", height: "500" }
                     })
                   ])
                 ],
@@ -34299,7 +34298,7 @@ var render = function() {
                   _c("v-card", [
                     _c("canvas", {
                       staticClass: "chart",
-                      attrs: { id: "PaymentCategories" }
+                      attrs: { id: "PaymentCategories", height: "500" }
                     })
                   ])
                 ],
@@ -34313,7 +34312,7 @@ var render = function() {
                   _c("v-card", [
                     _c("canvas", {
                       staticClass: "chart",
-                      attrs: { id: "Daily" }
+                      attrs: { id: "Daily", height: "300" }
                     })
                   ])
                 ],
@@ -34707,8 +34706,8 @@ var render = function() {
                         "\n                        " +
                           _vm._s(_vm.monthlyIncome) +
                           " / " +
-                          _vm._s(_vm.yearlyIncome) +
-                          "\n                    "
+                          _vm._s(_vm.ytdIncome) +
+                          " (YTD)\n                    "
                       )
                     ])
                   ])
@@ -34738,7 +34737,9 @@ var render = function() {
                       _vm._v(
                         "\n                        " +
                           _vm._s(_vm.totalBills) +
-                          "\n                    "
+                          " / " +
+                          _vm._s(_vm.ytdBills) +
+                          " (YTD)\n                    "
                       )
                     ])
                   ])
@@ -34768,7 +34769,9 @@ var render = function() {
                       _vm._v(
                         "\n                        " +
                           _vm._s(_vm.totalRemainder) +
-                          "\n                    "
+                          " / " +
+                          _vm._s(_vm.ytdRemainder) +
+                          " (YTD)\n                    "
                       )
                     ])
                   ])
