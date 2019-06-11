@@ -12,10 +12,10 @@
                 <v-spacer></v-spacer>
 
                 <v-toolbar-items>
-                    <v-btn flat>
+                    <v-btn flat to="/charts">
                         <v-icon>pie_chart</v-icon>
                     </v-btn>
-                    <v-btn flat>
+                    <v-btn flat to="/notifications">
                         <v-icon>notifications</v-icon>
                     </v-btn>
                     <v-menu :nudge-width="100" offset-y>
@@ -27,7 +27,9 @@
                         </template>
                         <v-list>
                             <v-list-tile>
-                                <v-list-tile-title>My Account</v-list-tile-title>
+                                <router-link to="/account">
+                                    <v-list-tile-title>My Account</v-list-tile-title>
+                                </router-link>
                             </v-list-tile>
                             <v-list-tile @click="logout">
                                 <v-list-tile-title>Logout</v-list-tile-title>

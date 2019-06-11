@@ -1,5 +1,6 @@
 @import '~vuetify/dist/vuetify.min.css';
 @import '~material-icons/iconfont/material-icons.css';
+@import '~chart.js/dist/Chart.min.css';
 
 a {
     text-decoration: none !important;
@@ -20,6 +21,10 @@ table td {
 
 #footer {
     margin-bottom: 1.5rem;
+}
+
+.chart {
+    width: 100%;
 }
 
 /* Vuetify overrides */

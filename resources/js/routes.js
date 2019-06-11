@@ -1,6 +1,7 @@
 import Home from './components/Home'
 import Bill from './components/Bill'
 import Account from './components/Account'
+import Charts from './components/Charts'
 
 export default [
     {
@@ -23,5 +24,10 @@ export default [
         path: '/account',
         name: 'account',
         component: Account,
+    },
+    {
+        path: '/charts',
+        name: 'charts',
+        component: Charts
     }
 ];
