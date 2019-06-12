@@ -605,7 +605,6 @@ __webpack_require__.r(__webpack_exports__);
     daily: function daily() {
       axios.get('/api/charts/daily').then(function (response) {
         var data = response.data;
-        console.log('daily', data);
         var ctx = document.getElementById('Daily');
         var Daily = new chart_js__WEBPACK_IMPORTED_MODULE_0___default.a(ctx, {
           type: 'line',

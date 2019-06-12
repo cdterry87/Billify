@@ -99,8 +99,6 @@
                 .then(response => {
                     let data = response.data
 
-                    console.log('daily', data)
-
                     var ctx = document.getElementById('Daily');
                     var Daily = new Chart(ctx, {
                         type: 'line',
