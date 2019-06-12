@@ -192,7 +192,7 @@ __webpack_require__.r(__webpack_exports__);
       var password = this.password;
       var password_confirmation = this.password_confirmation;
 
-      if (password === password_confirmation) {
+      if (!_.isEmpty(password) && password === password_confirmation) {
         axios.post('/api/password', {
           password: password
         }).then(function (response) {
@@ -202,6 +202,8 @@ __webpack_require__.r(__webpack_exports__);
         })["catch"](function (error) {
           console.log(error.response.data.error);
         });
+      } else {
+        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('errorMessage', 'Password cannot be blank!');
       }
     }
   },

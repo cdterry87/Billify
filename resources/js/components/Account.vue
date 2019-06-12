@@ -91,7 +91,7 @@
                 let password = this.password
                 let password_confirmation = this.password_confirmation
 
-                if (password === password_confirmation) {
+                if (!_.isEmpty(password) && password === password_confirmation) {
                     axios.post('/api/password', { password })
                     .then(response => {
                         this.password = ''
@@ -102,6 +102,8 @@
                     .catch(function (error) {
                         console.log(error.response.data.error)
                     });
+                } else {
+                    Event.$emit('errorMessage', 'Password cannot be blank!')
                 }
             },
         },

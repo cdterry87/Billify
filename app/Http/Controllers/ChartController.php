@@ -29,7 +29,7 @@ class ChartController extends Controller
 
     public function daily()
     {
-        $data = Bill::select(DB::raw('day as x'), DB::raw('sum(amount) as y'))->where('user_id', Auth::user()->id)
+        $data = Bill::select(DB::raw('CAST(day as UNSIGNED) as x'), DB::raw('CAST(sum(amount) as UNSIGNED) as y'))->where('user_id', Auth::user()->id)
             ->groupBy('day')->get()
             ->toArray();
 
@@ -40,6 +40,14 @@ class ChartController extends Controller
 
         array_multisort($data);
 
-        return response()->json($data);
+        $daily = [];
+        foreach ($data as $row) {
+            $daily[] = [
+                'x' => intval($row['x']),
+                'y' => intval($row['y']),
+            ];
+        }
+
+        return response()->json($daily);
     }
 }
