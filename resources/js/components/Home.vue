@@ -162,7 +162,7 @@
                         <v-toolbar-title>Bi-Weekly Income</v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
-                        <v-text-field label="Bi-Weekly Income" color="deep-purple" v-model="biweeklyIncome" maxlength="15" required></v-text-field>
+                        <v-text-field label="Bi-Weekly Income" color="deep-purple" v-model="biweeklyIncome" maxlength="10" required></v-text-field>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -292,8 +292,7 @@
                 return parseInt((this.currentWeek / 2) * this.biweeklyIncome)
             },
             ytdBills: function() {
-                // return parseInt(this.totalBills * this.currentMonth)
-                return parseInt((this.currentWeek / 2) * this.totalBills)
+                return parseInt(this.totalBills * this.currentMonth)
             },
             ytdRemainder: function() {
                 // return parseInt(this.totalRemainder * this.currentMonth)

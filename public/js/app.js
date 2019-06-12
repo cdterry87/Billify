@@ -102,9 +102,78 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Account'
+  name: 'Account',
+  data: function data() {
+    return {
+      user: [],
+      password: '',
+      password_confirmation: ''
+    };
+  },
+  methods: {
+    getUser: function getUser() {
+      var _this = this;
+
+      axios.get('/api/user').then(function (response) {
+        _this.user = response.data;
+      });
+    },
+    updateUser: function updateUser() {}
+  },
+  mounted: function mounted() {
+    this.getUser();
+  }
 });
 
 /***/ }),
@@ -844,8 +913,7 @@ __webpack_require__.r(__webpack_exports__);
       return parseInt(this.currentWeek / 2 * this.biweeklyIncome);
     },
     ytdBills: function ytdBills() {
-      // return parseInt(this.totalBills * this.currentMonth)
-      return parseInt(this.currentWeek / 2 * this.totalBills);
+      return parseInt(this.totalBills * this.currentMonth);
     },
     ytdRemainder: function ytdRemainder() {
       // return parseInt(this.totalRemainder * this.currentMonth)
@@ -33637,7 +33705,258 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    My Account\n")])
+  return _c(
+    "v-container",
+    { attrs: { fluid: "", "grid-list-md": "", "text-xs-center": "" } },
+    [
+      _c(
+        "v-layout",
+        { attrs: { row: "", wrap: "" } },
+        [
+          _c(
+            "v-flex",
+            { attrs: { md8: "" } },
+            [
+              _c(
+                "v-card",
+                [
+                  _c(
+                    "v-form",
+                    {
+                      attrs: { method: "POST", id: "userForm" },
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.updateUser($event)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "v-toolbar",
+                        {
+                          staticClass: "white--text",
+                          attrs: { flat: "", color: "deep-purple", dense: "" }
+                        },
+                        [
+                          _c("v-toolbar-title", [
+                            _vm._v(
+                              "\n                            Update Account\n                        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-toolbar-items",
+                            [
+                              _c(
+                                "v-btn",
+                                { attrs: { flat: "", to: "/" } },
+                                [
+                                  _c("v-icon", [_vm._v("arrow_back")]),
+                                  _vm._v(" "),
+                                  _c("span", [_vm._v("Go Back")])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-container",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              label: "Name",
+                              color: "deep-purple",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.user.name,
+                              callback: function($$v) {
+                                _vm.$set(_vm.user, "name", $$v)
+                              },
+                              expression: "user.name"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              label: "Email",
+                              color: "deep-purple",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.user.email,
+                              callback: function($$v) {
+                                _vm.$set(_vm.user, "email", $$v)
+                              },
+                              expression: "user.email"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              label: "Bi-Weekly Income",
+                              color: "deep-purple",
+                              maxlength: "10",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.user.income,
+                              callback: function($$v) {
+                                _vm.$set(_vm.user, "income", $$v)
+                              },
+                              expression: "user.income"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: {
+                                type: "submit",
+                                dark: "",
+                                color: "deep-purple"
+                              }
+                            },
+                            [_vm._v("Save")]
+                          ),
+                          _vm._v(" "),
+                          _c("v-spacer")
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { md4: "" } },
+            [
+              _c(
+                "v-card",
+                [
+                  _c(
+                    "v-form",
+                    {
+                      attrs: { method: "POST", id: "userForm" },
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.updateUser($event)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "v-toolbar",
+                        {
+                          staticClass: "white--text",
+                          attrs: { flat: "", color: "light-green", dense: "" }
+                        },
+                        [
+                          _c("v-toolbar-title", [
+                            _vm._v(
+                              "\n                            Change Password\n                        "
+                            )
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-container",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              label: "Password",
+                              color: "deep-purple",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.password,
+                              callback: function($$v) {
+                                _vm.password = $$v
+                              },
+                              expression: "password"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              label: "Confirm Password",
+                              color: "deep-purple",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.password_confirmation,
+                              callback: function($$v) {
+                                _vm.password_confirmation = $$v
+                              },
+                              expression: "password_confirmation"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: {
+                                type: "submit",
+                                dark: "",
+                                color: "light-green"
+                              }
+                            },
+                            [_vm._v("Change Password")]
+                          ),
+                          _vm._v(" "),
+                          _c("v-spacer")
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -34867,7 +35186,7 @@ var render = function() {
                         attrs: {
                           label: "Bi-Weekly Income",
                           color: "deep-purple",
-                          maxlength: "15",
+                          maxlength: "10",
                           required: ""
                         },
                         model: {

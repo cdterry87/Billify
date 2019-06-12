@@ -34,7 +34,8 @@ class HomeController extends Controller
         $start = Carbon::now()->format('j');
         $end = Carbon::now()->addDays(5)->format('j');
 
-        $bills = Bill::select('name', 'amount', 'day')->where('user_id', Auth::user()->id)->whereBetween('day', [$start, $end])
+        $bills = Bill::select('name', 'amount', 'day')->where('user_id', Auth::user()->id)
+            ->whereBetween('day', [$start, $end])
             ->orderBy('amount', 'desc')
             ->get()->toArray();
 
