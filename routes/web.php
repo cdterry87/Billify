@@ -33,6 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/charts/paymentcategories', 'ChartController@paymentcategories');
         Route::get('/charts/daily', 'ChartController@daily');
 
+        // Notifications
+        Route::get('/notifications/', 'HomeController@notifications');
+
         // Logout
         Route::get('/logout', function () {
             Auth::logout();

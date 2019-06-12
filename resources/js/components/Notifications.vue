@@ -1,13 +1,15 @@
 <template>
     <div>
-        My Account
+        Notifications
     </div>
 </template>
 
 <script>
-    import event from './../events'
-
     export default {
-        name: 'Account'
+        name: 'Notifications'
     }
 </script>
+
+<style lang="scss" scoped>
+
+</style>

@@ -173,9 +173,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
@@ -728,6 +725,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
@@ -736,6 +738,7 @@ __webpack_require__.r(__webpack_exports__);
       dialog: false,
       search: '',
       valid: true,
+      notifications: '',
       biweeklyIncome: '0',
       pagination: {
         sortBy: 'day',
@@ -764,19 +767,26 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    getUser: function getUser() {
+    getNotifications: function getNotifications() {
       var _this = this;
 
+      axios.get('/api/notifications').then(function (response) {
+        _this.notifications = response.data;
+      });
+    },
+    getUser: function getUser() {
+      var _this2 = this;
+
       axios.get('/api/user').then(function (response) {
-        _this.user = response.data;
-        _this.biweeklyIncome = _this.user.income;
+        _this2.user = response.data;
+        _this2.biweeklyIncome = _this2.user.income;
       });
     },
     getBills: function getBills() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get('/api/bills').then(function (response) {
-        _this2.bills = response.data;
+        _this3.bills = response.data;
       });
     },
     addIncome: function addIncome() {
@@ -790,18 +800,19 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteBill: function deleteBill(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       axios["delete"]('/api/bills/' + id).then(function (response) {
         _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('errorMessage', 'Bill deleted successfully!');
 
-        _this3.getBills();
+        _this4.getBills();
       });
     }
   },
   created: function created() {
     this.getUser();
     this.getBills();
+    this.getNotifications();
   },
   computed: {
     yearlyIncome: function yearlyIncome() {
@@ -825,14 +836,23 @@ __webpack_require__.r(__webpack_exports__);
       var date = new Date();
       return date.getMonth() + 1;
     },
+    currentWeek: function currentWeek() {
+      return moment().week();
+    },
     ytdIncome: function ytdIncome() {
-      return parseInt(this.monthlyIncome * this.currentMonth);
+      // return parseInt(this.monthlyIncome * this.currentMonth)
+      return parseInt(this.currentWeek / 2 * this.biweeklyIncome);
     },
     ytdBills: function ytdBills() {
-      return parseInt(this.totalBills * this.currentMonth);
+      // return parseInt(this.totalBills * this.currentMonth)
+      return parseInt(this.currentWeek / 2 * this.totalBills);
     },
     ytdRemainder: function ytdRemainder() {
-      return parseInt(this.totalRemainder * this.currentMonth);
+      // return parseInt(this.totalRemainder * this.currentMonth)
+      return parseInt(this.ytdIncome - this.ytdBills);
+    },
+    newNotifications: function newNotifications() {
+      return !_.isEmpty(this.notifications);
     }
   }
 });
@@ -33617,7 +33637,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [_vm._v("\n    My Account\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -33678,13 +33698,6 @@ var render = function() {
                     "v-btn",
                     { attrs: { flat: "", to: "/charts" } },
                     [_c("v-icon", [_vm._v("pie_chart")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    { attrs: { flat: "", to: "/notifications" } },
-                    [_c("v-icon", [_vm._v("notifications")])],
                     1
                   ),
                   _vm._v(" "),
@@ -34308,7 +34321,7 @@ var render = function() {
                   _c("v-card", [
                     _c("canvas", {
                       staticClass: "chart",
-                      attrs: { id: "Daily", height: "300" }
+                      attrs: { id: "Daily", height: "500" }
                     })
                   ])
                 ],
@@ -34354,6 +34367,32 @@ var render = function() {
         "v-layout",
         { attrs: { row: "", wrap: "" } },
         [
+          _c(
+            "v-flex",
+            { attrs: { xs12: "" } },
+            [
+              _c(
+                "v-alert",
+                {
+                  attrs: {
+                    value: _vm.newNotifications,
+                    type: "warning",
+                    color: "light-green",
+                    dismissable: ""
+                  }
+                },
+                _vm._l(_vm.notifications, function(notification, index) {
+                  return _c("div", {
+                    key: index,
+                    domProps: { innerHTML: _vm._s(notification.message) }
+                  })
+                }),
+                0
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c(
             "v-flex",
             { attrs: { md3: "" } },

@@ -1,6 +1,11 @@
 <template>
     <v-container fluid grid-list-md text-xs-center>
         <v-layout row wrap>
+            <v-flex xs12>
+                <v-alert :value="newNotifications" type="warning" color="light-green" dismissable>
+                    <div v-for="(notification, index) in notifications" :key="index" v-html="notification.message"></div>
+                </v-alert>
+            </v-flex>
             <v-flex md3>
                 <v-card color="deep-purple" class="white--text">
                     <v-card-text>
@@ -181,6 +186,7 @@
                 dialog: false,
                 search: '',
                 valid: true,
+                notifications: '',
                 biweeklyIncome: '0',
                 pagination: {
                     sortBy: 'day',
@@ -214,6 +220,12 @@
             }
         },
         methods: {
+             getNotifications() {
+                axios.get('/api/notifications')
+                .then(response => {
+                    this.notifications = response.data
+                })
+            },
             getUser() {
                 axios.get('/api/user')
                 .then(response => {
@@ -249,6 +261,7 @@
         created() {
             this.getUser()
             this.getBills()
+            this.getNotifications()
         },
         computed: {
             yearlyIncome: function() {
@@ -267,18 +280,27 @@
                 return this.monthlyIncome - this.totalBills
             },
             currentMonth: function() {
-                let date = new Date();
+                let date = new Date()
 
-                return date.getMonth() + 1;
+                return date.getMonth() + 1
+            },
+            currentWeek: function() {
+                return moment().week()
             },
             ytdIncome: function() {
-                return parseInt(this.monthlyIncome * this.currentMonth)
+                // return parseInt(this.monthlyIncome * this.currentMonth)
+                return parseInt((this.currentWeek / 2) * this.biweeklyIncome)
             },
             ytdBills: function() {
-                return parseInt(this.totalBills * this.currentMonth)
+                // return parseInt(this.totalBills * this.currentMonth)
+                return parseInt((this.currentWeek / 2) * this.totalBills)
             },
             ytdRemainder: function() {
-                return parseInt(this.totalRemainder * this.currentMonth)
+                // return parseInt(this.totalRemainder * this.currentMonth)
+                return parseInt(this.ytdIncome - this.ytdBills)
+            },
+            newNotifications: function() {
+                return !_.isEmpty(this.notifications)
             }
         },
     }

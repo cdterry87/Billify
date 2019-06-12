@@ -15,9 +15,6 @@
                     <v-btn flat to="/charts">
                         <v-icon>pie_chart</v-icon>
                     </v-btn>
-                    <v-btn flat to="/notifications">
-                        <v-icon>notifications</v-icon>
-                    </v-btn>
                     <v-menu :nudge-width="100" offset-y>
                         <template v-slot:activator="{ on }">
                             <v-btn flat v-on="on">
@@ -92,6 +89,6 @@
                     location.reload()
                 });
             }
-        }
+        },
     }
 </script>

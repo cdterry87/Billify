@@ -38,11 +38,6 @@ class ChartController extends Controller
             'y' => 0,
         ];
 
-        $data[] = [
-            'x' => 31,
-            'y' => 0,
-        ];
-
         array_multisort($data);
 
         return response()->json($data);

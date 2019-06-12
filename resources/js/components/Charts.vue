@@ -14,7 +14,7 @@
                 </v-flex>
                 <v-flex xs12>
                     <v-card>
-                        <canvas id="Daily" class="chart" height="300"></canvas>
+                        <canvas id="Daily" class="chart" height="500"></canvas>
                     </v-card>
                 </v-flex>
             </v-layout>
