@@ -34374,11 +34374,13 @@ var render = function() {
               _c(
                 "v-alert",
                 {
-                  attrs: {
+                  attrs: { type: "warning", color: "light-green" },
+                  model: {
                     value: _vm.newNotifications,
-                    type: "warning",
-                    color: "light-green",
-                    dismissable: ""
+                    callback: function($$v) {
+                      _vm.newNotifications = $$v
+                    },
+                    expression: "newNotifications"
                   }
                 },
                 _vm._l(_vm.notifications, function(notification, index) {
@@ -34410,7 +34412,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "display-1" }, [
                       _vm._v(
-                        "\n                        " +
+                        "\n                        $" +
                           _vm._s(_vm.yearlyIncome) +
                           "\n                    "
                       )
@@ -34440,7 +34442,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "display-1" }, [
                       _vm._v(
-                        "\n                        " +
+                        "\n                        $" +
                           _vm._s(_vm.monthlyIncome) +
                           "\n                    "
                       )
@@ -34492,9 +34494,9 @@ var render = function() {
                                 _c("div", { staticClass: "display-1" }, [
                                   _vm.biweeklyIncome == "" ||
                                   !_vm.biweeklyIncome
-                                    ? _c("span", [_vm._v("0")])
+                                    ? _c("span", [_vm._v("$0")])
                                     : _c("span", [
-                                        _vm._v(_vm._s(_vm.biweeklyIncome))
+                                        _vm._v("$" + _vm._s(_vm.biweeklyIncome))
                                       ])
                                 ])
                               ])
@@ -34536,7 +34538,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "display-1" }, [
                       _vm._v(
-                        "\n                        " +
+                        "\n                        $" +
                           _vm._s(_vm.weeklyIncome) +
                           "\n                    "
                       )
@@ -34738,9 +34740,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "headline" }, [
                       _vm._v(
-                        "\n                        " +
+                        "\n                        $" +
                           _vm._s(_vm.monthlyIncome) +
-                          " / " +
+                          " / $" +
                           _vm._s(_vm.ytdIncome) +
                           " (YTD)\n                    "
                       )
@@ -34770,9 +34772,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "headline" }, [
                       _vm._v(
-                        "\n                        " +
+                        "\n                        $" +
                           _vm._s(_vm.totalBills) +
-                          " / " +
+                          " / $" +
                           _vm._s(_vm.ytdBills) +
                           " (YTD)\n                    "
                       )
@@ -34802,9 +34804,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "headline" }, [
                       _vm._v(
-                        "\n                        " +
+                        "\n                        $" +
                           _vm._s(_vm.totalRemainder) +
-                          " / " +
+                          " / $" +
                           _vm._s(_vm.ytdRemainder) +
                           " (YTD)\n                    "
                       )

@@ -2,7 +2,7 @@
     <v-container fluid grid-list-md text-xs-center>
         <v-layout row wrap>
             <v-flex xs12>
-                <v-alert :value="newNotifications" type="warning" color="light-green" dismissable>
+                <v-alert v-model="newNotifications" type="warning" color="light-green">
                     <div v-for="(notification, index) in notifications" :key="index" v-html="notification.message"></div>
                 </v-alert>
             </v-flex>
@@ -13,7 +13,7 @@
                             Yearly Income
                         </div>
                         <div class="display-1">
-                            {{ yearlyIncome }}
+                            ${{ yearlyIncome }}
                         </div>
                     </v-card-text>
                 </v-card>
@@ -25,7 +25,7 @@
                             Monthly Income
                         </div>
                         <div class="display-1">
-                            {{ monthlyIncome }}
+                            ${{ monthlyIncome }}
                         </div>
                     </v-card-text>
                 </v-card>
@@ -39,8 +39,8 @@
                                     Bi-Weekly Income
                                 </div>
                                 <div class="display-1">
-                                    <span v-if="biweeklyIncome == '' || !biweeklyIncome">0</span>
-                                    <span v-else>{{ biweeklyIncome }}</span>
+                                    <span v-if="biweeklyIncome == '' || !biweeklyIncome">$0</span>
+                                    <span v-else>${{ biweeklyIncome }}</span>
                                 </div>
                             </v-card-text>
                         </v-card>
@@ -57,7 +57,7 @@
                             Weekly Income
                         </div>
                         <div class="display-1">
-                            {{ weeklyIncome }}
+                            ${{ weeklyIncome }}
                         </div>
                     </v-card-text>
                 </v-card>
@@ -124,7 +124,7 @@
                             Total Income
                         </div>
                         <div class="headline">
-                            {{ monthlyIncome }} / {{ ytdIncome }} (YTD)
+                            ${{ monthlyIncome }} / ${{ ytdIncome }} (YTD)
                         </div>
                     </v-card-text>
                 </v-card>
@@ -136,7 +136,7 @@
                             Total Payments
                         </div>
                         <div class="headline">
-                            {{ totalBills }} / {{ ytdBills }} (YTD)
+                            ${{ totalBills }} / ${{ ytdBills }} (YTD)
                         </div>
                     </v-card-text>
                 </v-card>
@@ -148,7 +148,7 @@
                             Total Remainder
                         </div>
                         <div class="headline">
-                            {{ totalRemainder }} / {{ ytdRemainder }} (YTD)
+                            ${{ totalRemainder }} / ${{ ytdRemainder }} (YTD)
                         </div>
                     </v-card-text>
                 </v-card>
