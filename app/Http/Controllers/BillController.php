@@ -9,11 +9,34 @@ use Illuminate\Support\Facades\Auth;
 class BillController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the bills for this month.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {
+        $bills = Auth::user()->bills()->get();
+
+        $month = strtolower(date('F'));
+
+        $data = [];
+        foreach ($bills as $bill) {
+            // If the bill is setup to be for certain months and this is not one of those months, do not show it.
+            if ($bill['month'] and !$bill[$month]) {
+                continue;
+            }
+            $data[] = $bill;
+        }
+
+        return response()->json($data);
+    }
+
+    /**
+     * Display a listing of all bills.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
     {
         return response()->json(Auth::user()->bills()->get());
     }

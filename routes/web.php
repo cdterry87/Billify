@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('api')->group(function () {
         // Primary Resources
         Route::resource('/bills', 'BillController');
+        Route::get('/allbills', 'BillController@all');
 
         // Update income
         Route::post('/income', 'UserController@income');

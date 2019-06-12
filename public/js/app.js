@@ -834,12 +834,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
     return {
       dialog: false,
+      showAll: false,
       search: '',
       valid: true,
       notifications: '',
@@ -886,11 +892,29 @@ __webpack_require__.r(__webpack_exports__);
         _this2.biweeklyIncome = _this2.user.income;
       });
     },
+    toggleBills: function toggleBills() {
+      this.showAll = !this.showAll;
+
+      if (this.showAll) {
+        this.getAllBills();
+        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('successMessage', 'Now showing all bills.');
+      } else {
+        this.getBills();
+        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('successMessage', 'Now only showing bills for this month.');
+      }
+    },
     getBills: function getBills() {
       var _this3 = this;
 
       axios.get('/api/bills').then(function (response) {
         _this3.bills = response.data;
+      });
+    },
+    getAllBills: function getAllBills() {
+      var _this4 = this;
+
+      axios.get('/api/allbills').then(function (response) {
+        _this4.bills = response.data;
       });
     },
     addIncome: function addIncome() {
@@ -904,12 +928,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteBill: function deleteBill(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       axios["delete"]('/api/bills/' + id).then(function (response) {
         _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('errorMessage', response.data.message);
 
-        _this4.getBills();
+        _this5.getBills();
       });
     }
   },
@@ -34931,6 +34955,23 @@ var render = function() {
                   _c(
                     "v-toolbar-items",
                     [
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "white--text",
+                          attrs: { flat: "" },
+                          on: { click: _vm.toggleBills }
+                        },
+                        [
+                          _vm.showAll
+                            ? _c("v-icon", [_vm._v("check_box")])
+                            : _c("v-icon", [_vm._v("check_box_outline_blank")]),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Show All")])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
                       _c(
                         "v-btn",
                         {

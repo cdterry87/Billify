@@ -71,6 +71,11 @@
                     <v-spacer></v-spacer>
 
                     <v-toolbar-items>
+                        <v-btn flat class="white--text" @click="toggleBills">
+                            <v-icon v-if="showAll">check_box</v-icon>
+                            <v-icon v-else>check_box_outline_blank</v-icon>
+                            <span>Show All</span>
+                        </v-btn>
                         <v-btn flat class="white--text" to="bill">
                             <v-icon>add</v-icon>
                             <span>New Bill</span>
@@ -184,6 +189,7 @@
         data() {
             return {
                 dialog: false,
+                showAll: false,
                 search: '',
                 valid: true,
                 notifications: '',
@@ -233,8 +239,25 @@
                     this.biweeklyIncome = this.user.income
                 })
             },
+            toggleBills() {
+                this.showAll = !this.showAll
+
+                if (this.showAll) {
+                    this.getAllBills()
+                    Event.$emit('successMessage', 'Now showing all bills.')
+                } else {
+                    this.getBills()
+                    Event.$emit('successMessage', 'Now only showing bills for this month.')
+                }
+            },
             getBills() {
                 axios.get('/api/bills')
+                .then(response => {
+                    this.bills = response.data
+                })
+            },
+            getAllBills() {
+                axios.get('/api/allbills')
                 .then(response => {
                     this.bills = response.data
                 })
