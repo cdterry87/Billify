@@ -125,14 +125,16 @@
                 let bill_id = this.id
                 let method = 'put'
 
+                let url = '/api/bills/' + bill_id
                 if (_.isUndefined(bill_id)) {
                     bill_id = ''
                     method = 'post'
+                    url = '/api/bills'
                 }
 
                 axios({
                     method: method,
-                    url: '/api/bills/' + bill_id,
+                    url: url,
                     data: {
                         name, description, amount, day, month,
                         january, february, march, april, may, june, july,

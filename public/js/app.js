@@ -454,15 +454,17 @@ __webpack_require__.r(__webpack_exports__);
       var month = this.month;
       var bill_id = this.id;
       var method = 'put';
+      var url = '/api/bills/' + bill_id;
 
       if (_.isUndefined(bill_id)) {
         bill_id = '';
         method = 'post';
+        url = '/api/bills';
       }
 
       axios({
         method: method,
-        url: '/api/bills/' + bill_id,
+        url: url,
         data: {
           name: name,
           description: description,
