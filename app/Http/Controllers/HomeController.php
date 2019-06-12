@@ -43,7 +43,7 @@ class HomeController extends Controller
             $notifications[] = [
                 'message' => "Your
                     <strong>" . $bill['name'] . "</strong> bill of
-                    <strong>" . $bill['amount'] . "</strong> is due on
+                    <strong>$" . $bill['amount'] . "</strong> is due on
                     <strong>" . date('m') . "/" . $bill['day'] . "</strong>!"
             ];
         }
