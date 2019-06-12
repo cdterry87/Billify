@@ -28,6 +28,10 @@ Route::group(['middleware' => 'auth'], function () {
         // Get User info
         Route::get('/user', 'UserController@index');
 
+        // Update user account
+        Route::post('/account', 'UserController@account');
+        Route::post('/password', 'UserController@password');
+
         // Charts
         Route::get('/charts/incomevspayments', 'ChartController@incomevspayments');
         Route::get('/charts/paymentcategories', 'ChartController@paymentcategories');

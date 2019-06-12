@@ -143,7 +143,7 @@
                     if (method == 'post') {
                         this.redirect()
                     }
-                    Event.$emit('successMessage', 'Bill saved successfully!')
+                    Event.$emit('successMessage', response.data.message)
                 })
                 .catch(function (error) {
                     Event.$emit('errorMessage', 'Bill could not be saved at this time.  Please try again later')

@@ -244,7 +244,7 @@
 
                 axios.post('/api/income', { income })
                 .then(response => {
-                    Event.$emit('successMessage', 'Income successfully updated!')
+                    Event.$emit('successMessage', response.data.message)
                 })
                 .catch(function (error) {
                     Event.$emit('errorMessage', 'Income could not be updated at this time.  Please try again later.')
@@ -253,7 +253,7 @@
             deleteBill(id) {
                 axios.delete('/api/bills/' + id)
                 .then(response => {
-                    Event.$emit('errorMessage', 'Bill deleted successfully!')
+                    Event.$emit('errorMessage', response.data.message)
                     this.getBills()
                 })
             },

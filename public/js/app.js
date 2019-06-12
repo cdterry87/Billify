@@ -169,7 +169,41 @@ __webpack_require__.r(__webpack_exports__);
         _this.user = response.data;
       });
     },
-    updateUser: function updateUser() {}
+    updateAccount: function updateAccount() {
+      var _this2 = this;
+
+      var name = this.user.name;
+      var email = this.user.email;
+      var income = this.user.income;
+      axios.post('/api/account', {
+        name: name,
+        email: email,
+        income: income
+      }).then(function (response) {
+        _this2.user = response.data.data;
+        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('successMessage', response.data.message);
+      })["catch"](function (error) {
+        console.log(error.response.data.error);
+      });
+    },
+    changePassword: function changePassword() {
+      var _this3 = this;
+
+      var password = this.password;
+      var password_confirmation = this.password_confirmation;
+
+      if (password === password_confirmation) {
+        axios.post('/api/password', {
+          password: password
+        }).then(function (response) {
+          _this3.password = '';
+          _this3.password_confirmation = '';
+          _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('successMessage', response.data.message);
+        })["catch"](function (error) {
+          console.log(error.response.data.error);
+        });
+      }
+    }
   },
   mounted: function mounted() {
     this.getUser();
@@ -451,7 +485,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.redirect();
         }
 
-        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('successMessage', 'Bill saved successfully!');
+        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('successMessage', response.data.message);
       })["catch"](function (error) {
         _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('errorMessage', 'Bill could not be saved at this time.  Please try again later');
       });
@@ -863,7 +897,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/income', {
         income: income
       }).then(function (response) {
-        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('successMessage', 'Income successfully updated!');
+        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('successMessage', response.data.message);
       })["catch"](function (error) {
         _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('errorMessage', 'Income could not be updated at this time.  Please try again later.');
       });
@@ -872,7 +906,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       axios["delete"]('/api/bills/' + id).then(function (response) {
-        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('errorMessage', 'Bill deleted successfully!');
+        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('errorMessage', response.data.message);
 
         _this4.getBills();
       });
@@ -33727,7 +33761,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.updateUser($event)
+                          return _vm.updateAccount($event)
                         }
                       }
                     },
@@ -33864,7 +33898,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.updateUser($event)
+                          return _vm.changePassword($event)
                         }
                       }
                     },
@@ -33890,8 +33924,9 @@ var render = function() {
                         [
                           _c("v-text-field", {
                             attrs: {
+                              type: "password",
                               label: "Password",
-                              color: "deep-purple",
+                              color: "light-green",
                               required: ""
                             },
                             model: {
@@ -33905,8 +33940,9 @@ var render = function() {
                           _vm._v(" "),
                           _c("v-text-field", {
                             attrs: {
+                              type: "password",
                               label: "Confirm Password",
-                              color: "deep-purple",
+                              color: "light-green",
                               required: ""
                             },
                             model: {

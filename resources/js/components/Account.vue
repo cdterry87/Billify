@@ -3,7 +3,7 @@
         <v-layout row wrap>
             <v-flex md8>
                 <v-card>
-                    <v-form method="POST" id="userForm" @submit.prevent="updateUser">
+                    <v-form method="POST" id="userForm" @submit.prevent="updateAccount">
                         <v-toolbar flat color="deep-purple" class="white--text" dense>
                             <v-toolbar-title>
                                 Update Account
@@ -31,15 +31,15 @@
             </v-flex>
             <v-flex md4>
                 <v-card>
-                    <v-form method="POST" id="userForm" @submit.prevent="updateUser">
+                    <v-form method="POST" id="userForm" @submit.prevent="changePassword">
                         <v-toolbar flat color="light-green" class="white--text" dense>
                             <v-toolbar-title>
                                 Change Password
                             </v-toolbar-title>
                         </v-toolbar>
                         <v-container>
-                            <v-text-field label="Password" color="deep-purple" v-model="password" required />
-                            <v-text-field label="Confirm Password" color="deep-purple" v-model="password_confirmation" required />
+                            <v-text-field type="password" label="Password" color="light-green" v-model="password" required />
+                            <v-text-field type="password" label="Confirm Password" color="light-green" v-model="password_confirmation" required />
                         </v-container>
                         <v-card-actions>
                             <v-spacer></v-spacer>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    import event from './../events'
+    import Event from './../events'
 
     export default {
         name: 'Account',
@@ -72,9 +72,38 @@
                     this.user = response.data
                 })
             },
-            updateUser() {
+            updateAccount() {
+                let name = this.user.name
+                let email = this.user.email
+                let income = this.user.income
 
-            }
+                axios.post('/api/account', { name, email, income })
+                .then(response => {
+                    this.user = response.data.data
+
+                    Event.$emit('successMessage', response.data.message)
+                })
+                .catch(function (error) {
+                    console.log(error.response.data.error)
+                });
+            },
+            changePassword() {
+                let password = this.password
+                let password_confirmation = this.password_confirmation
+
+                if (password === password_confirmation) {
+                    axios.post('/api/password', { password })
+                    .then(response => {
+                        this.password = ''
+                        this.password_confirmation = ''
+
+                        Event.$emit('successMessage', response.data.message)
+                    })
+                    .catch(function (error) {
+                        console.log(error.response.data.error)
+                    });
+                }
+            },
         },
         mounted() {
             this.getUser()
