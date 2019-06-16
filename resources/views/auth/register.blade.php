@@ -61,7 +61,7 @@
                 <hr/>
 
                 <div class="copyright center-align">
-                    Billify &copy; {{ date('Y') }}
+                    {{ config('app.name', 'Laravel') }} &copy; {{ date('Y') }}
                 </div>
             </form>
         </div>
