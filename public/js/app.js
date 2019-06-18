@@ -435,64 +435,66 @@ __webpack_require__.r(__webpack_exports__);
     saveBill: function saveBill() {
       var _this2 = this;
 
-      var name = this.bill.name;
-      var description = this.bill.description;
-      var amount = this.bill.amount;
-      var day = this.bill.day;
-      var january = this.bill.january;
-      var february = this.bill.february;
-      var march = this.bill.march;
-      var april = this.bill.april;
-      var may = this.bill.may;
-      var june = this.bill.june;
-      var july = this.bill.july;
-      var august = this.bill.august;
-      var september = this.bill.september;
-      var october = this.bill.october;
-      var november = this.bill.november;
-      var december = this.bill.december;
-      var month = this.month;
-      var bill_id = this.id;
-      var method = 'put';
-      var url = '/api/bills/' + bill_id;
+      if (this.$refs.form.validate()) {
+        var name = this.bill.name;
+        var description = this.bill.description;
+        var amount = this.bill.amount;
+        var day = this.bill.day;
+        var january = this.bill.january;
+        var february = this.bill.february;
+        var march = this.bill.march;
+        var april = this.bill.april;
+        var may = this.bill.may;
+        var june = this.bill.june;
+        var july = this.bill.july;
+        var august = this.bill.august;
+        var september = this.bill.september;
+        var october = this.bill.october;
+        var november = this.bill.november;
+        var december = this.bill.december;
+        var month = this.month;
+        var bill_id = this.id;
+        var method = 'put';
+        var url = '/api/bills/' + bill_id;
 
-      if (_.isUndefined(bill_id)) {
-        bill_id = '';
-        method = 'post';
-        url = '/api/bills';
+        if (_.isUndefined(bill_id)) {
+          bill_id = '';
+          method = 'post';
+          url = '/api/bills';
+        }
+
+        axios({
+          method: method,
+          url: url,
+          data: {
+            name: name,
+            description: description,
+            amount: amount,
+            day: day,
+            month: month,
+            january: january,
+            february: february,
+            march: march,
+            april: april,
+            may: may,
+            june: june,
+            july: july,
+            august: august,
+            september: september,
+            october: october,
+            november: november,
+            december: december
+          }
+        }).then(function (response) {
+          if (method == 'post') {
+            _this2.redirect();
+          }
+
+          _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('successMessage', response.data.message);
+        })["catch"](function (error) {
+          _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('errorMessage', 'Bill could not be saved at this time.  Please try again later');
+        });
       }
-
-      axios({
-        method: method,
-        url: url,
-        data: {
-          name: name,
-          description: description,
-          amount: amount,
-          day: day,
-          month: month,
-          january: january,
-          february: february,
-          march: march,
-          april: april,
-          may: may,
-          june: june,
-          july: july,
-          august: august,
-          september: september,
-          october: october,
-          november: november,
-          december: december
-        }
-      }).then(function (response) {
-        if (method == 'post') {
-          _this2.redirect();
-        }
-
-        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('successMessage', response.data.message);
-      })["catch"](function (error) {
-        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('errorMessage', 'Bill could not be saved at this time.  Please try again later');
-      });
     },
     redirect: function redirect() {
       this.$router.push('/');
@@ -34240,7 +34242,8 @@ var render = function() {
       _c(
         "v-form",
         {
-          attrs: { method: "POST", id: "billForm" },
+          ref: "form",
+          attrs: { method: "POST", id: "billForm", "lazy-validation": "" },
           on: {
             submit: function($event) {
               $event.preventDefault()
@@ -34302,7 +34305,12 @@ var render = function() {
                             attrs: {
                               label: "Bill Name",
                               color: "deep-purple",
-                              required: ""
+                              required: "",
+                              rules: [
+                                function(v) {
+                                  return !!v || "Bill Name is required"
+                                }
+                              ]
                             },
                             model: {
                               value: _vm.bill.name,
@@ -34332,7 +34340,12 @@ var render = function() {
                               label: "Bill Amount",
                               color: "deep-purple",
                               maxlength: "9",
-                              required: ""
+                              required: "",
+                              rules: [
+                                function(v) {
+                                  return !!v || "Bill Amount is required"
+                                }
+                              ]
                             },
                             model: {
                               value: _vm.bill.amount,
@@ -34348,7 +34361,12 @@ var render = function() {
                               label: "Day Due",
                               color: "deep-purple",
                               maxlength: "2",
-                              required: ""
+                              required: "",
+                              rules: [
+                                function(v) {
+                                  return !!v || "Day Due is required"
+                                }
+                              ]
                             },
                             model: {
                               value: _vm.bill.day,

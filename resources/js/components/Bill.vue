@@ -1,6 +1,6 @@
 <template>
     <v-container fluid grid-list-md text-xs-center>
-        <v-form method="POST" id="billForm" @submit.prevent="saveBill">
+        <v-form method="POST" id="billForm" @submit.prevent="saveBill" ref="form" lazy-validation>
             <v-layout row wrap>
                 <v-flex md8>
                     <v-card>
@@ -17,10 +17,10 @@
                             </v-toolbar-items>
                         </v-toolbar>
                         <v-container>
-                            <v-text-field label="Bill Name" color="deep-purple" v-model="bill.name" required />
+                            <v-text-field label="Bill Name" color="deep-purple" v-model="bill.name" required :rules="[v => !!v || 'Bill Name is required']" />
                             <v-textarea label="Bill Description" color="deep-purple" v-model="bill.description" />
-                            <v-text-field label="Bill Amount" color="deep-purple" v-model="bill.amount" maxlength="9" required />
-                            <v-text-field label="Day Due" color="deep-purple" v-model="bill.day" maxlength="2" required />
+                            <v-text-field label="Bill Amount" color="deep-purple" v-model="bill.amount" maxlength="9" required :rules="[v => !!v || 'Bill Amount is required']" />
+                            <v-text-field label="Day Due" color="deep-purple" v-model="bill.day" maxlength="2" required :rules="[v => !!v || 'Day Due is required']" />
                         </v-container>
                         <v-card-actions>
                             <v-spacer></v-spacer>
@@ -104,52 +104,54 @@
                 })
             },
             saveBill() {
-                let name = this.bill.name
-                let description = this.bill.description
-                let amount = this.bill.amount
-                let day = this.bill.day
-                let january = this.bill.january
-                let february = this.bill.february
-                let march = this.bill.march
-                let april = this.bill.april
-                let may = this.bill.may
-                let june = this.bill.june
-                let july = this.bill.july
-                let august = this.bill.august
-                let september = this.bill.september
-                let october = this.bill.october
-                let november = this.bill.november
-                let december = this.bill.december
-                let month = this.month
+                if (this.$refs.form.validate()) {
+                    let name = this.bill.name
+                    let description = this.bill.description
+                    let amount = this.bill.amount
+                    let day = this.bill.day
+                    let january = this.bill.january
+                    let february = this.bill.february
+                    let march = this.bill.march
+                    let april = this.bill.april
+                    let may = this.bill.may
+                    let june = this.bill.june
+                    let july = this.bill.july
+                    let august = this.bill.august
+                    let september = this.bill.september
+                    let october = this.bill.october
+                    let november = this.bill.november
+                    let december = this.bill.december
+                    let month = this.month
 
-                let bill_id = this.id
-                let method = 'put'
+                    let bill_id = this.id
+                    let method = 'put'
 
-                let url = '/api/bills/' + bill_id
-                if (_.isUndefined(bill_id)) {
-                    bill_id = ''
-                    method = 'post'
-                    url = '/api/bills'
+                    let url = '/api/bills/' + bill_id
+                    if (_.isUndefined(bill_id)) {
+                        bill_id = ''
+                        method = 'post'
+                        url = '/api/bills'
+                    }
+
+                    axios({
+                        method: method,
+                        url: url,
+                        data: {
+                            name, description, amount, day, month,
+                            january, february, march, april, may, june, july,
+                            august, september, october, november, december,
+                        }
+                    })
+                    .then(response => {
+                        if (method == 'post') {
+                            this.redirect()
+                        }
+                        Event.$emit('successMessage', response.data.message)
+                    })
+                    .catch(function (error) {
+                        Event.$emit('errorMessage', 'Bill could not be saved at this time.  Please try again later')
+                    })
                 }
-
-                axios({
-                    method: method,
-                    url: url,
-                    data: {
-                        name, description, amount, day, month,
-                        january, february, march, april, may, june, july,
-                        august, september, october, november, december,
-                    }
-                })
-                .then(response => {
-                    if (method == 'post') {
-                        this.redirect()
-                    }
-                    Event.$emit('successMessage', response.data.message)
-                })
-                .catch(function (error) {
-                    Event.$emit('errorMessage', 'Bill could not be saved at this time.  Please try again later')
-                })
             },
             redirect() {
                 this.$router.push('/')
