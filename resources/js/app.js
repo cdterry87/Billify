@@ -25,10 +25,22 @@ Vue.filter('truncate', function (string, length) {
 
 //Primary components
 import App from './components/App'
+import Errors from './components/auth/Errors'
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
+import Email from './components/auth/passwords/Email'
+import Reset from './components/auth/passwords/Reset'
 
 // App declaration
 const app = new Vue({
     el: '#app',
-    components: { App },
+    components: {
+        App,
+        Errors,
+        Login,
+        Register,
+        Email,
+        Reset
+    },
     router,
 });

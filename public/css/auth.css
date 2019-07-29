@@ -1,67 +1,63 @@
 html, body {
-    height: 100%;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 200;
+    height: 100vh;
+    margin: 0;
 }
 
-body {
-    background-color: #fafafa;
+body .application, body #welcome {
+    background: rgb(114,213,173) !important;
+    background: -moz-linear-gradient(10deg, rgba(114,213,173,1) 0%, rgba(85,1,161,1) 70%) !important;
+    background: -webkit-linear-gradient(10deg, rgba(114,213,173,1) 0%, rgba(85,1,161,1) 70%) !important;
+    background: linear-gradient(10deg, rgba(114,213,173,1) 0%, rgba(85,1,161,1) 70%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#72d5ad",endColorstr="#5501a1",GradientType=1);
 }
 
-#main {
-    min-height: 100%;
-}
-
-body{display: flex; min-height: 100vh; flex-direction: column;}
-#app {
-    margin-top: 1rem;
-}
-main{flex: 1 0 auto;}
-hr{margin: 15px 0; border: 0; border-top: 1px solid #eee;}
-
-h1, h2, h3, h4 {
+.v-alert {
     margin: 0 !important;
 }
 
-.card {
-    margin-top: .75rem !important;
+#welcome {
+    height: 100vh;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
 }
 
-.demo, .copyright {
-    font-size: 12px;
+.content {
+    text-align: center;
 }
 
-.nav-wrapper {
-    padding: 0 10px 0 10px;
+.title {
+    font-size: 80px !important;
 }
 
-input:not([type]):focus:not([readonly]),
-input[type=text]:not(.browser-default):focus:not([readonly]),
-input[type=password]:not(.browser-default):focus:not([readonly]),
-input[type=email]:not(.browser-default):focus:not([readonly]),
-input[type=url]:not(.browser-default):focus:not([readonly]),
-input[type=time]:not(.browser-default):focus:not([readonly]),
-input[type=date]:not(.browser-default):focus:not([readonly]),
-input[type=datetime]:not(.browser-default):focus:not([readonly]),
-input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
-input[type=tel]:not(.browser-default):focus:not([readonly]),
-input[type=number]:not(.browser-default):focus:not([readonly]),
-input[type=search]:not(.browser-default):focus:not([readonly]),
-textarea.materialize-textarea:focus:not([readonly]) {
-    border-bottom:1px solid #5c02d1 !important;
-    -webkit-box-shadow:0 1px 0 0 #5c02d1 !important;
-    box-shadow:0 1px 0 0 #5c02d1 !important;
+.subtitle {
+    font-size: 25px !important;
 }
-input:not([type]):focus:not([readonly])+label,
-input[type=text]:not(.browser-default):focus:not([readonly])+label,
-input[type=password]:not(.browser-default):focus:not([readonly])+label,
-input[type=email]:not(.browser-default):focus:not([readonly])+label,
-input[type=url]:not(.browser-default):focus:not([readonly])+label,
-input[type=time]:not(.browser-default):focus:not([readonly])+label,
-input[type=date]:not(.browser-default):focus:not([readonly])+label,
-input[type=datetime]:not(.browser-default):focus:not([readonly])+label,
-input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label,
-input[type=tel]:not(.browser-default):focus:not([readonly])+label,
-input[type=number]:not(.browser-default):focus:not([readonly])+label,
-input[type=search]:not(.browser-default):focus:not([readonly])+label,
-textarea.materialize-textarea:focus:not([readonly])+label {
-    color:#5c02d1 !important;
+
+.links > a {
+    color: #fff !important;
+    padding: 0 25px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.m-b-md {
+    margin-bottom: 30px;
+}
+
+.m-t-sm {
+    margin-top: 10px;
+}
+
+.button {
+    border: solid 2px white !important;
+    border-radius: 5px !important;
+    padding: 10px 20px !important;
 }
