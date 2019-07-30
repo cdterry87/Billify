@@ -6,12 +6,20 @@ html, body {
     margin: 0;
 }
 
-body .application, body #welcome {
+/* body .application, body #welcome {
     background: rgb(114,213,173) !important;
     background: -moz-linear-gradient(10deg, rgba(114,213,173,1) 0%, rgba(85,1,161,1) 70%) !important;
     background: -webkit-linear-gradient(10deg, rgba(114,213,173,1) 0%, rgba(85,1,161,1) 70%) !important;
     background: linear-gradient(10deg, rgba(114,213,173,1) 0%, rgba(85,1,161,1) 70%) !important;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#72d5ad",endColorstr="#5501a1",GradientType=1);
+} */
+
+body .application, body #welcome {
+    background: rgb(114,213,174) !important;
+    background: -moz-linear-gradient(10deg, rgba(114,213,174,1) 0%, rgba(99,26,191,1) 83%) !important;
+    background: -webkit-linear-gradient(10deg, rgba(114,213,174,1) 0%, rgba(99,26,191,1) 83%) !important;
+    background: linear-gradient(10deg, rgba(114,213,174,1) 0%, rgba(99,26,191,1) 83%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#72d5ae",endColorstr="#631abf",GradientType=1);
 }
 
 .v-alert {
