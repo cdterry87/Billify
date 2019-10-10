@@ -1,4 +1,4 @@
-/*!
+@import url(https://fonts.googleapis.com/css?family=Oleo+Script&display=swap);/*!
 * Vuetify v1.5.14
 * Forged by John Leider
 * Released under the MIT License.
@@ -56,6 +56,11 @@ table td {
 
 .chart {
   width: 100%;
+}
+
+.logo {
+  font-family: "Oleo Script", "Roboto", sans-serif !important;
+  font-size: 2rem !important;
 }
 
 /* Vuetify overrides */

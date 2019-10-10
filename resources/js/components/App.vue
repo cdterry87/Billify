@@ -3,8 +3,7 @@
         <v-app class="inspire">
             <v-toolbar color="deep-purple" dark tabs dense>
                 <v-toolbar-title>
-                    <router-link to="/" class="search-link">
-                        <v-icon>attach_money</v-icon>
+                    <router-link to="/" class="search-link logo">
                         <span>Billify</span>
                     </router-link>
                 </v-toolbar-title>
