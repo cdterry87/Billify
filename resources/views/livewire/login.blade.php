@@ -16,7 +16,7 @@
     </div>
 
     {{-- Login Form --}}
-    <div class="flex flex-col gap-8 items-center justify-center h-full">
+    <div class="flex flex-col gap-8 items-center justify-center h-full mx-4">
         <div class="flex flex-col items-center gap-6 p-8 bg-zinc-100 text-zinc-800 w-full sm:w-120 rounded-lg">
             <h1 class="text-3xl font-bold">{{ config('app.name') }}</h1>
             <form
@@ -65,7 +65,7 @@
 
         {{-- Copyright --}}
         <div class="flex flex-col items-center gap-2 text-xs pb-8">
-            <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center text-center sm:gap-2">
                 <p>Copyright © {{ date('Y') }}. All rights reserved.</p>
                 <span class="hidden sm:block">|</span>
                 <a
