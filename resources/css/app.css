@@ -43,4 +43,5 @@
         0.55
     ); /* Adjust the last value (0.5) for the darkness level */
     z-index: 1; /* Place the overlay above the video */
+    backdrop-filter: blur(3px); /* Blur the overlay */
 }
