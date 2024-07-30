@@ -8,6 +8,11 @@ export default {
         extend: {
             spacing: {
                 120: '30rem',
+            },
+            colors: {
+                gold: {
+                    500: '#d4af37',
+                }
             }
         },
     },

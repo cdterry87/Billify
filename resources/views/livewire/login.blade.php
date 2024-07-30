@@ -18,7 +18,10 @@
     {{-- Login Form --}}
     <div class="flex flex-col gap-8 items-center justify-center h-full mx-4">
         <div class="flex flex-col items-center gap-6 p-8 bg-zinc-100 text-zinc-800 w-full sm:w-120 rounded-lg">
-            <h1 class="text-3xl font-bold">{{ config('app.name') }}</h1>
+            <div class="flex flex-col gap-1 items-center justify-center">
+                <h1 class="logo text-6xl font-bold text-gold-500">{{ config('app.name') }}</h1>
+                <h2 class="logo text-3xl font-semibold text-zinc-500">Simplify your bills.</h2>
+            </div>
             <form
                 wire:submit.prevent="login"
                 class="flex flex-col gap-4 w-full"
