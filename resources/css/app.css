@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Damion&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Damion&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -8,11 +9,15 @@
     display: none !important;
 }
 
+body {
+    font-family: "Mulish", sans-serif !important;
+}
+
 .logo {
     font-family: "Damion", sans-serif !important;
 }
 
-.login--video-container {
+.guest--video-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -22,7 +27,7 @@
     z-index: -1; /* Place the video behind other content */
 }
 
-#login--background-video {
+#guest--background-video {
     width: 100%;
     height: 100%;
     object-fit: cover;

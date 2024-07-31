@@ -43,7 +43,7 @@
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased">
+<body class="antialiased">
     <main>
         {{ $slot }}
     </main>

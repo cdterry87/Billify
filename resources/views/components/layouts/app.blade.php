@@ -45,7 +45,7 @@
 
 
 <body
-    class="font-sans antialiased"
+    class="antialiased"
     style="visibility: hidden;"
 >
     <header></header>

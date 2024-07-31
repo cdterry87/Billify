@@ -10,9 +10,8 @@ export default {
                 120: '30rem',
             },
             colors: {
-                gold: {
-                    500: '#d4af37',
-                }
+                primary: '#d4af37',
+                secondary: '#6f777d',
             }
         },
     },
