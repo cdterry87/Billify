@@ -1,4 +1,4 @@
-@props(['name', 'label', 'type' => 'text', 'id' => null, 'required' => false])
+@props(['name', 'label', 'id' => null, 'required' => false])
 
 @php
     $id = $id ?? $name;
@@ -9,15 +9,16 @@
     :label="$label"
     :name="$name"
 >
-    <input
+    <select
         {{ $attributes->merge([
             'aria-label' => $label,
             'aria-required' => $required,
-            'class' => 'p-2 border border-zinc-300 rounded-lg',
+            'class' => 'p-2.5 border bg-white border-zinc-300 rounded-lg',
             'id' => $id,
             'name' => $name,
-            'required' => true,
-            'type' => $type,
+            'required' => $required,
         ]) }}
     >
+        {{ $slot }}
+    </select>
 </x-inputs.container>

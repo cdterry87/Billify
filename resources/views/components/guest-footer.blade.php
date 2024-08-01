@@ -2,18 +2,21 @@
     <div class="flex flex-col gap-2 sm:flex-row sm:items-center text-center sm:gap-2">
         <p>Copyright © {{ date('Y') }}. All rights reserved.</p>
         <span class="hidden sm:block">|</span>
-        <a
+        <x-inputs.link
+            class=" text-primary"
             href="{{ route('privacy-policy') }}"
-            class="font-bold text-primary"
-        >Privacy Policy</a>
+            label="Privacy Policy"
+        />
     </div>
     <div class="text-center italic">
         Developed by
-        <a
+        <x-inputs.link
+            aria-label="Visit my website!"
+            class="text-primary"
             href="https://chaseterry.com"
-            class="font-bold text-primary"
-        >
-            Chase Terry
-        </a>
+            label="Chase Terry"
+            target="_blank"
+            title="Visit my website!"
+        />
     </div>
 </div>
