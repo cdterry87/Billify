@@ -1,20 +1,20 @@
 <div class="bg-zinc-100 text-zinc-800 min-h-screen">
     <div class="flex flex-col gap-8 items-center justify-center h-full mx-4 py-6">
         <div class="flex flex-col gap-4 items-center justify-center w-full sm:w-120">
-            <x-logo-primary />
+            <x-logo />
             <h3 class="text-zinc-500">
                 Create an account. Manage your bills. <em class="italic">Simple</em>.
             </h3>
             <div class="flex flex-col items-center gap-6 px-8 w-full">
                 <form
-                    wire:submit.prevent="register"
+                    wire:submit.prevent="submit"
                     class="flex flex-col gap-4 w-full"
                 >
                     <x-inputs.text
                         label="Name"
                         name="name"
                         required
-                        wire:model="email"
+                        wire:model="name"
                     />
                     <x-inputs.text
                         label="Email"
@@ -52,19 +52,19 @@
                             required
                             wire:model="frequency"
                         >
-                            <option value="W">Weekly</option>
-                            <option value="B">Bi-Weekly</option>
-                            <option value="M">Monthly</option>
-                            <option value="Y">Yearly</option>
+                            <option value="52">Weekly</option>
+                            <option value="26">Bi-Weekly</option>
+                            <option value="12">Monthly</option>
+                            <option value="1">Yearly</option>
                         </x-inputs.select>
                     </div>
 
                     <div class="mt-2">
-                        <x-inputs.button label="Register" />
+                        <x-actions.button label="Register" />
                     </div>
                 </form>
                 <div class="text-xs sm:text-sm">
-                    <x-inputs.link
+                    <x-actions.link
                         class="text-secondary"
                         :href="route('login')"
                         label="Already have an account? Login"

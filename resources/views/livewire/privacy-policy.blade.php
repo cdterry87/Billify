@@ -1,7 +1,7 @@
 <div class="bg-zinc-100 text-zinc-800 min-h-screen">
     <div class="flex flex-col gap-8 items-center justify-center h-full mx-4 py-6">
         <div class="flex flex-col gap-4 items-center justify-center w-full sm:w-120">
-            <x-logo-primary />
+            <x-logo />
 
             <div class="flex flex-col gap-4 py-4">
                 <p><strong>Effective Date:</strong> 01/01/2024</p>
@@ -119,7 +119,7 @@
                 </div>
             </div>
 
-            <x-inputs.link
+            <x-actions.link
                 class="text-secondary"
                 :href="route('home')"
                 label="Return to Home"

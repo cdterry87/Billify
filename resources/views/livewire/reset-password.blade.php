@@ -1,7 +1,7 @@
 <div class="bg-zinc-100 text-zinc-800 h-screen min-h-screen">
     <div class="flex flex-col gap-8 items-center justify-center h-full mx-4 py-6">
         <div class="flex flex-col gap-4 items-center justify-center w-full sm:w-120">
-            <x-logo-primary />
+            <x-logo />
             <h3 class="text-zinc-500">
                 Reset your password.
             </h3>
@@ -25,11 +25,11 @@
                         wire:model="password_confirmation"
                     />
                     <div class="mt-2">
-                        <x-inputs.button label="Reset Password" />
+                        <x-actions.button label="Reset Password" />
                     </div>
                 </form>
                 <div class="text-xs sm:text-sm">
-                    <x-inputs.link
+                    <x-actions.link
                         class="text-secondary"
                         :href="route('login')"
                         label="Return to Login"

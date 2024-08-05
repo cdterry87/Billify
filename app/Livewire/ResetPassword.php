@@ -6,6 +6,12 @@ use Livewire\Component;
 
 class ResetPassword extends Component
 {
+    public function mount()
+    {
+        // Check if the token is valid
+
+    }
+
     public function render()
     {
         return view('livewire.reset-password');

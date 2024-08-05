@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-2 sm:flex-row sm:items-center text-center sm:gap-2">
         <p>Copyright © {{ date('Y') }}. All rights reserved.</p>
         <span class="hidden sm:block">|</span>
-        <x-inputs.link
+        <x-actions.link
             class=" text-primary"
             href="{{ route('privacy-policy') }}"
             label="Privacy Policy"
@@ -10,7 +10,7 @@
     </div>
     <div class="text-center italic">
         Developed by
-        <x-inputs.link
+        <x-actions.link
             aria-label="Visit my website!"
             class="text-primary"
             href="https://chaseterry.com"
