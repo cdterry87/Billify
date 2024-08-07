@@ -15,7 +15,7 @@
                 x-show="activeTab === 'changePassword'"
             >Change your password</h4>
         </div>
-        <div class="flex items-center gap-2 text-cyan-700 text-sm">
+        <div class="flex items-center gap-2 text-cyan-700 text-sm font-semibold">
             <a
                 href="#"
                 @click="activeTab = 'updateProfile'"

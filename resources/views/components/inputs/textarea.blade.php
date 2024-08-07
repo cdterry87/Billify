@@ -1,4 +1,4 @@
-@props(['name', 'label', 'type' => 'text', 'id' => null, 'required' => false])
+@props(['name', 'label', 'id' => null, 'required' => false, 'rows' => 3])
 
 @php
     $id = $id ?? $name;
@@ -9,7 +9,7 @@
     :label="$label"
     :name="$name"
 >
-    <input
+    <textarea
         {{ $attributes->merge([
             'aria-label' => $label,
             'aria-required' => $required,
@@ -17,7 +17,9 @@
             'id' => $id,
             'name' => $name,
             'required' => $required,
-            'type' => $type,
+            'rows' => $rows,
         ]) }}
     >
+        {{ $slot }}
+    </textarea>
 </x-inputs.container>
