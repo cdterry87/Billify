@@ -45,7 +45,7 @@
 
 
 <body
-    class="antialiased"
+    class="antialiased bg-zinc-100 text-zinc-800"
     style="visibility: hidden;"
 >
     <header></header>
