@@ -51,12 +51,8 @@
                             name="frequency"
                             required
                             wire:model="frequency"
-                        >
-                            <option value="52">Weekly</option>
-                            <option value="26">Bi-Weekly</option>
-                            <option value="12">Monthly</option>
-                            <option value="1">Yearly</option>
-                        </x-inputs.select>
+                            :options="$frequencyOptions"
+                        />
                     </div>
 
                     <div class="mt-2">

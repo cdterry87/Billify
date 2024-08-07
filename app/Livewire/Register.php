@@ -14,13 +14,15 @@ class Register extends Component
 
     protected function rules()
     {
+        $validFrequencyOptions = implode(',', array_keys(User::getFrequencyOptions()));
+
         return [
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6|same:password',
             'income' => 'required|numeric|min:1|max:999999999',
-            'frequency' => 'required|in:1,12,26,52',
+            'frequency' => 'required|in:' . $validFrequencyOptions,
         ];
     }
 
@@ -45,7 +47,11 @@ class Register extends Component
 
     public function render()
     {
-        return view('livewire.register');
+        $frequencyOptions = User::getFrequencyOptions();
+
+        return view('livewire.register', [
+            'frequencyOptions' => $frequencyOptions,
+        ]);
     }
 
     public function submit()

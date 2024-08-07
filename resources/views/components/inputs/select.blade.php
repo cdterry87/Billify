@@ -1,4 +1,4 @@
-@props(['name', 'label', 'id' => null, 'required' => false])
+@props(['name', 'label', 'id' => null, 'options' => [], 'required' => false])
 
 @php
     $id = $id ?? $name;
@@ -19,6 +19,11 @@
             'required' => $required,
         ]) }}
     >
-        {{ $slot }}
+        <option value="">Select {{ $label }}</option>
+        @if ($options)
+            @foreach ($options as $key => $option)
+                <option value="{{ $key }}">{{ $option }}</option>
+            @endforeach
+        @endif
     </select>
 </x-inputs.container>

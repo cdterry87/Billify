@@ -20,6 +20,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'income',
+        'frequency'
     ];
 
     /**
@@ -42,6 +44,16 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+        ];
+    }
+
+    public static function getFrequencyOptions(): array
+    {
+        return [
+            '1' => 'Yearly (Annual Salary)',
+            '12' => 'Monthly (Every Month)',
+            '26' => 'Bi-weekly (Every Two Weeks)',
+            '52' => 'Weekly (Every Week)'
         ];
     }
 }
