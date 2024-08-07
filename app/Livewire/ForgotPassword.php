@@ -45,7 +45,8 @@ class ForgotPassword extends Component
 
         // @todo - Send forgot password link to the user's email address
 
-        Session::flash('message', 'A password reset link has been sent to your email address.');
+        Session::flash('alert-type', 'success');
+        Session::flash('alert-message', 'A password reset link has been sent to your email address.');
 
         return redirect()->route('login');
     }

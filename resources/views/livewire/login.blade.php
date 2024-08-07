@@ -9,6 +9,13 @@
                 wire:submit.prevent="submit"
                 class="flex flex-col gap-4 w-full"
             >
+                @if (session()->has('alert-message'))
+                    <x-alert
+                        :type="session('alert-type')"
+                        :message="session('alert-message')"
+                    />
+                @endif
+
                 <x-inputs.text
                     label="Email"
                     name="email"
@@ -24,7 +31,10 @@
                     wire:model="password"
                 />
                 <div class="mt-2">
-                    <x-actions.button label="Login" />
+                    <x-actions.button
+                        type="submit"
+                        label="Login"
+                    />
                 </div>
             </form>
             <div class="flex flex-row gap-2 text-xs sm:text-sm">

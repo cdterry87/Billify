@@ -60,7 +60,8 @@ class Register extends Component
             'frequency' => $this->frequency,
         ]);
 
-        Session::flash('message', 'Your account was created successfully.');
+        Session::flash('alert-type', 'success');
+        Session::flash('alert-message', 'Your account was created successfully.');
 
         return redirect()->route('login');
     }

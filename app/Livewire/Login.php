@@ -4,15 +4,17 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class Login extends Component
 {
-    public $email;
+    public $email, $password;
 
     protected function rules()
     {
         return [
             'email' => 'required|email',
+            'password' => 'required',
         ];
     }
 
@@ -33,12 +35,16 @@ class Login extends Component
     {
         $this->validate();
 
-        // Login the user
-        Auth::attempt(['email' => $this->email]);
+        if (Auth::attempt([
+            'email' => $this->email,
+            'password' => $this->password
+        ])) {
+            return redirect()->route('home');
+        }
 
+        Session::flash('alert-type', 'error');
+        Session::flash('alert-message', 'Your credentials are invalid. Please try again.');
 
-
-
-        return redirect()->route('dashboard');
+        return redirect()->route('login');
     }
 }
