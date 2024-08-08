@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->integer('income')->length(9)->nullable();
             $table->enum('frequency', [1, 12, 26, 52])->nullable();
+            $table->boolean('demo')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

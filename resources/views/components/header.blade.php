@@ -10,7 +10,7 @@
             href="#"
             alt="My Profile"
             title="My Profile"
-            class="flex items-center gap-1 font-bold hover:brightness-150 transition duration-200 ease-in-out"
+            class="flex items-center gap-1 font-bold text-zinc-700 hover:text-zinc-600 transition duration-200 ease-in-out"
             @click.prevent="$wire.dispatch('openModal', {
                 title: 'My Profile',
                 component: 'my-profile-form',
