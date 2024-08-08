@@ -8,6 +8,7 @@
     :id="$id"
     :label="$label"
     :name="$name"
+    :required="$required"
 >
     <input
         {{ $attributes->merge([

@@ -61,7 +61,7 @@
             />
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <x-inputs.text
-                    label="Income"
+                    label="Income (After Taxes)"
                     name="income"
                     required
                     type="number"

@@ -1,4 +1,4 @@
-@props(['label', 'for' => null])
+@props(['label', 'for' => null, 'required' => false])
 
 <label
     {{ $attributes->merge([
@@ -8,4 +8,7 @@
     ]) }}
 >
     {{ $label }}
+    @if ($required)
+        <span class="text-red-700">*</span>
+    @endif
 </label>

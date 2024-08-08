@@ -31,6 +31,13 @@
                         class="bg-cyan-800 text-cyan-50 px-3 py-1 sm:p-1 rounded-lg flex items-center gap-2 hover:brightness-125 transition duration-300 ease-in-out"
                         title="Edit Bill"
                         alt="Edit Bill"
+                        @click.prevent="$wire.dispatch('openModal', {
+                            title: 'Edit Bill',
+                            component: 'bill-form',
+                            params: {
+                                modelId: {{ $bill->id }},
+                            },
+                        })"
                     >
                         <x-heroicon-c-pencil-square class="h-6 w-6" />
                         <span class="inline-block sm:hidden">Edit</span>
@@ -39,6 +46,7 @@
                         class="bg-red-800 text-red-50 px-3 py-1 sm:p-1 rounded-lg flex items-center gap-2 hover:brightness-125 transition duration-300 ease-in-out"
                         title="Delete Bill"
                         alt="Delete Bill"
+                        wire:click.prevent="deleteBill({{ $bill->id }})"
                     >
                         <x-heroicon-c-trash class="h-6 w-6" />
                         <span class="inline-block sm:hidden">Delete</span>

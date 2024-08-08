@@ -1,10 +1,10 @@
 <div class="flex flex-col gap-4">
     <div class="flex flex-col-reverse sm:flex-row items-center justify-between gap-2 sm:gap-4 font-semibold">
-        <h4 class="font-semibold text-xl text-zinc-600">Create a new bill</h4>
+        <h4 class="font-semibold text-xl text-zinc-600">Manage your bills</h4>
         <a
             href="#"
             wire:click="resetForm"
-            class="text-cyan-700 hover:text-cyan-900 transition duration-200 ease-in-out flex items-center gap-2 font-semibold"
+            class="text-cyan-700 hover:text-cyan-900 transition duration-200 ease-in-out flex items-center gap-1 font-semibold text-sm"
         >
             <x-heroicon-c-plus-circle class="h-6 w-6" />
             New Bill
@@ -31,7 +31,6 @@
         <x-inputs.textarea
             label="Description"
             name="description"
-            required
             wire:model="description"
         />
 
@@ -129,8 +128,15 @@
             />
         </div>
 
-        <div class="mt-2">
+        <div class="mt-2 flex items-center gap-4">
             <x-actions.button label="Submit" />
+            @if ($modelId)
+                <x-actions.button
+                    label="Delete"
+                    custom-classes="bg-red-800 text-red-50 border-red-900 hover:bg-red-700 hover:border-red-800"
+                    wire:click="delete"
+                />
+            @endif
         </div>
     </form>
 </div>

@@ -93,30 +93,53 @@ class BillForm extends Component
     {
         $this->validate();
 
-        Bill::create([
-            'user_id' => auth()->id(),
-            'name' => $this->name,
-            'category' => $this->category,
-            'description' => $this->description,
-            'amount' => $this->amount,
-            'day' => $this->day,
-            'january' => $this->january,
-            'february' => $this->february,
-            'march' => $this->march,
-            'april' => $this->april,
-            'may' => $this->may,
-            'june' => $this->june,
-            'july' => $this->july,
-            'august' => $this->august,
-            'september' => $this->september,
-            'october' => $this->october,
-            'november' => $this->november,
-            'december' => $this->december
-        ]);
+        $record = Bill::updateOrCreate(
+            ['id' => $this->modelId],
+            [
+                'user_id' => auth()->id(),
+                'name' => $this->name,
+                'category' => $this->category,
+                'description' => $this->description,
+                'amount' => $this->amount,
+                'day' => $this->day,
+                'january' => $this->january,
+                'february' => $this->february,
+                'march' => $this->march,
+                'april' => $this->april,
+                'may' => $this->may,
+                'june' => $this->june,
+                'july' => $this->july,
+                'august' => $this->august,
+                'september' => $this->september,
+                'october' => $this->october,
+                'november' => $this->november,
+                'december' => $this->december
+            ]
+        );
 
-        $this->dispatch('setModalAlert', 'Bill created successfully!', 'success');
+        $this->modelId = $record->id;
+
+        $this->dispatch('setModalAlert', 'Bill saved successfully!', 'success');
+        $this->dispatch('refreshBillList');
+    }
+
+    public function delete()
+    {
+        $bill = Bill::query()
+            ->where('id', $this->modelId)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        if (!$bill) {
+            $this->dispatch('setModalAlert', 'Bill not found!', 'error');
+            return;
+        }
+
+        $bill->delete();
 
         $this->resetForm();
+        $this->dispatch('setModalAlert', 'Bill deleted successfully!', 'error');
+        $this->dispatch('refreshBillList');
     }
 
     public function resetForm()

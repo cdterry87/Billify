@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 
 trait WithAlerts
 {
+    #[On('setAlert')]
     public function setAlert($message, $type = 'success'): void
     {
         Session::flash('alert-type', $type);

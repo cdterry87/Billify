@@ -61,4 +61,28 @@ class User extends Authenticatable
     {
         return $this->hasMany(Bill::class);
     }
+
+    public function getYearlyIncome(): string
+    {
+        $income = $this->income * $this->frequency;
+        return '$' . number_format($income, 2);
+    }
+
+    public function getMonthlyIncome(): string
+    {
+        $income = $this->income * $this->frequency / 12;
+        return '$' . number_format($income, 2);
+    }
+
+    public function getBiWeeklyIncome(): string
+    {
+        $income = $this->income * $this->frequency / 26;
+        return '$' . number_format($income, 2);
+    }
+
+    public function getWeeklyIncome(): string
+    {
+        $income = $this->income * $this->frequency / 52;
+        return '$' . number_format($income, 2);
+    }
 }
