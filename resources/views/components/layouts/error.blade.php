@@ -11,9 +11,7 @@
             @endif
 
             <div>
-                <h1 class="logo text-4xl font-bold select-none">
-                    {{ config('app.name') }}
-                </h1>
+                <h1 class="logo font-bold text-6xl text-primary">{{ config('app.name') }}</h1>
                 @if ($message)
                     <p class="text-lg mt-4 w-full sm:w-96">
                         {{ $message }}
@@ -23,7 +21,7 @@
 
             {{ $slot }}
         </div>
-        <div class="w-full bg-base-300 p-4">
+        <div class="w-full bg-zinc-100 p-4">
             <div
                 class="container mx-auto flex flex-col md:flex-row items-center justify-center text-center text-sm md:space-x-8 space-y-1 md:space-y-0 gap-4">
                 <div>
@@ -35,7 +33,7 @@
                     target="_blank"
                     title="Email"
                 >
-                    <x-icons.mail class="h-6 w-6" />
+                    <x-heroicon-c-envelope class="h-6 w-6" />
                     <div>support@billify.com</div>
                 </a>
             </div>

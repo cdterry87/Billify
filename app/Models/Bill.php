@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\WithCurrency;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Bill extends Model
 {
-    use HasFactory;
+    use HasFactory, WithCurrency;
 
     protected $table = 'bills';
     protected $guarded = [];
@@ -46,6 +47,6 @@ class Bill extends Model
 
     public function getAmountAsCurrency()
     {
-        return '$' . number_format($this->amount, 2);
+        return $this->formatCurrency($this->amount);
     }
 }

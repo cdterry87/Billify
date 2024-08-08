@@ -1,7 +1,7 @@
 <div class="h-screen text-white">
-    <x-guest-background-video />
+    <x-background-video assetPath="videos/budget.mp4" />
 
-    <div class="flex flex-col gap-8 items-center justify-center h-full mx-4">
+    <div class="flex flex-col gap-4 items-center justify-center h-full mx-4">
         <div class="flex flex-col items-center gap-6 p-8 bg-zinc-100 text-zinc-800 w-full sm:w-120 rounded-lg">
             <x-logo />
 
@@ -52,6 +52,6 @@
             </div>
         </div>
 
-        <x-guest-footer />
+        <x-footer />
     </div>
 </div>

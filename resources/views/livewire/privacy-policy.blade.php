@@ -1,5 +1,5 @@
 <div class="bg-zinc-100 text-zinc-800 min-h-screen">
-    <div class="flex flex-col gap-8 items-center justify-center h-full mx-4 py-6">
+    <div class="flex flex-col gap-4 items-center justify-center h-full mx-4 py-6">
         <div class="flex flex-col gap-4 items-center justify-center w-full sm:w-120">
             <x-logo />
 
@@ -119,15 +119,17 @@
                 </div>
             </div>
 
-            <x-actions.link
-                class="text-secondary"
-                :href="route('home')"
-                label="Return to Home"
-            />
+            <a
+                href="{{ route('home') }}"
+                class="flex items-center gap-2 bg-zinc-800 text-zinc-50 px-4 py-2 hover:brightness-125 transition duration-300 ease-in-out rounded-lg"
+            >
+                <x-heroicon-c-arrow-left class="w-6 h-6" />
+                Return Home
+            </a>
 
             <br>
 
-            <x-guest-footer />
+            <x-footer />
         </div>
     </div>
 </div>

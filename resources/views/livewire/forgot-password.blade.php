@@ -1,5 +1,5 @@
 <div class="bg-zinc-100 text-zinc-800 h-screen min-h-screen">
-    <div class="flex flex-col gap-8 items-center justify-center h-full mx-4 py-6">
+    <div class="flex flex-col gap-4 items-center justify-center h-full mx-4 py-6">
         <div class="flex flex-col gap-4 items-center justify-center w-full sm:w-120">
             <x-logo />
             <h3 class="text-zinc-500">
@@ -21,7 +21,7 @@
                         <x-actions.button label="Send Password Reset Link" />
                     </div>
                 </form>
-                <div class="text-xs sm:text-sm">
+                <div class="flex items-center gap-2 text-xs sm:text-sm">
                     <x-actions.link
                         class="text-secondary"
                         :href="route('login')"
@@ -37,6 +37,6 @@
             </div>
         </div>
 
-        <x-guest-footer />
+        <x-footer />
     </div>
 </div>

@@ -51,7 +51,8 @@ class Register extends Component
 
         return view('livewire.register', [
             'frequencyOptions' => $frequencyOptions,
-        ]);
+        ])
+            ->layout('components.layouts.guest');
     }
 
     public function submit()

@@ -1,62 +1,64 @@
-<div>
-    @if ($bills->isNotEmpty())
-        @foreach ($bills as $bill)
-            <div
-                class="flex flex-col sm:flex-row sm:items-end gap-2 justify-between sm:gap-6 hover:bg-slate-100 transition duration-300 ease-in-out p-3 rounded-lg">
-                <div class="flex flex-col gap-2 flex-1">
-                    <h6 class="font-bold text-xl">{{ $bill->name }}</h6>
-                    <div class="flex flex-wrap items-center text-xs gap-x-3 gap-y-1 w-full">
-                        <p class="bg-emerald-100 text-emerald-700 py-1 px-2 rounded-lg">
-                            Amount:
-                            <span class="font-semibold">
-                                {{ $bill->getAmountAsCurrency() }}
-                            </span>
-                        </p>
-                        <p class="bg-cyan-100 text-cyan-700 py-1 px-2 rounded-lg">
-                            Category:
-                            <span class="font-semibold">
-                                {{ $bill->getCategoryValue() }}
-                            </span>
-                        </p>
-                        <p class="bg-rose-200 text-rose-700 py-1 px-2 rounded-lg">
-                            Day Due:
-                            <span class="font-semibold">
-                                {{ $bill->day }}
-                            </span>
-                        </p>
-                    </div>
-                </div>
-                <div class="flex items-center justify-center gap-3">
-                    <button
-                        class="bg-cyan-800 text-cyan-50 px-3 py-1 sm:p-1 rounded-lg flex items-center gap-2 hover:brightness-125 transition duration-300 ease-in-out"
-                        title="Edit Bill"
-                        alt="Edit Bill"
-                        @click.prevent="$wire.dispatch('openModal', {
-                            title: 'Edit Bill',
-                            component: 'bill-form',
-                            params: {
-                                modelId: {{ $bill->id }},
-                            },
-                        })"
-                    >
-                        <x-heroicon-c-pencil-square class="h-6 w-6" />
-                        <span class="inline-block sm:hidden">Edit</span>
-                    </button>
-                    <button
-                        class="bg-red-800 text-red-50 px-3 py-1 sm:p-1 rounded-lg flex items-center gap-2 hover:brightness-125 transition duration-300 ease-in-out"
-                        title="Delete Bill"
-                        alt="Delete Bill"
-                        wire:click.prevent="deleteBill({{ $bill->id }})"
-                    >
-                        <x-heroicon-c-trash class="h-6 w-6" />
-                        <span class="inline-block sm:hidden">Delete</span>
-                    </button>
-                </div>
-            </div>
+<div class="flex flex-col gap-6">
+    <div class="flex flex-col sm:flex-row items-start gap-2 sm:gap-4">
+        <div class="w-full sm:w-auto">
+            <x-inputs.select
+                label="Showing"
+                name="filterShowing"
+                required
+                wire:model.live="filterShowing"
+                :options="[
+                    '' => 'All Months',
+                    'current' => 'Current Month Only',
+                ]"
+                without-empty
+            />
+        </div>
+        <div class="w-full sm:w-auto">
+            <x-inputs.select
+                label="By Category"
+                name="filterCategory"
+                required
+                wire:model.live="filterCategory"
+                :options="$categoryOptions"
+            />
+        </div>
+        <div class="flex items-end justify-end w-full sm:w-auto">
+            <a
+                class="flex items-center gap-1 text-secondary text-xs bg-zinc-100 border border-zinc-200 rounded-lg px-2 py-1 hover:bg-zinc-200 hover:border-zinc-300 transition duration-300 ease-in-out font-semibold"
+                href="#"
+                wire:click.prevent="resetFilters"
+            >
+                <x-heroicon-c-arrow-uturn-left class="w-4 h-4" />
+                Reset Filters
+            </a>
+        </div>
+    </div>
 
-            <hr class="my-2">
-        @endforeach
+    @if ($bills->isNotEmpty())
+        <div class="flex flex-col gap-6">
+            @foreach ($bills as $bill)
+                <div>
+                    <x-bill-list-item :bill="$bill" />
+
+                    <hr class="my-2">
+                </div>
+            @endforeach
+
+            <div
+                class="font-bold text-xl px-3 pb-4 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-6">
+                <h3>Bills Total:</h3>
+                <div>{{ $billsTotal }}</div>
+            </div>
+        </div>
     @else
-        <p>You have not added any bills yet.</p>
+        <div class="flex flex-col gap-2 items-center justify-center text-center py-12 px-6 tracking-wider">
+            @if ($filterCategory || $filterShowing)
+                <p class="text-lg sm:text-3xl text-zinc-700">No results were found.</p>
+                <p class="text-xs sm:text-base text-zinc-600">Please try a different filter.</p>
+            @else
+                <p class="text-lg sm:text-3xl text-zinc-700">You have not added any bills yet.</p>
+                <p class="text-xs sm:text-base text-zinc-600">Click the "Add Bill" button above to add a new bill.</p>
+            @endif
+        </div>
     @endif
 </div>

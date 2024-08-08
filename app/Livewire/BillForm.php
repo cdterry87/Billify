@@ -8,8 +8,20 @@ use Livewire\Component;
 class BillForm extends Component
 {
     public $modelId;
-    public $name, $category, $description, $amount, $day;
-    public $january, $february, $march, $april, $may, $june, $july, $august, $september, $october, $november, $december;
+    public $name, $category, $description, $amount;
+    public $day = 1;
+    public $january = false;
+    public $february = false;
+    public $march = false;
+    public $april = false;
+    public $may = false;
+    public $june = false;
+    public $july = false;
+    public $august = false;
+    public $september = false;
+    public $october = false;
+    public $november = false;
+    public $december = false;
 
     protected function rules()
     {
@@ -19,18 +31,6 @@ class BillForm extends Component
             'description' => 'nullable|string',
             'amount' => 'required|numeric',
             'day' => 'required|numeric',
-            'january' => 'nullable|boolean',
-            'february' => 'nullable|boolean',
-            'march' => 'nullable|boolean',
-            'april' => 'nullable|boolean',
-            'may' => 'nullable|boolean',
-            'june' => 'nullable|boolean',
-            'july' => 'nullable|boolean',
-            'august' => 'nullable|boolean',
-            'september' => 'nullable|boolean',
-            'october' => 'nullable|boolean',
-            'november' => 'nullable|boolean',
-            'december' => 'nullable|boolean'
         ];
     }
 
@@ -75,18 +75,18 @@ class BillForm extends Component
         $this->description = $record->description;
         $this->amount = $record->amount;
         $this->day = $record->day;
-        $this->january = $record->january;
-        $this->february = $record->february;
-        $this->march = $record->march;
-        $this->april = $record->april;
-        $this->may = $record->may;
-        $this->june = $record->june;
-        $this->july = $record->july;
-        $this->august = $record->august;
-        $this->september = $record->september;
-        $this->october = $record->october;
-        $this->november = $record->november;
-        $this->december = $record->december;
+        $this->january = !!$record->january;
+        $this->february = !!$record->february;
+        $this->march = !!$record->march;
+        $this->april = !!$record->april;
+        $this->may = !!$record->may;
+        $this->june = !!$record->june;
+        $this->july = !!$record->july;
+        $this->august = !!$record->august;
+        $this->september = !!$record->september;
+        $this->october = !!$record->october;
+        $this->november = !!$record->november;
+        $this->december = !!$record->december;
     }
 
     public function submit()

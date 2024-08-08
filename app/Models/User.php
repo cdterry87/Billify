@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,27 +63,43 @@ class User extends Authenticatable
         return $this->hasMany(Bill::class);
     }
 
-    public function getYearlyIncome(): string
+    public function getYearlyIncome(): float
     {
-        $income = $this->income * $this->frequency;
-        return '$' . number_format($income, 2);
+        return round($this->income * $this->frequency, 2);
     }
 
-    public function getMonthlyIncome(): string
+    public function getYearlyBillTotal(): float
     {
-        $income = $this->income * $this->frequency / 12;
-        return '$' . number_format($income, 2);
+        // Get all of the user's bills;
     }
 
-    public function getBiWeeklyIncome(): string
+    public function getMonthlyIncome(): float
     {
-        $income = $this->income * $this->frequency / 26;
-        return '$' . number_format($income, 2);
+        return round($this->income * $this->frequency / 12, 2);
     }
 
-    public function getWeeklyIncome(): string
+    public function getMonthlyBillTotal(): float
     {
-        $income = $this->income * $this->frequency / 52;
-        return '$' . number_format($income, 2);
+        // Get all of the user's bills;
+    }
+
+    public function getBiWeeklyIncome(): float
+    {
+        return round($this->income * $this->frequency / 26, 2);
+    }
+
+    public function getBiWeeklyBillTotal(): float
+    {
+        // Get all of the user's bills;
+    }
+
+    public function getWeeklyIncome(): float
+    {
+        return round($this->income * $this->frequency / 52, 2);
+    }
+
+    public function getWeeklyBillTotal(): float
+    {
+        // Get all of the user's bills;
     }
 }

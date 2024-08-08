@@ -1,6 +1,7 @@
 <div
     x-data="{ isOpen: @entangle('isOpen') }"
     x-show="isOpen"
+    x-init="$watch('isOpen', value => document.body.classList.toggle('overflow-hidden', value))"
     class="fixed inset-0 flex items-center justify-center z-50"
 >
     <div class="fixed inset-0 bg-black opacity-50"></div>

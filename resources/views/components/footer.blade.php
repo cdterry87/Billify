@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center gap-2 text-xs pb-8 w-full">
+<div class="flex flex-col items-center gap-2 text-xs py-8 w-full">
     <div class="flex flex-col gap-2 sm:flex-row sm:items-center text-center sm:gap-2">
         <p>Copyright © {{ date('Y') }}. All rights reserved.</p>
         <span class="hidden sm:block">|</span>

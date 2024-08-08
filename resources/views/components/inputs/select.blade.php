@@ -1,4 +1,4 @@
-@props(['name', 'label', 'id' => null, 'options' => [], 'required' => false])
+@props(['name', 'label', 'id' => null, 'options' => [], 'required' => false, 'withoutEmpty' => false])
 
 @php
     $id = $id ?? $name;
@@ -20,7 +20,9 @@
             'required' => $required,
         ]) }}
     >
-        <option value="">Select {{ $label }}</option>
+        @if (!$withoutEmpty)
+            <option value="">Select {{ $label }}</option>
+        @endif
         @if ($options)
             @foreach ($options as $key => $option)
                 <option value="{{ $key }}">{{ $option }}</option>

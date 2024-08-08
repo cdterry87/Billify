@@ -1,5 +1,5 @@
 <div class="bg-zinc-100 text-zinc-800 h-screen min-h-screen">
-    <div class="flex flex-col gap-8 items-center justify-center h-full mx-4 py-6">
+    <div class="flex flex-col gap-4 items-center justify-center h-full mx-4 py-6">
         <div class="flex flex-col gap-4 items-center justify-center w-full sm:w-120">
             <x-logo />
             <h3 class="text-zinc-500">
@@ -38,6 +38,6 @@
             </div>
         </div>
 
-        <x-guest-footer />
+        <x-footer />
     </div>
 </div>

@@ -1,5 +1,5 @@
 <div class="bg-zinc-100 text-zinc-800 min-h-screen">
-    <div class="flex flex-col gap-8 items-center justify-center h-full mx-4 py-6">
+    <div class="flex flex-col gap-4 items-center justify-center h-full mx-4 py-6">
         <div class="flex flex-col gap-4 items-center justify-center w-full sm:w-120">
             <x-logo />
             <h3 class="text-zinc-500">
@@ -40,7 +40,7 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <x-inputs.text
-                            label="Income"
+                            label="Income (After Taxes)"
                             name="income"
                             required
                             type="number"
@@ -69,6 +69,6 @@
             </div>
         </div>
 
-        <x-guest-footer />
+        <x-footer />
     </div>
 </div>

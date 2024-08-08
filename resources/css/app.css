@@ -17,7 +17,7 @@ body {
     font-family: "Damion", sans-serif !important;
 }
 
-.guest--video-container {
+.background-video-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -27,13 +27,13 @@ body {
     z-index: -1; /* Place the video behind other content */
 }
 
-#guest--background-video {
+#background-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.video-overlay::before {
+.background-video-overlay::before {
     content: "";
     display: block;
     position: absolute;
