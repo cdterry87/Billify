@@ -70,6 +70,8 @@
                     })"
                 />
             </x-slot>
+
+            <livewire:bill-list />
         </x-card>
     </div>
 

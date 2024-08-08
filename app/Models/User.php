@@ -56,4 +56,9 @@ class User extends Authenticatable
             '52' => 'Weekly (Every Week)'
         ];
     }
+
+    public function bills()
+    {
+        return $this->hasMany(Bill::class);
+    }
 }

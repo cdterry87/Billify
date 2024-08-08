@@ -103,4 +103,13 @@ class MyProfileForm extends Component
         $this->password = '';
         $this->password_confirmation = '';
     }
+
+    public function deleteAccount()
+    {
+        auth()->user()->delete();
+
+        $this->dispatch('setAlert', 'Account deleted successfully!', 'success');
+
+        return redirect()->route('login');
+    }
 }

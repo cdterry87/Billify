@@ -15,7 +15,10 @@
                 x-show="activeTab === 'changePassword'"
             >Change your password</h4>
         </div>
-        <div class="flex items-center gap-2 text-cyan-700 text-sm font-semibold">
+        <div
+            class="text-cyan-700 text-sm font-semibold"
+            x-show="activeTab !== 'deleteAccount'"
+        >
             <a
                 href="#"
                 @click="activeTab = 'updateProfile'"
@@ -25,7 +28,7 @@
             >Update Profile</a>
             <a
                 href="#"
-                @click.prevent="activeTab = 'changePassword'"
+                @click="activeTab = 'changePassword'"
                 wire:click="$dispatch('resetAlerts')"
                 x-show="activeTab !== 'changePassword'"
                 class="hover:text-cyan-900 transition duration-200 ease-in-out"
@@ -72,8 +75,13 @@
                     :options="$frequencyOptions"
                 />
             </div>
-            <div class="mt-2">
+            <div class="mt-2 flex items-center gap-6">
                 <x-actions.button label="Update Profile" />
+                <x-actions.button
+                    label="Delete Account"
+                    custom-classes="bg-red-800 text-red-50 border-red-950 hover:bg-red-700 hover:border-red-800"
+                    @click.prevent="activeTab = 'deleteAccount'"
+                />
             </div>
         </form>
     </div>
@@ -106,6 +114,36 @@
             <div class="mt-2">
                 <x-actions.button label="Change Password" />
             </div>
+        </form>
+    </div>
+
+    <div
+        x-show="activeTab === 'deleteAccount'"
+        x-transition:enter="transition ease-out duration-400"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+    >
+        <form
+            wire:submit.prevent="deleteAccount"
+            class="flex flex-col items-center justify-center gap-4 w-full"
+        >
+            <x-heroicon-c-exclamation-triangle class="h-12 w-12 text-red-800 text-center" />
+            <h4 class="font-semibold text-xl text-center">
+                Confirm Account Deletion
+            </h4>
+            <p>
+                Are you sure you want to delete your account? This action will remove all of your account information
+                from our system. This action cannot be undone.
+            </p>
+            <div class="mt-2 flex items-center gap-6 w-full">
+                <x-actions.button
+                    label="Delete Account"
+                    custom-classes="bg-red-800 text-red-50 border-red-950 hover:bg-red-700 hover:border-red-800"
+                />
+                <x-actions.button
+                    label="Cancel"
+                    @click.prevent="activeTab = 'updateProfile'"
+                />
         </form>
     </div>
 </div>

@@ -33,4 +33,19 @@ class Bill extends Model
             'other' => 'Other'
         ];
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getCategoryValue()
+    {
+        return $this->getCategoryOptions()[$this->category];
+    }
+
+    public function getAmountAsCurrency()
+    {
+        return '$' . number_format($this->amount, 2);
+    }
 }
