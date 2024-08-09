@@ -8,8 +8,8 @@ set -e
 
 git checkout production
 
-git merge master -m "Deploy to production"
+git merge main -m "Deploy to production"
 
 git push origin production
 
-git checkout master
+git checkout main
