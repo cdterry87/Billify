@@ -2,10 +2,17 @@
     <div class="flex flex-col-reverse md:flex-row gap-2 items-end justify-between md:gap-6">
         <div class="flex flex-col md:flex-row items-start gap-2 sm:gap-4 w-full md:w-auto">
             <div class="w-full md:w-auto">
+                <x-inputs.text
+                    label="Search"
+                    type="search"
+                    name="filterSearch"
+                    wire:model.live.debounce.500ms="filterSearch"
+                />
+            </div>
+            <div class="w-full md:w-auto">
                 <x-inputs.select
                     label="Showing"
                     name="filterShowing"
-                    required
                     wire:model.live="filterShowing"
                     :options="[
                         '' => 'All Months',
@@ -18,7 +25,6 @@
                 <x-inputs.select
                     label="By Category"
                     name="filterCategory"
-                    required
                     wire:model.live="filterCategory"
                     :options="$categoryOptions"
                 />
@@ -62,11 +68,9 @@
                 <div>
                     <div class="flex flex-row items-center justify-between gap-2 sm:gap-6">
                         <h3>Monthly Remainder:</h3>
-                        @if ($monthlyRemainder >= 0)
-                            <div class="text-emerald-700">{{ $monthlyRemainder }}</div>
-                        @else
-                            <div class="text-rose-700">{{ $monthlyRemainder }}</div>
-                        @endif
+                        <div class="{{ $hasRemainder ? 'text-emerald-700' : 'text-rose-700' }}">
+                            {{ $monthlyRemainder }}
+                        </div>
                     </div>
                 </div>
             </div>

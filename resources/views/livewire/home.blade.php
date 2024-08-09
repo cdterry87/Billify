@@ -28,7 +28,7 @@
             />
         </div>
 
-        <x-card title="My Monthly Bills">
+        <x-card title="My Monthly Bills for {{ date('F Y') }}">
             <x-slot name="primaryAction">
                 <x-actions.button
                     label="Add Bill"

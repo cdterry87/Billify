@@ -13,8 +13,9 @@ class BillList extends Component
 
     public $bills, $billsTotal, $billsCount;
     public $monthlyIncome, $monthlyRemainder;
-    public $filterCategory;
+    public $filterSearch, $filterCategory;
     public $filterShowing = 'current';
+    public $hasRemainder = false;
 
     public function mount()
     {
@@ -34,6 +35,9 @@ class BillList extends Component
     public function getBillList()
     {
         $this->bills = auth()->user()->bills()
+            ->when($this->filterSearch, function ($query, $search) {
+                return $query->where('name', 'like', '%' . $search . '%');
+            })
             ->when($this->filterCategory, function ($query, $category) {
                 return $query->where('category', $category);
             })
@@ -64,10 +68,16 @@ class BillList extends Component
 
         $billsTotal = $this->bills->sum('amount');
         $monthlyIncome = auth()->user()->getMonthlyIncomeRaw();
+        $monthlyRemainder = $monthlyIncome - $billsTotal;
+
+        $this->hasRemainder = false;
+        if ($monthlyRemainder > 0) {
+            $this->hasRemainder = true;
+        }
 
         $this->billsTotal = $this->formatCurrency($billsTotal);
         $this->monthlyIncome = $this->formatCurrency($monthlyIncome);
-        $this->monthlyRemainder = $this->formatCurrency($monthlyIncome - $billsTotal);
+        $this->monthlyRemainder = $this->formatCurrency($monthlyRemainder);
     }
 
     public function deleteBill($billId)
@@ -81,9 +91,15 @@ class BillList extends Component
 
     public function resetFilters()
     {
+        $this->filterSearch = null;
         $this->filterCategory = null;
         $this->filterShowing = 'current';
 
+        $this->getBillList();
+    }
+
+    public function updatedFilterSearch()
+    {
         $this->getBillList();
     }
 
