@@ -23,5 +23,5 @@
 <div {{ $attributes->merge([
     'class' => 'p-4 rounded-lg border ' . $classes,
 ]) }}>
-    {{ $message ?? $slot }}
+    {!! $message ?? $slot !!}
 </div>

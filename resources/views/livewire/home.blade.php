@@ -7,6 +7,20 @@
                 :type="session('alert-type')"
                 :message="session('alert-message')"
             />
+        @elseif($notifications && count($notifications) > 0)
+            <x-alert type="warning">
+                <p class="font-bold text-lg">You have bills that will be due soon!</p>
+                <ul class="list-disc list-inside text-sm">
+                    @foreach ($notifications as $notification)
+                        <li>{!! $notification !!}</li>
+                    @endforeach
+                </ul>
+            </x-alert>
+        @else
+            <x-alert type="info">
+                Welcome to <strong>Billify</strong>, <strong>{{ auth()->user()->name }}</strong>!
+                View your income summary and get started tracking your monthly bills below!
+            </x-alert>
         @endif
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
