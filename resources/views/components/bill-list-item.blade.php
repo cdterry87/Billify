@@ -23,6 +23,66 @@
                     {{ $bill->day }}
                 </span>
             </p>
+            @if ($bill->january)
+                <p class="bg-violet-200 text-violet-700 py-1 px-2 rounded-lg font-semibold">
+                    January
+                </p>
+            @endif
+            @if ($bill->february)
+                <p class="bg-violet-200 text-violet-700 py-1 px-2 rounded-lg font-semibold">
+                    February
+                </p>
+            @endif
+            @if ($bill->march)
+                <p class="bg-violet-200 text-violet-700 py-1 px-2 rounded-lg font-semibold">
+                    March
+                </p>
+            @endif
+            @if ($bill->april)
+                <p class="bg-violet-200 text-violet-700 py-1 px-2 rounded-lg font-semibold">
+                    April
+                </p>
+            @endif
+            @if ($bill->may)
+                <p class="bg-violet-200 text-violet-700 py-1 px-2 rounded-lg font-semibold">
+                    May
+                </p>
+            @endif
+            @if ($bill->june)
+                <p class="bg-violet-200 text-violet-700 py-1 px-2 rounded-lg font-semibold">
+                    June
+                </p>
+            @endif
+            @if ($bill->july)
+                <p class="bg-violet-200 text-violet-700 py-1 px-2 rounded-lg font-semibold">
+                    July
+                </p>
+            @endif
+            @if ($bill->august)
+                <p class="bg-violet-200 text-violet-700 py-1 px-2 rounded-lg font-semibold">
+                    August
+                </p>
+            @endif
+            @if ($bill->september)
+                <p class="bg-violet-200 text-violet-700 py-1 px-2 rounded-lg font-semibold">
+                    September
+                </p>
+            @endif
+            @if ($bill->october)
+                <p class="bg-violet-200 text-violet-700 py-1 px-2 rounded-lg font-semibold">
+                    October
+                </p>
+            @endif
+            @if ($bill->november)
+                <p class="bg-violet-200 text-violet-700 py-1 px-2 rounded-lg font-semibold">
+                    November
+                </p>
+            @endif
+            @if ($bill->december)
+                <p class="bg-violet-200 text-violet-700 py-1 px-2 rounded-lg font-semibold">
+                    December
+                </p>
+            @endif
         </div>
     </div>
     <div class="flex items-center justify-center gap-3">
