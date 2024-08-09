@@ -1,41 +1,46 @@
 <div class="flex flex-col gap-6">
-    <div class="flex flex-col sm:flex-row items-start gap-2 sm:gap-4">
-        <div class="w-full sm:w-auto">
-            <x-inputs.select
-                label="Showing"
-                name="filterShowing"
-                required
-                wire:model.live="filterShowing"
-                :options="[
-                    '' => 'All Months',
-                    'current' => 'Current Month Only',
-                ]"
-                without-empty
-            />
+    <div class="flex flex-col-reverse md:flex-row gap-2 items-end justify-between md:gap-6">
+        <div class="flex flex-col md:flex-row items-start gap-2 sm:gap-4 w-full md:w-auto">
+            <div class="w-full md:w-auto">
+                <x-inputs.select
+                    label="Showing"
+                    name="filterShowing"
+                    required
+                    wire:model.live="filterShowing"
+                    :options="[
+                        '' => 'All Months',
+                        'current' => 'Current Month Only',
+                    ]"
+                    without-empty
+                />
+            </div>
+            <div class="w-full md:w-auto">
+                <x-inputs.select
+                    label="By Category"
+                    name="filterCategory"
+                    required
+                    wire:model.live="filterCategory"
+                    :options="$categoryOptions"
+                />
+            </div>
+            <div class="flex items-end justify-end w-full md:w-auto">
+                <a
+                    class="flex items-center gap-1 text-secondary text-xs bg-zinc-100 border border-zinc-200 rounded-lg px-2 py-1 hover:bg-zinc-200 hover:border-zinc-300 transition duration-300 ease-in-out font-semibold"
+                    href="#"
+                    wire:click.prevent="resetFilters"
+                >
+                    <x-heroicon-c-arrow-uturn-left class="w-4 h-4" />
+                    Reset Filters
+                </a>
+            </div>
         </div>
-        <div class="w-full sm:w-auto">
-            <x-inputs.select
-                label="By Category"
-                name="filterCategory"
-                required
-                wire:model.live="filterCategory"
-                :options="$categoryOptions"
-            />
-        </div>
-        <div class="flex items-end justify-end w-full sm:w-auto">
-            <a
-                class="flex items-center gap-1 text-secondary text-xs bg-zinc-100 border border-zinc-200 rounded-lg px-2 py-1 hover:bg-zinc-200 hover:border-zinc-300 transition duration-300 ease-in-out font-semibold"
-                href="#"
-                wire:click.prevent="resetFilters"
-            >
-                <x-heroicon-c-arrow-uturn-left class="w-4 h-4" />
-                Reset Filters
-            </a>
+        <div class="font-bold text-xl italic text-zinc-600">
+            {{ $billsCount ?? 0 }} Results
         </div>
     </div>
 
     @if ($bills->isNotEmpty())
-        <div class="flex flex-col gap-6">
+        <div class="flex flex-col">
             @foreach ($bills as $bill)
                 <div>
                     <x-bill-list-item :bill="$bill" />
@@ -44,11 +49,28 @@
                 </div>
             @endforeach
 
-            <div
-                class="font-bold text-xl px-3 pb-4 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-6">
-                <h3>Bills Total:</h3>
-                <div>{{ $billsTotal }}</div>
+            <div class="flex flex-col gap-2 font-bold text-base sm:text-xl px-3 pb-4">
+                <div class="flex flex-row items-center justify-between gap-2 sm:gap-6">
+                    <h3>Monthly Income:</h3>
+                    <div class="text-emerald-700">{{ $monthlyIncome }}</div>
+                </div>
+                <div class="flex flex-row items-center justify-between gap-2 sm:gap-6">
+                    <h3>Bills Total:</h3>
+                    <div class="text-rose-700">- {{ $billsTotal }}</div>
+                </div>
+                <hr>
+                <div>
+                    <div class="flex flex-row items-center justify-between gap-2 sm:gap-6">
+                        <h3>Monthly Remainder:</h3>
+                        @if ($monthlyRemainder >= 0)
+                            <div class="text-emerald-700">{{ $monthlyRemainder }}</div>
+                        @else
+                            <div class="text-rose-700">{{ $monthlyRemainder }}</div>
+                        @endif
+                    </div>
+                </div>
             </div>
+
         </div>
     @else
         <div class="flex flex-col gap-2 items-center justify-center text-center py-12 px-6 tracking-wider">

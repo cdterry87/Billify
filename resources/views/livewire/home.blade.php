@@ -12,19 +12,19 @@
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             <x-income-summary
                 label="Annual Income"
-                value="{{ auth()->user()->getYearlyIncome() }}"
+                value="{{ $yearlyIncome }}"
             />
             <x-income-summary
                 label="Monthly Income"
-                value="{{ auth()->user()->getMonthlyIncome() }}"
+                value="{{ $monthlyIncome }}"
             />
             <x-income-summary
                 label="Bi-Weekly Income"
-                value="{{ auth()->user()->getBiWeeklyIncome() }}"
+                value="{{ $biWeeklyIncome }}"
             />
             <x-income-summary
                 label="Weekly Income"
-                value="{{ auth()->user()->getWeeklyIncome() }}"
+                value="{{ $weeklyIncome }}"
             />
         </div>
 
@@ -40,7 +40,7 @@
                 />
             </x-slot>
 
-            <livewire:bill-list />
+            <livewire:bill-list :monthly-income="$monthlyIncome" />
         </x-card>
     </div>
 

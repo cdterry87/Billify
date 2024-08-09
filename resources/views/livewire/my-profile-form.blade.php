@@ -75,7 +75,7 @@
                     :options="$frequencyOptions"
                 />
             </div>
-            <div class="mt-2 flex items-center gap-6">
+            <div class="mt-2 flex flex-col sm:flex-row items-center gap-2 sm:gap-6">
                 <x-actions.button label="Update Profile" />
                 <x-actions.button
                     label="Delete Account"

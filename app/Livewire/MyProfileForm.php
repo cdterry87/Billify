@@ -74,6 +74,7 @@ class MyProfileForm extends Component
         ]);
 
         $this->dispatch('setModalAlert', 'Profile updated successfully!', 'success');
+        $this->dispatch('refreshBillList');
 
         $this->resetForm();
     }

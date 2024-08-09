@@ -11,6 +11,16 @@ class Home extends Component
 
     public function render()
     {
-        return view('livewire.home');
+        $yearlyIncome = auth()->user()->getYearlyIncome();
+        $monthlyIncome = auth()->user()->getMonthlyIncome();
+        $biWeeklyIncome = auth()->user()->getBiWeeklyIncome();
+        $weeklyIncome = auth()->user()->getWeeklyIncome();
+
+        return view('livewire.home', [
+            'yearlyIncome' => $yearlyIncome,
+            'monthlyIncome' => $monthlyIncome,
+            'biWeeklyIncome' => $biWeeklyIncome,
+            'weeklyIncome' => $weeklyIncome,
+        ]);
     }
 }

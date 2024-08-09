@@ -3,18 +3,22 @@
 namespace App\Livewire;
 
 use App\Models\Bill;
+use App\Traits\WithCurrency;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
 class BillList extends Component
 {
-    public $bills, $billsTotal;
+    use WithCurrency;
+
+    public $bills, $billsTotal, $billsCount;
+    public $monthlyIncome, $monthlyRemainder;
     public $filterCategory;
     public $filterShowing = 'current';
 
     public function mount()
     {
-        $this->getBills();
+        $this->getBillList();
     }
 
     public function render()
@@ -27,7 +31,7 @@ class BillList extends Component
     }
 
     #[On('refreshBillList')]
-    public function getBills()
+    public function getBillList()
     {
         $this->bills = auth()->user()->bills()
             ->when($this->filterCategory, function ($query, $category) {
@@ -56,7 +60,14 @@ class BillList extends Component
                 });
             })
             ->orderBy('day')->get();
-        $this->billsTotal = $this->bills->sum('amount');
+        $this->billsCount = $this->bills->count();
+
+        $billsTotal = $this->bills->sum('amount');
+        $monthlyIncome = auth()->user()->getMonthlyIncomeRaw();
+
+        $this->billsTotal = $this->formatCurrency($billsTotal);
+        $this->monthlyIncome = $this->formatCurrency($monthlyIncome);
+        $this->monthlyRemainder = $this->formatCurrency($monthlyIncome - $billsTotal);
     }
 
     public function deleteBill($billId)
@@ -65,7 +76,7 @@ class BillList extends Component
 
         $this->dispatch('setAlert', 'Bill deleted successfully!', 'error');
 
-        $this->getBills();
+        $this->getBillList();
     }
 
     public function resetFilters()
@@ -73,16 +84,16 @@ class BillList extends Component
         $this->filterCategory = null;
         $this->filterShowing = 'current';
 
-        $this->getBills();
+        $this->getBillList();
     }
 
     public function updatedFilterCategory()
     {
-        $this->getBills();
+        $this->getBillList();
     }
 
     public function updatedFilterShowing()
     {
-        $this->getBills();
+        $this->getBillList();
     }
 }

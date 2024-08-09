@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Traits\WithCurrency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, WithCurrency;
 
     /**
      * The attributes that are mass assignable.
@@ -63,43 +64,32 @@ class User extends Authenticatable
         return $this->hasMany(Bill::class);
     }
 
-    public function getYearlyIncome(): float
+    public function getYearlyIncome(): string
     {
-        return round($this->income * $this->frequency, 2);
+        $income = round($this->income * $this->frequency, 2);
+        return $this->formatCurrency($income);
     }
 
-    public function getYearlyBillTotal(): float
-    {
-        // Get all of the user's bills;
-    }
-
-    public function getMonthlyIncome(): float
+    public function getMonthlyIncomeRaw(): float
     {
         return round($this->income * $this->frequency / 12, 2);
     }
 
-    public function getMonthlyBillTotal(): float
+    public function getMonthlyIncome(): string
     {
-        // Get all of the user's bills;
+        $income = $this->getMonthlyIncomeRaw();
+        return $this->formatCurrency($income);
     }
 
-    public function getBiWeeklyIncome(): float
+    public function getBiWeeklyIncome(): string
     {
-        return round($this->income * $this->frequency / 26, 2);
+        $income = round($this->income * $this->frequency / 26, 2);
+        return $this->formatCurrency($income);
     }
 
-    public function getBiWeeklyBillTotal(): float
+    public function getWeeklyIncome(): string
     {
-        // Get all of the user's bills;
-    }
-
-    public function getWeeklyIncome(): float
-    {
-        return round($this->income * $this->frequency / 52, 2);
-    }
-
-    public function getWeeklyBillTotal(): float
-    {
-        // Get all of the user's bills;
+        $income = round($this->income * $this->frequency / 52, 2);
+        return $this->formatCurrency($income);
     }
 }
