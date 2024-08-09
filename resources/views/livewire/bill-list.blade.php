@@ -1,42 +1,45 @@
 <div class="flex flex-col gap-6">
-    <div class="flex flex-col-reverse md:flex-row gap-2 items-end justify-between md:gap-6">
-        <div class="flex flex-col md:flex-row items-start gap-2 sm:gap-4 w-full md:w-auto">
-            <div class="w-full md:w-auto">
+    <div class="flex flex-col-reverse lg:flex-row gap-2 items-end justify-between lg:gap-6">
+        <div class="flex flex-col lg:flex-row items-start gap-2 lg:gap-4 w-full lg:w-auto">
+            <div class="w-full lg:w-auto">
                 <x-inputs.text
                     label="Search"
                     type="search"
                     name="filterSearch"
+                    placeholder="Search for bills..."
                     wire:model.live.debounce.500ms="filterSearch"
                 />
             </div>
-            <div class="w-full md:w-auto">
-                <x-inputs.select
-                    label="Showing"
-                    name="filterShowing"
-                    wire:model.live="filterShowing"
-                    :options="[
-                        '' => 'All Months',
-                        'current' => 'Current Month Only',
-                    ]"
-                    without-empty
-                />
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                <div class="w-full lg:w-auto">
+                    <x-inputs.select
+                        label="Showing"
+                        name="filterShowing"
+                        wire:model.live="filterShowing"
+                        :options="[
+                            '' => 'All Months',
+                            'current' => 'Current Month Only',
+                        ]"
+                        without-empty
+                    />
+                </div>
+                <div class="w-full lg:w-auto">
+                    <x-inputs.select
+                        label="By Category"
+                        name="filterCategory"
+                        wire:model.live="filterCategory"
+                        :options="$categoryOptions"
+                    />
+                </div>
             </div>
-            <div class="w-full md:w-auto">
-                <x-inputs.select
-                    label="By Category"
-                    name="filterCategory"
-                    wire:model.live="filterCategory"
-                    :options="$categoryOptions"
-                />
-            </div>
-            <div class="flex items-end justify-end w-full md:w-auto">
+            <div class="flex items-end justify-end w-full lg:w-auto">
                 <a
                     class="flex items-center gap-1 text-secondary text-xs bg-zinc-100 border border-zinc-200 rounded-lg px-2 py-1 hover:bg-zinc-200 hover:border-zinc-300 transition duration-300 ease-in-out font-semibold"
                     href="#"
                     wire:click.prevent="resetFilters"
                 >
                     <x-heroicon-c-arrow-uturn-left class="w-4 h-4" />
-                    Reset Filters
+                    Reset
                 </a>
             </div>
         </div>
