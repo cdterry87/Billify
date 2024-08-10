@@ -15,22 +15,32 @@ class DemoUserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Delete any existing demo user
-        User::where('demo', true)->delete();
+        // Set demo user's email
+        $demoUserEmail = 'demo@example.com';
 
-        // Create demo user
-        $demoUser = User::factory()->create([
-            'name' => 'Demo User',
-            'email' => 'demo@example.com',
-            'income' => '100000',
-            'frequency' => '1',
-            'password' => Hash::make('password1'),
-            'demo' => true
-        ]);
+        // Check if there is already a demo user
+        $demoUser = User::where('email', $demoUserEmail)->first();
 
-        // Create bills for demo user
-        Bill::factory(10)->create([
-            'user_id' => $demoUser->id
-        ]);
+        // Create demo user if one doesn't already exist
+        if (!$demoUser) {
+            $demoUser = User::factory()->create([
+                'name' => 'Demo User',
+                'email' => $demoUserEmail,
+                'income' => '100000',
+                'frequency' => '1',
+                'password' => Hash::make('password1'),
+                'demo' => true
+            ]);
+        }
+
+        // Check if demo user has any bills
+        $demoUserBills = Bill::where('user_id', $demoUser->id)->count();
+
+        // If demo user doesn't have any bills, add some
+        if (!$demoUserBills) {
+            Bill::factory(10)->create([
+                'user_id' => $demoUser->id
+            ]);
+        }
     }
 }
