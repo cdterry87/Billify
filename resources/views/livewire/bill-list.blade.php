@@ -1,6 +1,11 @@
 <div>
     @if ($filterShowing === 'current')
-        <h3 class="font-semibold text-xl text-zinc-600">For {{ date('F Y') }}</h3>
+        <h3 class="font-semibold text-xl text-zinc-600">
+            For {{ date('F Y') }}
+            @if ($filterSearch || $filterCategory)
+                <span class="italic ml-1">(Filtered)</span>
+            @endif
+        </h3>
     @endif
     <div class="flex flex-col gap-6">
         <div class="flex flex-col-reverse lg:flex-row gap-2 items-end justify-between lg:gap-6 mt-4">
