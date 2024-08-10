@@ -42,7 +42,7 @@
             />
         </div>
 
-        <x-card title="My Monthly Bills for {{ date('F Y') }}">
+        <x-card title="My Monthly Bills">
             <x-slot name="primaryAction">
                 <x-actions.button
                     label="Add Bill"
@@ -54,7 +54,7 @@
                 />
             </x-slot>
 
-            <livewire:bill-list :monthly-income="$monthlyIncome" />
+            <livewire:bill-list />
         </x-card>
     </div>
 
