@@ -1,6 +1,7 @@
 <?php
 
 use App\Jobs\RoutineCleanupJob;
+use App\Jobs\PasswordResetCleanupJob;
 use Illuminate\Foundation\Application;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withSchedule(function (Schedule $schedule) {
         $schedule->call(new RoutineCleanupJob)->daily();
+        $schedule->call(new PasswordResetCleanupJob)->hourly();
     })
     ->withMiddleware(function (Middleware $middleware) {
         //

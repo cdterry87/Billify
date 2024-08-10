@@ -4,7 +4,9 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
+use App\Mail\ForgotPasswordMail;
 use App\Models\PasswordResetToken;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class ForgotPassword extends Component
@@ -37,17 +39,24 @@ class ForgotPassword extends Component
     {
         $this->validate();
 
-        PasswordResetToken::updateOrCreate([
+        // Delete any existing password reset tokens for the user
+        PasswordResetToken::where('email', $this->email)->delete();
+
+        // Generate a password reset token for the user
+        $token = Str::uuid();
+        $passwordResetToken = PasswordResetToken::create([
             'email' => $this->email,
-        ], [
-            'token' => Str::uuid(),
+            'token' => $token,
             'created_at' => now()
         ]);
 
-        // @todo - Send forgot password link to the user's email address
+        if ($passwordResetToken) {
+            // Send forgot password link to the user's email address
+            Mail::to($this->email)->send(new ForgotPasswordMail($this->email, $token));
 
-        Session::flash('alert-type', 'success');
-        Session::flash('alert-message', 'A password reset link has been sent to your email address.');
+            Session::flash('alert-type', 'success');
+            Session::flash('alert-message', 'A password reset link has been sent to your email address.');
+        }
 
         return redirect()->route('login');
     }

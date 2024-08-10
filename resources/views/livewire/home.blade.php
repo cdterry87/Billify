@@ -18,7 +18,7 @@
             </x-alert>
         @else
             <x-alert type="info">
-                Welcome to <strong>Billify</strong>, <strong>{{ auth()->user()->name }}</strong>!
+                Welcome to <strong>Billify</strong>, <strong>{{ ucwords(auth()->user()->name) }}</strong>!
                 View your income summary and get started tracking your monthly bills below!
             </x-alert>
         @endif

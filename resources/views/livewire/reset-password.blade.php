@@ -7,7 +7,7 @@
             </h3>
             <div class="flex flex-col items-center gap-6 px-8 w-full">
                 <form
-                    wire:submit.prevent="resetPassword"
+                    wire:submit.prevent="submit"
                     class="flex flex-col gap-4 w-full"
                 >
                     <x-inputs.text
