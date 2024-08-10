@@ -1,7 +1,7 @@
 <div class="h-screen text-white">
     <x-background-video assetPath="videos/budget.mp4" />
 
-    <div class="flex flex-col gap-4 items-center justify-center h-full mx-4">
+    <div class="flex flex-col gap-4 items-center justify-center h-full mx-4 my-8">
         <div class="flex flex-col items-center gap-6 p-8 bg-zinc-100 text-zinc-800 w-full sm:w-120 rounded-lg">
             <x-logo />
 
@@ -15,6 +15,23 @@
                         :message="session('alert-message')"
                     />
                 @endif
+
+                <x-alert type="info">
+                    <div class="flex flex-col gap-2">
+                        <p class="text-sm">
+                            To demo the application, use the following credentials:
+                        </p>
+                        <div class="flex flex-col">
+                            <p class="text-sm">
+                                Email: <strong class="underline">demo@example.com</strong>
+                            </p>
+                            <p class="text-sm">
+                                Password: <strong class="underline">password1</strong>
+                            </p>
+                        </div>
+                        <p class="text-xs italic">NOTE: All user settings and data are reset daily.</p>
+                    </div>
+                </x-alert>
 
                 <x-inputs.text
                     label="Email"
