@@ -1,12 +1,15 @@
 <div>
-    @if ($filterShowing === 'current')
-        <h3 class="font-semibold text-xl text-zinc-600">
+    <h3 class="font-semibold text-xl text-zinc-600">
+        @if ($filterShowing === 'current')
             For {{ date('F Y') }}
-            @if ($filterSearch || $filterCategory)
-                <span class="italic ml-1">(Filtered)</span>
-            @endif
-        </h3>
-    @endif
+        @else
+            For All Months
+        @endif
+        @if ($filterSearch || $filterCategory)
+            <span class="italic ml-1">(Filtered)</span>
+        @endif
+    </h3>
+
     <div class="flex flex-col gap-6">
         <div class="flex flex-col-reverse lg:flex-row gap-2 items-end justify-between lg:gap-6 mt-4">
             <div class="flex flex-col lg:flex-row items-start gap-2 lg:gap-4 w-full lg:w-auto">
