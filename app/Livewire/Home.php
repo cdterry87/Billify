@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
+use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 
 class Home extends Component
 {
@@ -18,35 +19,43 @@ class Home extends Component
     private $chartJsonConfig = [
         'title' => [
             'style' => [
-                'fontSize' => '16px',
-                'color' => '#898989'
+                'fontSize' => '18px',
+                'color' => '#444444'
             ]
         ],
         'legend' => [
-            'fontSize' => '14px',
+            'fontSize' => '12px',
             'fontWeight' => 'bold',
             'labels' => [
                 'colors' => [
-                    '#898989'
+                    '#444444'
                 ]
             ]
         ],
         'tooltip' => [
-            'theme' => 'dark',
+            'theme' => 'light',
         ],
         'xaxis' => [
             'labels' => [
                 'style' => [
-                    'fontSize' => '12px',
-                    'colors' => '#898989'
+                    'fontSize' => '10px',
+                    'colors' => '#444444'
                 ]
             ]
         ],
         'yaxis' => [
             'labels' => [
                 'style' => [
-                    'fontSize' => '12px',
-                    'colors' => '#898989'
+                    'fontSize' => '10px',
+                    'colors' => '#444444'
+                ]
+            ]
+        ],
+        'dataLabels' => [
+            'total' => [
+                'style' => [
+                    'fontSize' => '10px',
+                    'colors' => '#444444'
                 ]
             ]
         ]
@@ -66,7 +75,6 @@ class Home extends Component
         // Get charts
         $incomeVsBillsChart = $this->getIncomeVsBillsChart();
         $topCategoriesChart = $this->getTopCategoriesChart();
-        $billsByDayChart = $this->getBillsByDayChart();
 
         return view('livewire.home', [
             'yearlyIncome' => $yearlyIncome,
@@ -75,8 +83,7 @@ class Home extends Component
             'weeklyIncome' => $weeklyIncome,
             'notifications' => $notifications,
             'incomeVsBillsChart' => $incomeVsBillsChart,
-            // 'topCategoriesChart' => $topCategoriesChart,
-            'billsByDayChart' => $billsByDayChart
+            'topCategoriesChart' => $topCategoriesChart,
         ]);
     }
 
@@ -112,36 +119,46 @@ class Home extends Component
 
     public function getIncomeVsBillsChart()
     {
-        $income = auth()->user()->income;
+        $income = auth()->user()->getMonthlyIncomeRaw();
         $billsTotal = auth()->user()->currentMonthBills()->sum('amount');
 
-        return (new PieChartModel())
+        return (new ColumnChartModel())
             ->withDataLabels()
-            ->addSlice('Income', $income, '#047857')
-            ->addSlice('Bills', $billsTotal, '#be123c')
+            ->setTitle('Income vs Bills')
+            ->addColumn('Income', $income, '#047857')
+            ->addColumn('Expenses', $billsTotal, '#be123c')
             ->setJsonConfig($this->chartJsonConfig);
     }
 
     public function getTopCategoriesChart()
     {
-        //
-    }
-
-    public function getBillsByDayChart()
-    {
-        $bills = auth()->user()->currentMonthBills()
-            ->select('day', DB::raw('sum(amount) as total'))
-            ->groupBy('day')
-            ->orderBy('day')
+        // Get currentMonthBills for User, group by category, sum amount for each category, and order by amount desc
+        $billCategories = auth()->user()->currentMonthBills()
+            ->groupBy('category')
+            ->select('category', DB::raw('sum(amount) as total'))
+            ->orderBy('total', 'desc')
+            ->limit(5)
             ->get();
 
-        $chart = (new LineChartModel())
+        $categories = [];
+        foreach ($billCategories as $billCategory) {
+            $categories[$billCategory->category] = $billCategory->total;
+        }
+
+        $chart = (new ColumnChartModel())
             ->withDataLabels()
-            ->multiLine()
+            ->setTitle('Top Bill Categories')
             ->setJsonConfig($this->chartJsonConfig);
 
-        foreach ($bills as $label => $value) {
-            $chart->addSeriesPoint('Payments This Month', $label, $value);
+        $colors = [
+            '#047857',
+            '#1d4ed8',
+            '#6d28d9',
+            '#be123c',
+            '#f43f5e',
+        ];
+        foreach ($categories as $label => $value) {
+            $chart->addColumn(ucwords($label), $value, array_shift($colors));
         }
 
         return $chart;
