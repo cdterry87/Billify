@@ -1,5 +1,5 @@
 <div>
-    <h3 class="font-semibold text-xl text-zinc-600">
+    <h3 class="font-semibold text-base xl:text-xl text-zinc-600 text-center sm:text-left">
         @if ($filterShowing === 'current')
             For {{ date('F Y') }}
         @else

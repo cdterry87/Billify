@@ -54,6 +54,7 @@
     <x-footer />
 
     @livewireScripts
+    @livewireChartsScripts
 
     <script>
         let domReady = (cb) => {

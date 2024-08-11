@@ -42,6 +42,27 @@
             />
         </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <x-card title="Income vs Bills">
+                <livewire:livewire-pie-chart
+                    :key="$incomeVsBillsChart->reactiveKey()"
+                    :pie-chart-model="$incomeVsBillsChart"
+                />
+            </x-card>
+            <x-card title="Top Categories">
+                {{-- <livewire:livewire-bar-chart
+                    :key="$topCategoriesChart->reactiveKey()"
+                    :bar-chart-model="$topCategoriesChart"
+                /> --}}
+            </x-card>
+            <x-card title="Bills by Day">
+                <livewire:livewire-line-chart
+                    :key="$billsByDayChart->reactiveKey()"
+                    :line-chart-model="$billsByDayChart"
+                />
+            </x-card>
+        </div>
+
         <x-card title="My Monthly Bills">
             <x-slot name="primaryAction">
                 <x-actions.button
