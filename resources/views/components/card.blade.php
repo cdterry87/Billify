@@ -7,7 +7,7 @@
         <div class="flex flex-col-reverse sm:flex-row text-center sm:text-left items-center justify-between gap-4">
             <div>
                 @if ($title)
-                    <h2 class="text-3xl font-bold">{{ $title }}</h2>
+                    <h2 class="text-xl xl:text-3xl font-bold">{{ $title }}</h2>
                 @endif
             </div>
             <div>

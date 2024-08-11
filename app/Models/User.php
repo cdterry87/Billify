@@ -64,6 +64,30 @@ class User extends Authenticatable
         return $this->hasMany(Bill::class);
     }
 
+    public function currentMonthBills()
+    {
+        return $this->bills()
+            ->where(function ($query) {
+                $currentMonth = strtolower(now()->format('F'));
+
+                $query->where($currentMonth, true)
+                    ->orWhere(function ($query) {
+                        $query->where('january', false)
+                            ->where('february', false)
+                            ->where('march', false)
+                            ->where('april', false)
+                            ->where('may', false)
+                            ->where('june', false)
+                            ->where('july', false)
+                            ->where('august', false)
+                            ->where('september', false)
+                            ->where('october', false)
+                            ->where('november', false)
+                            ->where('december', false);
+                    });
+            });
+    }
+
     public function getYearlyIncome(): string
     {
         $income = round($this->income * $this->frequency, 2);
