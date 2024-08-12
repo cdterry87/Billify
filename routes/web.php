@@ -27,6 +27,13 @@ Route::post('/logout', function () {
     return redirect()->route('login');
 })->name('logout');
 
+Route::get('/logout', function () {
+    auth()->logout();
+    session()->invalidate();
+    session()->flash('success', 'You have been successfully logged out.');
+    return redirect()->route('login');
+});
+
 Route::get('/privacy-policy', PrivacyPolicy::class)
     ->name('privacy-policy');
 

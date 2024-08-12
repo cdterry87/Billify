@@ -43,13 +43,13 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white p-4 rounded-lg border border-zinc-200">
+            <div class="bg-white p-4 rounded-lg border border-zinc-200 h-64">
                 <livewire:livewire-column-chart
                     :key="$incomeVsBillsChart->reactiveKey()"
                     :column-chart-model="$incomeVsBillsChart"
                 />
             </div>
-            <div class="bg-white p-4 rounded-lg border border-zinc-200">
+            <div class="bg-white p-4 rounded-lg border border-zinc-200 h-64">
                 <livewire:livewire-column-chart
                     :key="$topCategoriesChart->reactiveKey()"
                     :column-chart-model="$topCategoriesChart"
