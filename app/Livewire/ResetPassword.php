@@ -12,10 +12,8 @@ class ResetPassword extends Component
     public $token, $email;
     public $password, $password_confirmation;
 
-    public function mount()
+    public function mount($token)
     {
-        // Check if the password reset token is valid
-        $token = request()->route('token');
         $passwordResetToken = \App\Models\PasswordResetToken::where('token', $token)->first();
 
         // If the token does not exist, return a 404 error

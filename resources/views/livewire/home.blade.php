@@ -6,9 +6,13 @@
             <x-alert
                 :type="session('alert-type')"
                 :message="session('alert-message')"
+                class="message--alert"
             />
         @elseif($notifications && count($notifications) > 0)
-            <x-alert type="warning">
+            <x-alert
+                type="warning"
+                class="notification--alert"
+            >
                 <p class="font-bold text-lg">You have bills that will be due soon!</p>
                 <ul class="list-disc list-inside text-sm">
                     @foreach ($notifications as $notification)
@@ -17,13 +21,16 @@
                 </ul>
             </x-alert>
         @else
-            <x-alert type="info">
+            <x-alert
+                type="info"
+                class="welcome--alert"
+            >
                 Welcome to <strong>Billify</strong>, <strong>{{ ucwords(auth()->user()->name) }}</strong>!
                 View your income summary and get started tracking your monthly bills below!
             </x-alert>
         @endif
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+        <div class="income-summary--container grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             <x-income-summary
                 label="Annual Income"
                 value="{{ $yearlyIncome }}"
@@ -42,7 +49,7 @@
             />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="charts--container grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="bg-white p-4 rounded-lg border border-zinc-200 h-64">
                 <livewire:livewire-column-chart
                     :key="$incomeVsBillsChart->reactiveKey()"
@@ -57,7 +64,10 @@
             </div>
         </div>
 
-        <x-card title="My Monthly Bills">
+        <x-card
+            title="My Monthly Bills"
+            class="bills--card"
+        >
             <x-slot name="primaryAction">
                 <x-actions.button
                     label="Add Bill"

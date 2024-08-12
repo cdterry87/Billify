@@ -8,11 +8,12 @@ use Tests\TestCase;
 
 class PrivacyPolicyTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
+    use RefreshDatabase;
+
+    public function test_privacy_policy()
     {
-        $this->assertTrue(true);
+        $this->get('/privacy-policy')
+            ->assertOk()
+            ->assertSee('Privacy Policy');
     }
 }

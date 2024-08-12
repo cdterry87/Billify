@@ -56,7 +56,7 @@ class BillFactory extends Factory
             'name' => ucwords($this->faker->words($this->faker->numberBetween(2, 5), true)),
             'category' => $category,
             'description' => $this->faker->sentence,
-            'amount' => $this->faker->randomFloat(2, 0, 1000),
+            'amount' => $this->faker->numberBetween(50, 1000),
             'day' => $this->faker->numberBetween(1, 28),
             'january' => $january,
             'february' => $february,

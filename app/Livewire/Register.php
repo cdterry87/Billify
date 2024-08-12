@@ -18,7 +18,7 @@ class Register extends Component
 
         return [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,' . $this->email,
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6|same:password',
             'income' => 'required|numeric|min:1|max:999999999',
@@ -32,6 +32,7 @@ class Register extends Component
             'name.required' => 'The name field is required.',
             'email.required' => 'The email field is required.',
             'email.email' => 'The email must be a valid email address.',
+            'email.unique' => 'The email has already been taken. Please try another one.',
             'password.required' => 'The password field is required.',
             'password.min' => 'The password must be at least 6 characters.',
             'password.confirmed' => 'The password confirmation does not match.',

@@ -93,12 +93,18 @@
             </div>
         @else
             <div class="flex flex-col gap-2 items-center justify-center text-center py-12 px-6 tracking-wider">
-                @if ($filterCategory || $filterShowing)
-                    <p class="text-lg sm:text-3xl text-zinc-700">No results were found.</p>
-                    <p class="text-xs sm:text-base text-zinc-600">Please try a different filter.</p>
+                @if ($filterCategory || $filterSearch)
+                    <p class="empty-filters--message text-lg sm:text-3xl text-zinc-700">
+                        No results were found.
+                    </p>
+                    <p class="text-xs sm:text-base text-zinc-600">
+                        Please try a different filter.
+                    </p>
                 @else
-                    <p class="text-lg sm:text-3xl text-zinc-700">You have not added any bills yet.</p>
-                    <p class="text-xs sm:text-base text-zinc-600">Click the "Add Bill" button above to add a new bill.
+                    <p class="empty-results--message text-lg sm:text-3xl text-zinc-700">
+                        You have not added any bills yet.</p>
+                    <p class="text-xs sm:text-base text-zinc-600">
+                        Click the "Add Bill" button above to add a new bill.
                     </p>
                 @endif
             </div>

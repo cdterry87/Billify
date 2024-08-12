@@ -66,7 +66,7 @@ class BillForm extends Component
 
         if (!$record) {
             $this->dispatch('setModalAlert', 'Bill not found!', 'error');
-            return;
+            return redirect(route('home'));
         }
 
         $this->modelId = $record->id;
@@ -132,7 +132,7 @@ class BillForm extends Component
 
         if (!$bill) {
             $this->dispatch('setModalAlert', 'Bill not found!', 'error');
-            return;
+            return redirect(route('home'));
         }
 
         $bill->delete();

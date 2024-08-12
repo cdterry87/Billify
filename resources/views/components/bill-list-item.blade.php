@@ -1,6 +1,9 @@
 @props(['bill'])
 
-<div x-data="{ isDeleting: false }">
+<div
+    x-data="{ isDeleting: false }"
+    class="bill-list-item--container"
+>
     <div
         x-show="!isDeleting"
         class="flex flex-col sm:flex-row sm:items-end gap-2 justify-between sm:gap-6 hover:bg-slate-100 transition duration-300 ease-in-out p-3 rounded-lg"
