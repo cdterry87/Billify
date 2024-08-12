@@ -7,9 +7,6 @@ use Livewire\Component;
 use App\Traits\WithAlerts;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Asantibanez\LivewireCharts\Models\PieChartModel;
-use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 
 class Home extends Component
@@ -17,18 +14,12 @@ class Home extends Component
     use WithAlerts;
 
     private $chartJsonConfig = [
-        'title' => [
-            'style' => [
-                'fontSize' => '18px',
-                'color' => '#444444'
-            ]
-        ],
         'legend' => [
             'fontSize' => '12px',
             'fontWeight' => 'bold',
             'labels' => [
                 'colors' => [
-                    '#444444'
+                    '#323232'
                 ]
             ]
         ],
@@ -37,26 +28,30 @@ class Home extends Component
         ],
         'xaxis' => [
             'labels' => [
-                'style' => [
-                    'fontSize' => '10px',
-                    'colors' => '#444444'
-                ]
+                'show' => false,
             ]
         ],
         'yaxis' => [
             'labels' => [
                 'style' => [
                     'fontSize' => '10px',
-                    'colors' => '#444444'
+                    'colors' => '#323232'
+                ],
+            ]
+        ],
+        'plotOptions' => [
+            'bar' => [
+                'dataLabels' => [
+                    'position' => 'top',
                 ]
             ]
         ],
         'dataLabels' => [
-            'total' => [
-                'style' => [
-                    'fontSize' => '10px',
-                    'colors' => '#444444'
-                ]
+            'enabled' => true,
+            'offsetY' => -25,
+            'style' => [
+                'fontSize' => '16px',
+                'colors' => ['#323232'],
             ]
         ]
     ];
