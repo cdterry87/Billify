@@ -29,7 +29,7 @@
                                 Password: <strong class="underline">password1</strong>
                             </p>
                         </div>
-                        <p class="text-xs italic">NOTE: All user settings and data are reset daily.</p>
+                        <p class="text-xs italic">NOTE: Demo user and data are reset daily.</p>
                     </div>
                 </x-alert>
 

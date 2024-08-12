@@ -20,6 +20,8 @@ class Home extends Component
         $monthlyIncome = auth()->user()->getMonthlyIncome();
         $biWeeklyIncome = auth()->user()->getBiWeeklyIncome();
         $weeklyIncome = auth()->user()->getWeeklyIncome();
+        $monthlyRemainder = auth()->user()->getMonthlyRemainder();
+        $dtiRatio = auth()->user()->getDtiRatio();
 
         // Get notifications
         $notifications = $this->getNotifications();
@@ -33,6 +35,8 @@ class Home extends Component
             'monthlyIncome' => $monthlyIncome,
             'biWeeklyIncome' => $biWeeklyIncome,
             'weeklyIncome' => $weeklyIncome,
+            'monthlyRemainder' => $monthlyRemainder,
+            'dtiRatio' => $dtiRatio,
             'notifications' => $notifications,
             'incomeVsBillsChart' => $incomeVsBillsChart,
             'topCategoriesChart' => $topCategoriesChart,

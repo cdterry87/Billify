@@ -116,4 +116,33 @@ class User extends Authenticatable
         $income = round($this->income * $this->frequency / 52, 2);
         return $this->formatCurrency($income);
     }
+
+    public function getMonthlyRemainderRaw(): float
+    {
+        $monthlyBillsTotal = $this->currentMonthBills()
+            ->select('amount')
+            ->sum('amount');
+
+        $monthlyIncome = $this->getMonthlyIncomeRaw();
+        return $monthlyIncome - $monthlyBillsTotal;
+    }
+
+    public function getMonthlyRemainder(): string
+    {
+        $monthlyRemainder = $this->getMonthlyRemainderRaw();
+
+        return $this->formatCurrency($monthlyRemainder);
+    }
+
+    public function getDtiRatio(): string
+    {
+        $monthlyBillsTotal = $this->currentMonthBills()
+            ->select('amount')
+            ->sum('amount');
+
+        $monthlyIncome = $this->getMonthlyIncomeRaw();
+        $dti = $monthlyBillsTotal / $monthlyIncome * 100;
+
+        return number_format($dti, 2) . '%';
+    }
 }

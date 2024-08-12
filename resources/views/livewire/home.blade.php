@@ -30,7 +30,7 @@
             </x-alert>
         @endif
 
-        <div class="income-summary--container grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+        <div class="income-summary--container grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             <x-income-summary
                 label="Annual Income"
                 value="{{ $yearlyIncome }}"
@@ -46,6 +46,14 @@
             <x-income-summary
                 label="Weekly Income"
                 value="{{ $weeklyIncome }}"
+            />
+            <x-income-summary
+                label="Monthly Remainder"
+                value="{{ $monthlyRemainder }}"
+            />
+            <x-income-summary
+                label="Debt/Income Ratio"
+                value="{{ $dtiRatio }}"
             />
         </div>
 
