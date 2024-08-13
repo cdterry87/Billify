@@ -1,4 +1,4 @@
-<h1>Hi, {{ $email }}.</h1>
+<h4>Hi, {{ $email }}.</h4>
 
 <p>
     We received a request to change the password for your account.
