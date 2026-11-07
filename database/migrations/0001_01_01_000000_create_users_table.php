@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('income_cents')->default(0);
+            $table->unsignedTinyInteger('pay_frequency')->default(12);
+            $table->string('timezone')->default('UTC');
+            $table->boolean('is_demo')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
