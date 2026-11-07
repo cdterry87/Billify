@@ -79,3 +79,11 @@ it('flows from adding a bill to the dashboard totals', function () {
 
     Livewire::test('pages::dashboard')->assertSee('$7,333.33');
 });
+
+it('refreshes when the profile changes', function () {
+    $component = Livewire::test('pages::dashboard')->assertSee('$8,333.33');
+
+    $this->user->update(['income_cents' => 12_000_000]);
+
+    $component->dispatch('profile-updated')->assertSee('$10,000.00');
+});
