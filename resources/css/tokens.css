@@ -1,0 +1,89 @@
+:root {
+    color-scheme: light dark;
+
+    /* Colour: every component uses these semantic names, never a raw value. */
+    --color-bg: light-dark(oklch(98.4% 0.002 265), oklch(15.5% 0.006 265));
+    --color-surface: light-dark(oklch(100% 0 0), oklch(19.5% 0.007 265));
+    --color-surface-hover: light-dark(oklch(96.6% 0.003 265), oklch(24% 0.008 265));
+    --color-border: light-dark(oklch(92.5% 0.004 265), oklch(28% 0.008 265));
+    --color-border-strong: light-dark(oklch(58% 0.01 265), oklch(52% 0.01 265));
+    --color-text: light-dark(oklch(22% 0.01 265), oklch(95.5% 0.003 265));
+    --color-text-muted: light-dark(oklch(47% 0.012 265), oklch(73% 0.01 265));
+    --color-backdrop: light-dark(oklch(22% 0.01 265 / 35%), oklch(5% 0.005 265 / 65%));
+
+    --color-accent: light-dark(oklch(49% 0.17 265), oklch(74% 0.12 265));
+    --color-accent-hover: light-dark(oklch(43% 0.17 265), oklch(80% 0.1 265));
+    --color-on-accent: light-dark(oklch(100% 0 0), oklch(17% 0.02 265));
+    --color-accent-subtle: light-dark(oklch(95% 0.02 265), oklch(27% 0.04 265));
+
+    --color-positive: light-dark(oklch(46% 0.11 155), oklch(78% 0.14 155));
+    --color-positive-subtle: light-dark(oklch(95.5% 0.03 155), oklch(26% 0.04 155));
+    --color-negative: light-dark(oklch(50% 0.18 25), oklch(74% 0.15 20));
+    --color-negative-hover: light-dark(oklch(44% 0.17 25), oklch(80% 0.12 20));
+    --color-on-negative: light-dark(oklch(100% 0 0), oklch(17% 0.03 20));
+    --color-negative-subtle: light-dark(oklch(95.5% 0.02 25), oklch(27% 0.05 20));
+    --color-warning: light-dark(oklch(48% 0.1 75), oklch(82% 0.12 85));
+    --color-warning-subtle: light-dark(oklch(96% 0.04 90), oklch(27% 0.04 85));
+
+    /* Type */
+    --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-md: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.5rem;
+    --text-2xl: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --leading-tight: 1.2;
+    --leading-normal: 1.55;
+    --tracking-tight: -0.02em;
+
+    /* Space */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+    --space-8: 4rem;
+
+    /* Shape */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.625rem;
+    --radius-lg: 0.875rem;
+    --radius-full: 999px;
+    --border: 1px solid var(--color-border);
+    --shadow-overlay: 0 1.5rem 4rem oklch(0% 0 0 / 22%);
+    --focus-ring: 2px solid var(--color-accent);
+
+    /* Size */
+    --control-height: 2.5rem;
+    --control-height-sm: 2rem;
+    --icon-size: 1.25rem;
+    --page-width: 72rem;
+    --guest-width: 26rem;
+    --modal-width: 34rem;
+    --chart-height: 11rem;
+
+    /* Motion */
+    --motion-fast: 120ms;
+    --motion-slow: 40s;
+    --ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+[data-theme='light'] {
+    color-scheme: light;
+}
+
+[data-theme='dark'] {
+    color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --motion-fast: 0ms;
+    }
+}

@@ -1,0 +1,66 @@
+.guest {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100dvh;
+    overflow: hidden;
+}
+
+/* CSS-only background: two soft fields of colour drifting slowly. */
+.guest::before,
+.guest::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 70vmax;
+    height: 70vmax;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: guest-drift var(--motion-slow) ease-in-out infinite alternate;
+}
+
+.guest::before {
+    inset-block-start: -35vmax;
+    inset-inline-start: -20vmax;
+    background: radial-gradient(circle, var(--color-accent-subtle), transparent 70%);
+}
+
+.guest::after {
+    inset-block-end: -40vmax;
+    inset-inline-end: -20vmax;
+    background: radial-gradient(circle, var(--color-positive-subtle), transparent 70%);
+    animation-direction: alternate-reverse;
+}
+
+@keyframes guest-drift {
+    to {
+        transform: translate(12vmax, 8vmax) scale(1.15);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .guest::before,
+    .guest::after {
+        animation: none;
+    }
+}
+
+.guest__bar {
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--space-3) var(--space-4);
+}
+
+.guest__main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+    padding: var(--space-4);
+}
+
+.guest__panel {
+    width: min(100%, var(--guest-width));
+}

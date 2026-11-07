@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ config('app.name') }}</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body>
-        <h1>{{ config('app.name') }}</h1>
-    </body>
-</html>
+<x-layouts::guest>
+    <x-ui.card>
+        <div class="stack">
+            <h1>Billify</h1>
+            <p class="muted">A simple bill manager, currently being rebuilt.</p>
+        </div>
+    </x-ui.card>
+</x-layouts::guest>

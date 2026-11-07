@@ -1,0 +1,35 @@
+.stat-tile {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-width: 0;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface);
+    border: var(--border);
+    border-radius: var(--radius-lg);
+}
+
+.stat-tile__label {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+}
+
+.stat-tile__value {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+
+    @media (min-width: 48rem) {
+        font-size: var(--text-xl);
+    }
+}
+
+.stat-tile--positive .stat-tile__value {
+    color: var(--color-positive);
+}
+
+.stat-tile--negative .stat-tile__value {
+    color: var(--color-negative);
+}
