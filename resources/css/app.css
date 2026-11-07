@@ -27,4 +27,6 @@
 @import './components/toast.css' layer(components);
 
 @import './pages/auth.css' layer(pages);
+@import './pages/error.css' layer(pages);
 @import './pages/guest.css' layer(pages);
+@import './pages/legal.css' layer(pages);

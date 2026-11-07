@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PayFrequency;
+use App\Notifications\ResetPasswordNotification;
 use Carbon\CarbonImmutable;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -46,6 +47,11 @@ class User extends Authenticatable
     public function bills(): HasMany
     {
         return $this->hasMany(Bill::class);
+    }
+
+    public function sendPasswordResetNotification(#[\SensitiveParameter] $token): void
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     /**

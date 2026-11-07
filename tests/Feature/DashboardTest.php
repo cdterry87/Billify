@@ -29,7 +29,7 @@ it('shows the income summary tiles', function () {
             'Bi-weekly income', '$3,846.15',
             'Weekly income', '$1,923.08',
             'Monthly remainder', '$4,120.33',
-            'Bills vs Income', '50.56%',
+            'Bill-Income Ratio', '50.56%',
         ]);
 });
 

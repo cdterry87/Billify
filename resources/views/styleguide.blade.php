@@ -28,7 +28,7 @@
             <x-ui.stat-tile label="Bi-Weekly Income" value="$3,846.15" />
             <x-ui.stat-tile label="Weekly Income" value="$1,923.08" />
             <x-ui.stat-tile label="Monthly Remainder" value="$4,120.33" tone="positive" />
-            <x-ui.stat-tile label="Bills vs Income" value="50.56%" />
+            <x-ui.stat-tile label="Bill-Income Ratio" value="50.56%" />
         </div>
 
         <div class="grid-split">
