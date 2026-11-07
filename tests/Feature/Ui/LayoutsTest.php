@@ -19,6 +19,12 @@ it('renders the app layout with a skip link and main landmark', function () {
         ->assertSee('<title>Style guide · '.config('app.name').'</title>', false);
 });
 
+it('gives guest and error pages a skip link to the main landmark', function (string $url) {
+    $this->get($url)
+        ->assertSee('<a class="skip-link" href="#main">Skip to content</a>', false)
+        ->assertSee('<main id="main"', false);
+})->with(['login' => '/login', 'privacy policy' => '/privacy-policy', 'error page' => '/no-such-page']);
+
 it('hides the style guide outside local and testing', function () {
     app()->detectEnvironment(fn () => 'production');
 

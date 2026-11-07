@@ -5,8 +5,9 @@
         @include('layouts.partials.head', ['title' => trim($__env->yieldContent('title'))])
     </head>
     <body class="guest">
+        <a class="skip-link" href="#main">Skip to content</a>
         <div class="guest__bar"></div>
-        <main class="guest__main">
+        <main id="main" class="guest__main">
             <x-ui.logo />
             <div class="guest__panel">
                 <x-ui.card class="error-page">

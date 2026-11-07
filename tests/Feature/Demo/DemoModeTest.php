@@ -27,15 +27,16 @@ describe('with demo mode on', function () {
         expect(User::count())->toBe(0);
     });
 
-    it('shows the demo credentials on the login page', function () {
+    it('offers a demo login on the login page without showing the credentials', function () {
         $this->get('/login')
             ->assertSee('Try the demo')
-            ->assertSee('demo@example.test')
-            ->assertSee('demo-password')
-            ->assertSee('The demo data resets daily.');
+            ->assertSee('Click to log in as the demo user')
+            ->assertSee('The demo data resets daily.')
+            ->assertDontSee('demo@example.test')
+            ->assertDontSee('demo-password');
     });
 
-    it('hides the credentials while they are not set', function () {
+    it('hides the demo login while the credentials are not set', function () {
         config(['billify.demo.password' => null]);
 
         $this->get('/login')->assertDontSee('Try the demo');

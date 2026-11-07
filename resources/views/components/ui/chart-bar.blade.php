@@ -12,11 +12,11 @@
         <ul class="chart__bars">
             @foreach ($bars as $bar)
                 <li @class(['chart__bar', 'chart__bar--'.($bar['tone'] ?? '') => filled($bar['tone'] ?? null)])>
+                    <span class="chart__label">{{ $bar['label'] }}</span>
                     <span class="chart__value">{{ $bar['display'] }}</span>
                     <span class="chart__track" aria-hidden="true">
                         <span class="chart__fill" style="--bar-height: {{ round($bar['value'] / $max * 100, 2) }}%"></span>
                     </span>
-                    <span class="chart__label">{{ $bar['label'] }}</span>
                 </li>
             @endforeach
         </ul>

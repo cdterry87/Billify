@@ -4,7 +4,9 @@
     display: grid;
     grid-template-rows: auto 1fr auto;
     min-height: 100dvh;
-    overflow: hidden;
+    /* Clips the oversized background shapes on the element itself. Overflow alone moves
+       to the viewport from <body>, and iOS Safari still lets the page pan sideways. */
+    contain: paint;
 }
 
 /* CSS-only background: two soft fields of colour drifting slowly. */

@@ -175,6 +175,16 @@ it('validates the bill form', function (array $input, string $field) {
     'duplicate months' => [['form.months' => ['2', '2']], 'form.months.0'],
 ]);
 
+it('links month errors to the recurrence group', function () {
+    editor()
+        ->set(validBill(['form.months' => ['13']]))
+        ->call('save')
+        ->assertSeeHtml('aria-describedby="bill-months-hint bill-months-item-error"')
+        ->assertSeeHtml('id="bill-months-item-error"');
+
+    editor()->assertSeeHtml('aria-describedby="bill-months-hint"');
+});
+
 it('accepts the boundary values', function () {
     editor()
         ->set(validBill([

@@ -78,6 +78,30 @@ document.addEventListener('alpine:init', () => {
         },
     }));
 
+    // Swaps an action for an inline "are you sure?" prompt. Focus follows the swap, so
+    // keyboard and screen reader users never land on a button that has just been hidden.
+    // Needs x-ref="trigger" on the button that asks and x-ref="cancel" on the one that backs out.
+    Alpine.data('confirmable', () => ({
+        confirming: false,
+
+        ask() {
+            this.confirming = true;
+            this.focusAfterShow('cancel');
+        },
+
+        cancel() {
+            this.confirming = false;
+            this.focusAfterShow('trigger');
+        },
+
+        // x-show reveals an element a frame later, so wait for that before focusing.
+        focusAfterShow(ref) {
+            const later = document.visibilityState === 'visible' ? requestAnimationFrame : setTimeout;
+
+            this.$nextTick(() => later(() => this.$refs[ref]?.focus()));
+        },
+    }));
+
     Alpine.data('toasts', (flashed = null) => ({
         items: [],
         nextId: 0,
