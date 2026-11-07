@@ -200,3 +200,70 @@ it('requires a password to delete the account', function () {
 
     expect(User::count())->toBe(1);
 });
+
+describe('for the demo user', function () {
+    beforeEach(function () {
+        $this->user->forceFill(['is_demo' => true])->save();
+    });
+
+    it('hides the email, password, and delete controls', function () {
+        profile()
+            ->assertSee('This is the shared demo account')
+            ->assertSeeHtml('readonly')
+            ->assertDontSee('Change password')
+            ->assertDontSee('Delete my account')
+            ->assertDontSeeHtml('role="tablist"');
+    });
+
+    it('still saves the name, income, frequency, and timezone', function () {
+        profile()
+            ->set('form.name', 'Visitor')
+            ->set('form.income', '1234.56')
+            ->set('form.pay_frequency', (string) PayFrequency::Weekly->value)
+            ->set('form.timezone', 'America/Chicago')
+            ->call('saveProfile')
+            ->assertHasNoErrors();
+
+        expect($this->user->fresh())
+            ->name->toBe('Visitor')
+            ->income_cents->toBe(123_456)
+            ->pay_frequency->toBe(PayFrequency::Weekly)
+            ->timezone->toBe('America/Chicago');
+    });
+
+    it('refuses an email change', function () {
+        profile()
+            ->set('form.email', 'someone@example.com')
+            ->set('form.current_password', 'current-password')
+            ->call('saveProfile')
+            ->assertHasErrors(['form.email'])
+            ->assertSee("The demo account's email can't be changed.")
+            ->assertHasNoErrors(['form.current_password']);
+
+        expect($this->user->fresh()->email)->toBe('ada@example.com');
+    });
+
+    it('refuses a password change', function () {
+        profile()
+            ->set('current_password', 'current-password')
+            ->set('password', 'new-password')
+            ->set('password_confirmation', 'new-password')
+            ->call('updatePassword')
+            ->assertDispatched('toast', type: 'error', message: "The demo account's password can't be changed.")
+            ->assertSet('current_password', '')
+            ->assertSet('password', '');
+
+        expect(Hash::check('current-password', $this->user->fresh()->password))->toBeTrue();
+    });
+
+    it('refuses account deletion', function () {
+        profile()
+            ->set('delete_password', 'current-password')
+            ->call('deleteAccount')
+            ->assertDispatched('toast', type: 'error', message: "The demo account can't be deleted.")
+            ->assertNoRedirect();
+
+        expect($this->user->fresh())->not->toBeNull();
+        $this->assertAuthenticatedAs($this->user);
+    });
+});

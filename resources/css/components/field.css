@@ -34,6 +34,12 @@
     &[aria-invalid='true'] {
         border-color: var(--color-negative);
     }
+
+    &[readonly] {
+        background: var(--color-bg);
+        border-color: var(--color-border);
+        color: var(--color-text-muted);
+    }
 }
 
 textarea.field__control {

@@ -4,6 +4,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Demo mode
+    |--------------------------------------------------------------------------
+    |
+    | Prepares the application for the portfolio site: registration is
+    | disabled and the login page shows the demo account's credentials.
+    | The demo account itself is created and restored by `demo:reset`.
+    |
+    */
+
+    'demo_mode' => (bool) env('DEMO_MODE', false),
+
+    'demo' => [
+        'name' => env('DEMO_NAME', 'Demo User'),
+        'email' => env('DEMO_EMAIL'),
+        'password' => env('DEMO_PASSWORD'),
+        'timezone' => env('DEMO_TIMEZONE', 'UTC'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Cloudflare Turnstile
     |--------------------------------------------------------------------------
     |

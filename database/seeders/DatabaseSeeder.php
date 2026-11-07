@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Support\DemoAccount;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -11,15 +11,23 @@ class DatabaseSeeder extends Seeder
     use WithoutModelEvents;
 
     /**
-     * Seed the application's database.
+     * Seed a local database. Accounts come only from environment variables, never from fixed values,
+     * and production is left alone: it gets its demo account from the scheduled `demo:reset`.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        if (app()->isProduction()) {
+            return;
+        }
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        if (! DemoAccount::configured()) {
+            $this->command?->warn('Set DEMO_EMAIL and DEMO_PASSWORD to seed the demo account.');
+
+            return;
+        }
+
+        $user = DemoAccount::reset();
+
+        $this->command?->info("Seeded the demo account {$user->email}.");
     }
 }

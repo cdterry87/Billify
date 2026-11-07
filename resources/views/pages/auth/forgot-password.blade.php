@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
@@ -28,7 +29,10 @@ new #[Layout('layouts::guest'), Title('Forgot password')] class extends Componen
         RateLimiter::hit($key, 60);
 
         // The result is ignored on purpose: the page never reveals whether an account exists.
-        Password::sendResetLink(['email' => $this->email]);
+        // The demo account's password can't be reset, so it never gets a link.
+        if (! User::query()->where('email', $this->email)->where('is_demo', true)->exists()) {
+            Password::sendResetLink(['email' => $this->email]);
+        }
 
         $this->sent = true;
     }

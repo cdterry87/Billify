@@ -26,6 +26,11 @@
         <env name="DB_DATABASE" value="testing"/>
         <env name="DB_URL" value=""/>
         <env name="MAIL_MAILER" value="array"/>
+        <env name="DEMO_MODE" value="false"/>
+        <env name="DEMO_NAME" value="Demo User"/>
+        <env name="DEMO_EMAIL" value="demo@example.test"/>
+        <env name="DEMO_PASSWORD" value="demo-password"/>
+        <env name="DEMO_TIMEZONE" value="UTC"/>
         <env name="TURNSTILE_SITE_KEY" value="1x00000000000000000000AA"/>
         <env name="TURNSTILE_SECRET_KEY" value="1x0000000000000000000000000000000AA"/>
         <env name="QUEUE_CONNECTION" value="sync"/>

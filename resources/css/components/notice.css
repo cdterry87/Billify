@@ -4,3 +4,7 @@
     border-radius: var(--radius-md);
     font-size: var(--text-sm);
 }
+
+.notice--info {
+    background: var(--color-accent-subtle);
+}

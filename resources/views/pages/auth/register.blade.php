@@ -35,6 +35,9 @@ new #[Layout('layouts::guest'), Title('Create an account')] class extends Compon
 
     public function register(): void
     {
+        // The route is closed in demo mode, and so is the action, for forms left open from before.
+        abort_if(config('billify.demo_mode'), 404);
+
         $key = 'register|'.request()->ip();
 
         if (RateLimiter::tooManyAttempts($key, 5)) {
