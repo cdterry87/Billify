@@ -15,6 +15,7 @@ use Livewire\Component;
 new #[Title('Dashboard')] class extends Component
 {
     #[On('bills-changed')]
+    #[On('profile-updated')]
     public function refresh(): void
     {
         unset($this->summary, $this->upcoming, $this->categories);

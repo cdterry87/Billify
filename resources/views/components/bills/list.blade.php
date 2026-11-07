@@ -41,6 +41,7 @@ new class extends Component
     }
 
     #[On('bills-changed')]
+    #[On('profile-updated')]
     public function refresh(): void
     {
         unset($this->bills, $this->summary, $this->hasAnyBills);
