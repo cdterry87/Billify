@@ -65,6 +65,7 @@
     --icon-size: 1.25rem;
     --page-width: 72rem;
     --guest-width: 26rem;
+    --turnstile-height: 65px; /* Cloudflare widget height */
     --modal-width: 34rem;
     --chart-height: 11rem;
 

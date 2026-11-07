@@ -1,0 +1,6 @@
+.notice {
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-positive-subtle);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+}

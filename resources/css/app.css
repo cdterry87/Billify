@@ -16,8 +16,10 @@
 @import './components/icon.css' layer(components);
 @import './components/logo.css' layer(components);
 @import './components/modal.css' layer(components);
+@import './components/notice.css' layer(components);
 @import './components/stat-tile.css' layer(components);
 @import './components/theme-toggle.css' layer(components);
 @import './components/toast.css' layer(components);
 
+@import './pages/auth.css' layer(pages);
 @import './pages/guest.css' layer(pages);

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\File;
 
 it('applies the saved theme in the head and offers all three options', function () {
-    $this->get('/')
+    $this->get('/login')
         ->assertOk()
         ->assertSee("localStorage.getItem('billify-theme')", false)
         ->assertSee('value="system"', false)
