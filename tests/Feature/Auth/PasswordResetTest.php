@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Auth\Notifications\ResetPassword;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
@@ -24,8 +24,8 @@ it('sends a reset link to an existing user', function () {
         ->assertHasNoErrors()
         ->assertSee(NEUTRAL_MESSAGE);
 
-    Notification::assertSentTo($user, ResetPassword::class, function (ResetPassword $notification) use ($user) {
-        $url = $notification->toMail($user)->actionUrl;
+    Notification::assertSentTo($user, ResetPasswordNotification::class, function (ResetPasswordNotification $notification) use ($user) {
+        $url = $notification->toMail($user)->viewData['url'];
 
         return str_starts_with($url, url('/reset-password/'.$notification->token))
             && str_contains($url, 'email='.urlencode($user->email));
@@ -56,7 +56,7 @@ it('shows the same message when the broker throttles a repeat request', function
             ->assertSee(NEUTRAL_MESSAGE);
     }
 
-    Notification::assertSentToTimes($user, ResetPassword::class, 1);
+    Notification::assertSentToTimes($user, ResetPasswordNotification::class, 1);
 });
 
 it('validates the forgot password email', function () {

@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\User;
+use App\Notifications\ResetPasswordNotification;
 use App\Support\DemoAccount;
-use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 
@@ -85,5 +85,5 @@ it('never sends the demo user a password reset link', function () {
         ->assertSee('If an account exists for that email, a reset link is on its way.');
 
     Notification::assertNothingSent();
-    Notification::assertNotSentTo($user, ResetPassword::class);
+    Notification::assertNotSentTo($user, ResetPasswordNotification::class);
 });

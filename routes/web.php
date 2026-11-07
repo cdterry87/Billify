@@ -15,6 +15,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', LogoutController::class)->name('logout');
 });
 
+Route::view('/privacy-policy', 'privacy-policy')->name('privacy-policy');
+
 Route::get('/styleguide', function () {
     abort_unless(app()->environment('local', 'testing'), 404);
 

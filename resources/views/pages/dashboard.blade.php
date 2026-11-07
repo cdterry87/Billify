@@ -94,7 +94,7 @@ new #[Title('Dashboard')] class extends Component
         <x-ui.stat-tile label="Bi-weekly income" :value="Money::format($summary->biWeeklyCents)" />
         <x-ui.stat-tile label="Weekly income" :value="Money::format($summary->weeklyCents)" />
         <x-ui.stat-tile label="Monthly remainder" :value="Money::format($remainder)" :tone="$remainder < 0 ? 'negative' : 'positive'" />
-        <x-ui.stat-tile label="Bills vs Income" :value="$percent === null ? 'N/A' : number_format($percent, 2).'%'" />
+        <x-ui.stat-tile label="Bill-Income Ratio" :value="$percent === null ? 'N/A' : number_format($percent, 2).'%'" />
     </section>
 
     <div class="grid-split">

@@ -64,3 +64,7 @@
 .guest__panel {
     width: min(100%, var(--guest-width));
 }
+
+.guest__panel--wide {
+    width: min(100%, var(--reading-width));
+}

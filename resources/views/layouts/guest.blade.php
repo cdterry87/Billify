@@ -9,7 +9,7 @@
         </div>
         <main class="guest__main">
             <x-ui.logo />
-            <div class="guest__panel">{{ $slot }}</div>
+            <div @class(['guest__panel', 'guest__panel--wide' => $wide ?? false])>{{ $slot }}</div>
         </main>
         <x-ui.footer />
         <x-ui.toasts />
