@@ -1,0 +1,9 @@
+.icon {
+    flex: none;
+    width: var(--icon-size);
+    height: var(--icon-size);
+}
+
+.icon--sm {
+    --icon-size: 1rem;
+}

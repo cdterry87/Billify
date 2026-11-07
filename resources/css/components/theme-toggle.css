@@ -1,0 +1,34 @@
+.theme-toggle__options {
+    display: inline-flex;
+    gap: 2px;
+    padding: 2px;
+    background: var(--color-surface-hover);
+    border-radius: var(--radius-md);
+}
+
+.theme-toggle__option {
+    display: grid;
+    place-items: center;
+    width: var(--control-height-sm);
+    height: var(--control-height-sm);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition:
+        background-color var(--motion-fast) var(--ease),
+        color var(--motion-fast) var(--ease);
+
+    &:hover {
+        color: var(--color-text);
+    }
+
+    &:has(:checked) {
+        background: var(--color-surface);
+        color: var(--color-text);
+    }
+
+    &:has(:focus-visible) {
+        outline: var(--focus-ring);
+        outline-offset: 1px;
+    }
+}

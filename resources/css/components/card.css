@@ -1,0 +1,23 @@
+.card {
+    background: var(--color-surface);
+    border: var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+
+    @media (min-width: 48rem) {
+        padding: var(--space-5);
+    }
+}
+
+.card__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-block-end: var(--space-4);
+}
+
+.card__title {
+    font-size: var(--text-lg);
+}

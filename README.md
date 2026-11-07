@@ -18,6 +18,7 @@ cp .env.example .env
 
 - App: http://localhost:8002
 - Mailpit: http://localhost:8026
+- Style guide of shared components: http://localhost:8002/styleguide
 
 ## Tests
 

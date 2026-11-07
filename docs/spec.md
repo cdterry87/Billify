@@ -237,7 +237,7 @@ Versions were checked against Packagist on 2026-11-06. Use whatever is latest st
 | CSS | Plain modern CSS through Vite. No Tailwind, PostCSS plugins, Sass, or component libraries. |
 | Charts | Hand-built with Blade, SVG, and CSS. |
 | Icons | Local inline SVGs behind one `<x-icon>` Blade component. No icon package. |
-| Fonts | One self-hosted variable sans-serif in WOFF2, chosen during the foundation PR. No third-party font requests. |
+| Fonts | Geist, a self-hosted variable sans-serif in WOFF2 (SIL OFL). No third-party font requests. |
 | Local environment | Laravel Sail, with MySQL and Mailpit containers |
 | Database | MySQL 8 everywhere: local, tests, CI, and production |
 | Mail | Resend in production (`resend/resend-php`, `MAIL_MAILER=resend`), Mailpit locally |
@@ -318,6 +318,7 @@ Keep rules in models and small classes, not in components.
 | POST | `/logout` | `logout` | Invokable controller | `auth` |
 | GET | `/privacy-policy` | `privacy-policy` | Blade view | |
 | GET | `/up` | | Health check | |
+| GET | `/styleguide` | | Blade view of shared components | Returns 404 outside `local` and `testing` |
 
 Use `Route::livewire()`. The `password.*` names are the ones Laravel's reset notification expects.
 
