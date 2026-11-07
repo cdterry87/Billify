@@ -36,3 +36,15 @@ html:has(.modal[open]) {
 .modal__title {
     font-size: var(--text-lg);
 }
+
+.modal__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    padding-block-start: var(--space-2);
+}
+
+.modal__actions-start {
+    margin-inline-end: auto;
+}

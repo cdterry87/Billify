@@ -1,0 +1,74 @@
+.bill-item {
+    padding-block: var(--space-3);
+
+    & + & {
+        border-block-start: var(--border);
+    }
+}
+
+.bill-item__main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+        'body amount'
+        'body actions';
+    gap: var(--space-1) var(--space-3);
+    align-items: start;
+
+    @media (min-width: 40rem) {
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        grid-template-areas: 'body amount actions';
+        align-items: center;
+    }
+}
+
+.bill-item__body {
+    grid-area: body;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-width: 0;
+}
+
+.bill-item__name {
+    font-weight: var(--weight-medium);
+    overflow-wrap: anywhere;
+}
+
+.bill-item__description {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    overflow-wrap: anywhere;
+}
+
+.bill-item__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+}
+
+.bill-item__amount {
+    grid-area: amount;
+    justify-self: end;
+    font-weight: var(--weight-semibold);
+    font-variant-numeric: tabular-nums;
+}
+
+.bill-item__actions {
+    grid-area: actions;
+    justify-self: end;
+    display: flex;
+    gap: var(--space-1);
+}
+
+.bill-item__confirm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-negative-subtle);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+}
