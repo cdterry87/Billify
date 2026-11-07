@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Enums\PayFrequency;
 use App\Models\User;
 use App\Support\Money;
+use Closure;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
 
@@ -40,11 +41,18 @@ class ProfileForm extends Form
         try {
             $this->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+                'email' => [
+                    'required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id),
+                    function (string $attribute, mixed $value, Closure $fail) use ($user, $emailChanged) {
+                        if ($user->is_demo && $emailChanged) {
+                            $fail("The demo account's email can't be changed.");
+                        }
+                    },
+                ],
                 'income' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'min:0', 'max:999999999.99'],
                 'pay_frequency' => ['required', Rule::enum(PayFrequency::class)],
                 'timezone' => ['required', 'timezone'],
-                'current_password' => $emailChanged ? ['required', 'current_password'] : ['nullable'],
+                'current_password' => $emailChanged && ! $user->is_demo ? ['required', 'current_password'] : ['nullable'],
             ], [
                 'income.regex' => 'The income must be a plain number with at most 2 decimal places.',
                 'current_password.required' => 'Enter your current password to change your email.',
