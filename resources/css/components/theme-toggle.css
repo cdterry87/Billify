@@ -32,3 +32,9 @@
         outline-offset: 1px;
     }
 }
+
+@media (forced-colors: active) {
+    .theme-toggle__option:has(:checked) {
+        outline: 1px solid CanvasText;
+    }
+}

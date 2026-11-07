@@ -4,18 +4,19 @@
     padding: 2px;
     background: var(--color-surface-hover);
     border-radius: var(--radius-md);
-    overflow-x: auto;
 }
 
 .tabs__tab {
-    flex: 1 0 auto;
+    /* Equal tabs that wrap their text rather than scroll on narrow phones. */
+    flex: 1 1 0;
+    min-width: 0;
     min-height: var(--control-height-sm);
-    padding-inline: var(--space-3);
+    padding: var(--space-1) var(--space-2);
     border-radius: var(--radius-sm);
     color: var(--color-text-muted);
     font-size: var(--text-sm);
     font-weight: var(--weight-medium);
-    white-space: nowrap;
+    line-height: var(--leading-tight);
     transition:
         background-color var(--motion-fast) var(--ease),
         color var(--motion-fast) var(--ease);
@@ -27,5 +28,11 @@
     &[aria-selected='true'] {
         background: var(--color-surface);
         color: var(--color-text);
+    }
+}
+
+@media (forced-colors: active) {
+    .tabs__tab[aria-selected='true'] {
+        outline: 1px solid CanvasText;
     }
 }

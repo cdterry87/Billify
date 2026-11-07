@@ -259,7 +259,7 @@ Skeleton columns, plus:
 | `timezone` | string, default `UTC` | IANA name, set by the user on their profile |
 | `is_demo` | boolean, default false | Never mass assignable |
 
-Income is required at registration but may be 0 later. Zero income is a normal state: "Bills vs Income" shows "N/A".
+Income is required at registration but may be 0 later. Zero income is a normal state: "Bill-Income Ratio" shows "N/A".
 
 ### `bills`
 
@@ -294,13 +294,13 @@ Keep rules in models and small classes, not in components.
 | `Bill::scopeDueInMonth(int $month)` | The one definition of "applies this month" |
 | `Bill::dueDateIn(CarbonImmutable $month)` | The due date for a month, clamped to the month's last day, so day 31 in February is the 28th or 29th |
 | `App\Support\UpcomingBills` | Bills due from today through today + 5, spanning month and year ends and honouring recurrence. Sorted by soonest date, then amount. |
-| `App\Support\IncomeSummary` | Annual, monthly, bi-weekly, weekly, remainder, Bills vs Income. Safe for zero income. |
+| `App\Support\IncomeSummary` | Annual, monthly, bi-weekly, weekly, remainder, Bill-Income Ratio. Safe for zero income. |
 | `App\Support\CategoryTotals` | Top 5 categories for the current month, for the chart |
 | `BillPolicy` | `view`, `update`, `delete` are owner only |
 
 ### Behaviour decisions
 
-- **Naming:** the percentage tile is labelled **"Bills vs Income"**. The chart keeps its "Income vs Bills" title. Its second column is labelled "Bills".
+- **Naming:** the percentage tile is labelled **"Bill-Income Ratio"**. The chart keeps its "Income vs Bills" title. Its second column is labelled "Bills".
 - **Totals:** the page's summary tiles always use the current month, regardless of filters. The list footer shows the total of the visible bills, and shows income and remainder only when viewing the unfiltered current month.
 - **Notification wording:** "due today", "due tomorrow", or "due in N days", with formatted currency.
 - **Alerts:** flash messages become dismissible toasts, and the due-soon panel is always visible when it has content. Success messages always use the success style.
@@ -368,7 +368,7 @@ A single setting, `DEMO_MODE=true` (exposed as `config('billify.demo_mode')`), p
 | Area | With demo mode on |
 | --- | --- |
 | **Registration** | Disabled. The `registration.enabled` middleware returns 404 for `/register`, and all links to it are hidden. |
-| **Login page** | Shows the demo credentials and the note that data resets daily. |
+| **Login page** | Shows a button that signs in as the demo user, and the note that data resets daily. The credentials are not displayed. |
 | **Demo user** | Seeded and kept present by `demo:reset`. Credentials come from `.env`. |
 | **Daily reset** | Scheduled `demo:reset` restores the demo user's name, email, password, income, frequency, timezone, and sample bills. |
 
@@ -480,6 +480,8 @@ resources/css/
 - Labels tied to inputs, errors linked with `aria-describedby`, `aria-invalid` on failed fields.
 - Visible `:focus-visible` rings, WCAG AA contrast in both themes, and charts with a text equivalent.
 - `prefers-reduced-motion` disables transitions and background animation.
+- Inline confirmations move focus to their cancel button, and back to the trigger when dismissed. Esc backs out of them.
+- Every layout has a skip link, and no page scrolls sideways at 320px wide.
 
 ### Content changes
 
@@ -494,7 +496,7 @@ There is no support mailbox, so `support@billify.com` is removed everywhere. The
 - **Feature:** each page and component, including validation boundaries and all empty states.
 - **Authorization:** another user's bill cannot be viewed, edited, or deleted, including by tampering with component state.
 - **Security:** rate limits, expired reset token, neutral forgot-password response, Turnstile success and failure.
-- **Demo mode:** registration disabled and hidden, credentials shown, demo user restrictions enforced, `demo:reset` restores everything, and all of it absent when demo mode is off.
+- **Demo mode:** registration disabled and hidden, demo login offered, demo user restrictions enforced, `demo:reset` restores everything, and all of it absent when demo mode is off.
 
 Freeze time in every date-dependent test. Aim for at least 90% coverage, measured in CI.
 
@@ -545,7 +547,7 @@ The hosting has not been set up and is out of scope for the rebuild PRs. None of
 | Demo account | Kept, with daily reset and no file uploads |
 | Privacy policy | Kept, updated |
 | Registration bot protection | Cloudflare Turnstile |
-| Percentage label | "Bills vs Income" |
+| Percentage label | "Bill-Income Ratio" |
 | Semi-monthly pay | Not added |
 | Login background | CSS only |
 | Dark mode | Included |

@@ -48,7 +48,7 @@ it('charts income against bills and the top categories', function () {
     Bill::factory()->for($this->user)->create(['category' => 'medical_health', 'amount_cents' => 22_000, 'due_day' => 10]);
 
     Livewire::test('pages::dashboard')
-        ->assertSeeInOrder(['Income vs Bills', 'Income', 'Bills', 'Top bill categories', '$1,800.00', 'Housing', '$220.00', 'Medical/Health']);
+        ->assertSeeInOrder(['Income vs Bills', 'Income', 'Bills', 'Top bill categories', 'Housing', '$1,800.00', 'Medical/Health', '$220.00']);
 });
 
 it('lists bills due soon across the month end', function () {

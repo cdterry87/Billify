@@ -13,6 +13,8 @@ html {
     font-size: 100%;
     line-height: var(--leading-normal);
     -webkit-font-smoothing: antialiased;
+    /* Keeps focused and anchored elements clear of the sticky header. */
+    scroll-padding-block: var(--space-8) var(--space-4);
 }
 
 body {
@@ -84,4 +86,9 @@ a {
 
 .tabular {
     font-variant-numeric: tabular-nums;
+}
+
+/* An always-present live region takes no room in a .stack while it is empty. */
+.live-region:not(:has(*)) {
+    margin-block-end: calc(-1 * var(--space-4));
 }
