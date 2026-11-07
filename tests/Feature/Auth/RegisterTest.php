@@ -21,6 +21,8 @@ function registration(array $overrides = []): Testable
         'email' => 'grace@example.com',
         'password' => 'correct-horse',
         'password_confirmation' => 'correct-horse',
+        'income' => '2500.50',
+        'pay_frequency' => '26',
         'timezone' => 'America/Chicago',
         'turnstile' => 'token',
         ...$overrides,
@@ -52,8 +54,8 @@ it('registers a user, logs them in, and keeps their timezone', function () {
         ->name->toBe('Grace Hopper')
         ->email->toBe('grace@example.com')
         ->timezone->toBe('America/Chicago')
-        ->income_cents->toBe(0)
-        ->pay_frequency->toBe(PayFrequency::Monthly)
+        ->income_cents->toBe(250050)
+        ->pay_frequency->toBe(PayFrequency::BiWeekly)
         ->is_demo->toBeFalse()
         ->and(Hash::check('correct-horse', $user->password))->toBeTrue();
 
@@ -127,6 +129,22 @@ it('validates the registration form', function (array $input, string $field) {
     'long email' => [['email' => str_repeat('a', 244).'@example.com'], 'email'],
     'short password' => [['password' => 'short', 'password_confirmation' => 'short'], 'password'],
     'mismatched confirmation' => [['password_confirmation' => 'different-horse'], 'password'],
+    'missing income' => [['income' => ''], 'income'],
+    'negative income' => [['income' => '-1'], 'income'],
+    'three decimals' => [['income' => '10.555'], 'income'],
+    'income too large' => [['income' => '1000000000'], 'income'],
+    'unknown frequency' => [['pay_frequency' => '2'], 'pay_frequency'],
+]);
+
+it('accepts zero income and the largest income', function (string $income, int $cents) {
+    passTurnstile();
+
+    registration(['income' => $income])->call('register')->assertHasNoErrors();
+
+    expect(User::sole()->income_cents)->toBe($cents);
+})->with([
+    ['0', 0],
+    ['999999999.99', 99_999_999_999],
 ]);
 
 it('rejects an email that is already registered', function () {
