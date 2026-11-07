@@ -79,14 +79,8 @@ new #[Layout('layouts::guest'), Title('Log in')] class extends Component
     @if ($this->demo)
         <section class="demo-notice" aria-labelledby="demo-notice-title">
             <h2 class="demo-notice__title" id="demo-notice-title">Try the demo</h2>
-            <dl class="demo-notice__credentials">
-                <dt>Email</dt>
-                <dd><code>{{ config('billify.demo.email') }}</code></dd>
-                <dt>Password</dt>
-                <dd><code>{{ config('billify.demo.password') }}</code></dd>
-            </dl>
-            <p class="demo-notice__note">The demo data resets daily.</p>
-            <x-ui.button variant="secondary" block wire:click="loginAsDemo" wire:loading.attr="disabled">Log in as the demo user</x-ui.button>
+            <p class="demo-notice__note">NOTE: The demo data resets daily.</p>
+            <x-ui.button variant="secondary" block wire:click="loginAsDemo" wire:loading.attr="disabled">Click to log in as the demo user</x-ui.button>
         </section>
     @endif
 
