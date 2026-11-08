@@ -8,3 +8,7 @@
 .notice--info {
     background: var(--color-accent-subtle);
 }
+
+.notice--error {
+    background: var(--color-negative-subtle);
+}

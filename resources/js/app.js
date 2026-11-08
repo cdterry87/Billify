@@ -48,7 +48,10 @@ document.addEventListener('alpine:init', () => {
         },
     });
 
-    Alpine.data('turnstile', (siteKey) => ({
+    // Renders a Cloudflare Turnstile widget and keeps the component's `turnstile` property
+    // set to a fresh token. Options are passed to turnstile.render(), for example
+    // { appearance: 'interaction-only' } to stay hidden unless Cloudflare needs a click.
+    Alpine.data('turnstile', (siteKey, options = {}) => ({
         widgetId: null,
 
         async init() {
@@ -71,6 +74,7 @@ document.addEventListener('alpine:init', () => {
                 sitekey: siteKey,
                 theme: theme === 'system' ? 'auto' : theme,
                 size: 'flexible',
+                ...options,
                 callback: (token) => (this.$wire.turnstile = token),
                 'expired-callback': () => (this.$wire.turnstile = ''),
                 'error-callback': () => (this.$wire.turnstile = ''),

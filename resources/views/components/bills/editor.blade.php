@@ -53,6 +53,10 @@ new class extends Component
         if ($this->billId !== null) {
             $bill = $this->findBill($this->billId);
             $this->authorize('update', $bill);
+        } elseif (auth()->user()->bills()->count() >= config('billify.max_bills')) {
+            $this->addError('limit', 'You can have up to '.config('billify.max_bills').' bills. Delete one to add another.');
+
+            return;
         }
 
         $bill = $this->form->save(auth()->user(), $bill);
@@ -104,6 +108,7 @@ new class extends Component
                         <p class="notice">Bill saved successfully!</p>
                     @endif
                 </div>
+                @error('limit')<p class="notice notice--error" role="alert">{{ $message }}</p>@enderror
 
                 <x-ui.field name="form.name" label="Name" maxlength="64" required wire:model="form.name" />
                 <x-ui.field name="form.category" label="Category" as="select" placeholder="Select a category" :options="BillCategory::options()" required wire:model="form.category" />

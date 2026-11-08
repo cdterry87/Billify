@@ -3,6 +3,8 @@
 use App\Models\User;
 use App\Notifications\ResetPasswordNotification;
 use App\Support\DemoAccount;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 
@@ -43,14 +45,64 @@ describe('with demo mode on', function () {
     });
 
     it('logs in as the demo user with one click', function () {
+        Http::fake(['challenges.cloudflare.com/*' => Http::response(['success' => true])]);
         $user = DemoAccount::reset();
 
         Livewire::test('pages::auth.login')
+            ->set('turnstile', 'token')
             ->call('loginAsDemo')
             ->assertHasNoErrors()
             ->assertRedirect(route('dashboard'));
 
         $this->assertAuthenticatedAs($user);
+        Http::assertSent(fn (Request $request) => $request['response'] === 'token');
+    });
+
+    it('guards the demo button with an invisible Turnstile check', function () {
+        $this->get('/login')
+            ->assertSee("turnstile('".config('billify.turnstile.site_key')."'", false)
+            ->assertSee('interaction-only', false);
+    });
+
+    it('refuses the demo login without a Turnstile token', function () {
+        Http::fake();
+        DemoAccount::reset();
+
+        Livewire::test('pages::auth.login')
+            ->call('loginAsDemo')
+            ->assertHasErrors(['turnstile' => 'Please wait for the security check to finish, then try again.'])
+            ->assertNoRedirect();
+
+        $this->assertGuest();
+        Http::assertNothingSent();
+    });
+
+    it('refuses the demo login when Cloudflare rejects the token', function () {
+        Http::fake(['challenges.cloudflare.com/*' => Http::response(['success' => false])]);
+        DemoAccount::reset();
+
+        Livewire::test('pages::auth.login')
+            ->set('turnstile', 'bot-token')
+            ->call('loginAsDemo')
+            ->assertHasErrors('turnstile')
+            ->assertSet('turnstile', '')
+            ->assertDispatched('turnstile-reset')
+            ->assertNoRedirect();
+
+        $this->assertGuest();
+    });
+
+    it('needs no Turnstile token for a normal login', function () {
+        Http::fake();
+        $user = User::factory()->create(['password' => 'secret-password']);
+
+        Livewire::test('pages::auth.login')
+            ->set('email', $user->email)
+            ->set('password', 'secret-password')
+            ->call('login')
+            ->assertRedirect(route('dashboard'));
+
+        Http::assertNothingSent();
     });
 });
 
