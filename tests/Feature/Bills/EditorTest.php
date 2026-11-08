@@ -185,6 +185,43 @@ it('links month errors to the recurrence group', function () {
     editor()->assertSeeHtml('aria-describedby="bill-months-hint"');
 });
 
+it('stops adding bills at the account limit', function () {
+    config(['billify.max_bills' => 3]);
+    Bill::factory()->for($this->user)->count(3)->create();
+
+    editor()
+        ->set(validBill())
+        ->call('save')
+        ->assertHasErrors(['limit' => 'You can have up to 3 bills. Delete one to add another.'])
+        ->assertSee('You can have up to 3 bills.')
+        ->assertSet('saved', false)
+        ->assertNotDispatched('bills-changed');
+
+    expect($this->user->bills()->count())->toBe(3);
+});
+
+it('still edits bills at the account limit', function () {
+    config(['billify.max_bills' => 1]);
+    $bill = Bill::factory()->for($this->user)->create();
+
+    editor()
+        ->dispatch('edit-bill', id: $bill->id)
+        ->set('form.name', 'Renamed')
+        ->call('save')
+        ->assertHasNoErrors();
+
+    expect($bill->fresh()->name)->toBe('Renamed');
+});
+
+it('counts only the user\'s own bills toward the limit', function () {
+    config(['billify.max_bills' => 1]);
+    Bill::factory()->count(2)->create();
+
+    editor()->set(validBill())->call('save')->assertHasNoErrors();
+
+    expect($this->user->bills()->count())->toBe(1);
+});
+
 it('accepts the boundary values', function () {
     editor()
         ->set(validBill([

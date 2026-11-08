@@ -1,5 +1,6 @@
 <?php
 
+use App\Rules\Turnstile;
 use App\Support\DemoAccount;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
@@ -18,6 +19,9 @@ new #[Layout('layouts::guest'), Title('Log in')] class extends Component
 
     public bool $remember = false;
 
+    /** Turnstile token for the demo button, so only people (not bots) get the one-click login. */
+    public string $turnstile = '';
+
     #[Computed]
     public function demo(): bool
     {
@@ -27,6 +31,17 @@ new #[Layout('layouts::guest'), Title('Log in')] class extends Component
     public function loginAsDemo(): void
     {
         abort_unless($this->demo, 404);
+
+        try {
+            $this->validate(
+                ['turnstile' => ['required', new Turnstile(request()->ip())]],
+                ['turnstile.required' => 'Please wait for the security check to finish, then try again.'],
+            );
+        } finally {
+            // Tokens are single-use, so every attempt needs a fresh one.
+            $this->reset('turnstile');
+            $this->dispatch('turnstile-reset');
+        }
 
         $this->email = config('billify.demo.email');
         $this->password = config('billify.demo.password');
@@ -92,6 +107,9 @@ new #[Layout('layouts::guest'), Title('Log in')] class extends Component
         <section class="demo-notice" aria-labelledby="demo-notice-title">
             <h2 class="demo-notice__title" id="demo-notice-title">Try the demo</h2>
             <p class="demo-notice__note">NOTE: The demo data resets daily.</p>
+            {{-- Stays hidden unless Cloudflare wants a click to prove the visitor is a person. --}}
+            <div class="demo-notice__check" wire:ignore x-data="turnstile(@js(config('billify.turnstile.site_key')), { appearance: 'interaction-only', action: 'demo-login' })"></div>
+            @error('turnstile')<p class="field__error" role="alert">{{ $message }}</p>@enderror
             <x-ui.button variant="secondary" block wire:click="loginAsDemo" wire:loading.attr="disabled">Click to log in as the demo user</x-ui.button>
         </section>
     @endif
