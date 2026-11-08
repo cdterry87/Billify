@@ -102,6 +102,37 @@ it('locks out after five failed attempts per email and IP', function () {
     $this->assertGuest();
 });
 
+it('limits one address to twenty failed attempts across all accounts', function () {
+    $user = User::factory()->create(['password' => 'secret-password']);
+
+    foreach (range(1, 20) as $attempt) {
+        Livewire::test('pages::auth.login')
+            ->set('email', "user{$attempt}@example.com")
+            ->set('password', 'common-password')
+            ->call('login');
+    }
+
+    Livewire::test('pages::auth.login')
+        ->set('email', $user->email)
+        ->set('password', 'secret-password')
+        ->call('login')
+        ->assertHasErrors('email')
+        ->assertSet('password', '');
+
+    $this->assertGuest();
+});
+
+it('never sends the password back after logging in', function () {
+    $user = User::factory()->create(['password' => 'secret-password']);
+
+    Livewire::test('pages::auth.login')
+        ->set('email', $user->email)
+        ->set('password', 'secret-password')
+        ->call('login')
+        ->assertRedirect(route('dashboard'))
+        ->assertSet('password', '');
+});
+
 it('clears failed attempts after a successful login', function () {
     $user = User::factory()->create(['password' => 'secret-password']);
     $key = 'login|'.$user->email.'|127.0.0.1';

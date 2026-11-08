@@ -10,7 +10,7 @@ Route::middleware('guest')->group(function () {
     Route::livewire('/reset-password/{token}', 'pages::auth.reset-password')->name('password.reset');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::livewire('/', 'pages::dashboard')->name('dashboard');
     Route::post('/logout', LogoutController::class)->name('logout');
 });

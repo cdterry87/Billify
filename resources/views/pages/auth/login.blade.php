@@ -42,17 +42,29 @@ new #[Layout('layouts::guest'), Title('Log in')] class extends Component
             'password' => ['required', 'string', 'max:255'],
         ]);
 
+        // Five tries per account from one address, and twenty per address across all accounts,
+        // which stops one machine from trying a common password against many emails.
         $key = $this->throttleKey();
+        $ipKey = 'login-ip|'.request()->ip();
 
-        if (RateLimiter::tooManyAttempts($key, 5)) {
-            throw ValidationException::withMessages([
-                'email' => __('auth.throttle', ['seconds' => RateLimiter::availableIn($key)]),
-            ]);
+        foreach ([$key => 5, $ipKey => 20] as $limiterKey => $maxAttempts) {
+            if (RateLimiter::tooManyAttempts($limiterKey, $maxAttempts)) {
+                $this->reset('password');
+
+                throw ValidationException::withMessages([
+                    'email' => __('auth.throttle', ['seconds' => RateLimiter::availableIn($limiterKey)]),
+                ]);
+            }
         }
 
-        if (! Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
+        $credentials = ['email' => $this->email, 'password' => $this->password];
+
+        // The password is never sent back to the browser in the component's state.
+        $this->reset('password');
+
+        if (! Auth::attempt($credentials, $this->remember)) {
             RateLimiter::hit($key, 60);
-            $this->reset('password');
+            RateLimiter::hit($ipKey, 60);
 
             throw ValidationException::withMessages(['email' => __('auth.failed')]);
         }

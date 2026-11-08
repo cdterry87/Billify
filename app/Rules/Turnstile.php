@@ -24,11 +24,19 @@ class Turnstile implements ValidationRule
 
     private function verify(string $token): bool
     {
+        $secret = (string) config('billify.turnstile.secret_key');
+
+        // Cloudflare's test secrets (1x, 2x and 3x followed by zeros) are for local use. In
+        // production they would let every bot through, so treat them as a failed check.
+        if ($secret === '' || (app()->isProduction() && preg_match('/^[123]x0{20,}/', $secret))) {
+            return false;
+        }
+
         try {
             $response = Http::asForm()
                 ->timeout(5)
                 ->post(config('billify.turnstile.verify_url'), [
-                    'secret' => config('billify.turnstile.secret_key'),
+                    'secret' => $secret,
                     'response' => $token,
                     'remoteip' => $this->ip,
                 ]);
