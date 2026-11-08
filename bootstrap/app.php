@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\EnsureRegistrationEnabled;
+use App\Http\Middleware\SecurityHeaders;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,6 +14,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->append(SecurityHeaders::class);
+
+        // Rejects requests for any host other than APP_URL's, so links built from the request,
+        // such as password reset links, can't point at an attacker's domain. Off in local and tests.
+        $middleware->trustHosts();
+
         $middleware->alias([
             'registration.enabled' => EnsureRegistrationEnabled::class,
         ]);

@@ -140,6 +140,10 @@ it('changes the password with the current password', function () {
 
     $user = $this->user->fresh();
 
+    // This session keeps the new hash, so AuthenticateSession signs out only the others.
+    expect(session('password_hash_web'))->toBe($user->password);
+    $this->get('/')->assertOk();
+
     expect(Hash::check('brand-new-password', $user->password))->toBeTrue()
         ->and($user->remember_token)->not->toBe('old');
 });
@@ -266,4 +270,32 @@ describe('for the demo user', function () {
         expect($this->user->fresh())->not->toBeNull();
         $this->assertAuthenticatedAs($this->user);
     });
+});
+
+it('limits wrong current-password answers across the whole modal', function () {
+    $this->freezeTime();
+
+    foreach (range(1, 3) as $attempt) {
+        profile()->set(['current_password' => 'wrong', 'password' => 'new-password-1', 'password_confirmation' => 'new-password-1'])
+            ->call('updatePassword')
+            ->assertHasErrors('current_password');
+    }
+
+    profile()->set('delete_password', 'wrong')->call('deleteAccount')->assertHasErrors('delete_password');
+    profile()->set(['form.email' => 'new@example.com', 'form.current_password' => 'wrong'])->call('saveProfile')->assertHasErrors('form.current_password');
+
+    profile()->set(['current_password' => 'current-password', 'password' => 'new-password-1', 'password_confirmation' => 'new-password-1'])
+        ->call('updatePassword')
+        ->assertHasErrors(['current_password' => 'Too many attempts. Please try again in 300 seconds.']);
+
+    expect(Hash::check('current-password', $this->user->fresh()->password))->toBeTrue();
+});
+
+it('does not count other validation errors as password guesses', function () {
+    foreach (range(1, 6) as $attempt) {
+        profile()->set(['current_password' => 'current-password', 'password' => 'short', 'password_confirmation' => 'short'])
+            ->call('updatePassword')
+            ->assertHasErrors('password')
+            ->assertHasNoErrors('current_password');
+    }
 });

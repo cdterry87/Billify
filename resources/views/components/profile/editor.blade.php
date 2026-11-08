@@ -3,8 +3,10 @@
 use App\Enums\PayFrequency;
 use App\Livewire\Forms\ProfileForm;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -35,7 +37,7 @@ new class extends Component
 
     public function saveProfile(): void
     {
-        $this->form->save(auth()->user());
+        $this->throttlePasswordChecks('form.current_password', fn () => $this->form->save(auth()->user()));
 
         $this->dispatch('profile-updated');
         $this->dispatch('toast', type: 'success', message: 'Your profile has been updated.');
@@ -48,24 +50,29 @@ new class extends Component
         }
 
         try {
-            $validated = $this->validate([
+            $validated = $this->throttlePasswordChecks('current_password', fn () => $this->validate([
                 'current_password' => ['required', 'string', 'current_password'],
                 'password' => ['required', 'string', 'confirmed', Password::defaults()],
             ], [
                 'current_password.current_password' => 'The password is incorrect.',
-            ]);
+            ]));
         } finally {
             // Never send passwords back to the browser.
             $this->reset('current_password', 'password', 'password_confirmation');
         }
 
-        // A new remember token signs out "remember me" sessions on other devices.
-        auth()->user()->forceFill([
+        // The new password hash signs out every other session (AuthenticateSession), and the
+        // new remember token their "remember me" cookies.
+        $user = auth()->user();
+        $user->forceFill([
             'password' => $validated['password'],
             'remember_token' => Str::random(60),
         ])->save();
 
+        // Keep this session: Livewire updates skip the step where the middleware would
+        // record the new hash itself.
         session()->regenerate();
+        session()->put('password_hash_'.Auth::getDefaultDriver(), $user->getAuthPassword());
 
         $this->dispatch('toast', type: 'success', message: 'Your password has been changed.');
     }
@@ -77,11 +84,11 @@ new class extends Component
         }
 
         try {
-            $this->validate(
+            $this->throttlePasswordChecks('delete_password', fn () => $this->validate(
                 ['delete_password' => ['required', 'string', 'current_password']],
                 ['delete_password.current_password' => 'The password is incorrect.'],
                 ['delete_password' => 'password'],
-            );
+            ));
         } finally {
             $this->reset('delete_password');
         }
@@ -96,6 +103,31 @@ new class extends Component
         session()->flash('toast', ['type' => 'success', 'message' => 'Your account and bills have been deleted.']);
 
         $this->redirectRoute('login');
+    }
+
+    /**
+     * Limits wrong current-password answers to five per five minutes across this modal, so
+     * someone holding a stolen session can't use it to guess the password.
+     */
+    private function throttlePasswordChecks(string $field, \Closure $check): mixed
+    {
+        $key = 'password-check|'.auth()->id();
+
+        if (RateLimiter::tooManyAttempts($key, 5)) {
+            throw ValidationException::withMessages([
+                $field => __('Too many attempts. Please try again in :seconds seconds.', ['seconds' => RateLimiter::availableIn($key)]),
+            ]);
+        }
+
+        try {
+            return $check();
+        } catch (ValidationException $exception) {
+            if (array_key_exists($field, $exception->errors())) {
+                RateLimiter::hit($key, 300);
+            }
+
+            throw $exception;
+        }
     }
 
     /**

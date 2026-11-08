@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Prepares the application for the portfolio site: registration is
-    | disabled and the login page shows the demo account's credentials.
+    | disabled and the login page offers a one-click demo login.
     | The demo account itself is created and restored by `demo:reset`.
     |
     */
@@ -21,6 +21,20 @@ return [
         'password' => env('DEMO_PASSWORD'),
         'timezone' => env('DEMO_TIMEZONE', 'UTC'),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Trusted proxies
+    |--------------------------------------------------------------------------
+    |
+    | Comma-separated proxy IPs or CIDR ranges whose X-Forwarded-* headers are
+    | believed, or "*" when the app is only reachable through the proxy. Rate
+    | limits key on the client IP, so set this behind a load balancer or CDN.
+    | Leave it empty when nothing sits in front of the app.
+    |
+    */
+
+    'trusted_proxies' => env('TRUSTED_PROXIES'),
 
     /*
     |--------------------------------------------------------------------------
